@@ -1,3 +1,7 @@
+# Creating branches
+
+\_Use only camelCase as organizationBranch
+
 # Commit convention
 
 \_Don't use shortcuts
@@ -6,7 +10,8 @@
 
 # Syntax code
 
-------------------------
+---
+
 shortcut - rfc
 export default function NameOfComponent () {
 return (
@@ -16,16 +21,15 @@ return (
 }
 ------------------------
 
-------------------------
+---
+
 function Progres () {
 
-}
-------------------------
+## }
 
 \_Every function has .js not .jsx
 \_Styled Components only and global.css
 \_Comments only inline style '// here we get data by swr '
-
 
 # Description
 
