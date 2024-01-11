@@ -1,4 +1,6 @@
 import useSWR from "swr";
+import GameCard from "@/components/GameCard";
+import styled from "styled-components";
 
 const fetcher = (url) => fetch(url).then((response) => response.json());
 
@@ -11,8 +13,20 @@ export default function HomePage() {
 
   return (
     <div>
-      <h1>Gamedalf</h1>
-
+      <Styledh1>Game<StyledSpan>dalf</StyledSpan></Styledh1>
+      <GameCard data={data}/>
     </div>
   );
 }
+
+const Styledh1 = styled.h1`
+  color: #111111;
+  display: flex;
+  justify-content: center;
+  text-shadow: 0px 1px 2px #B56917;
+`;
+
+const StyledSpan = styled.span`
+color: #FF8200;
+text-shadow: 0px 1px 2px #414A4C;
+`;
