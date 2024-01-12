@@ -11,7 +11,7 @@ export default function GameCard({ game }) {
         alt={game.name.value}
         width={100}
         height={100}
-      ></Image>
+      />
       <p>{game.yearpublished.value}</p>
     </StyledCard>
   );
