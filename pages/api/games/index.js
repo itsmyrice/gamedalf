@@ -7,10 +7,10 @@ const parseXMLToJSON = async (xmlData) => {
     parseString(
       xmlData,
       { explicitArray: false, mergeAttrs: true },
-      (err, result) => {
-        if (err) {
-          console.error("Error in parseString:", err);
-          reject(err);
+      (error, result) => {
+        if (error) {
+          console.error("Error in parseString:", error);
+          reject(error);
         } else {
           resolve(result);
         }
@@ -44,5 +44,7 @@ export default async function handler(request, response) {
     } catch (error) {
       response.status(500).json({ error: "Error to get a correct path" });
     }
+  } else {
+    return response.status(405).json({ error: "error 405" });
   }
 }

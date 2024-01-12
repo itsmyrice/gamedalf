@@ -21,7 +21,7 @@ const StyledRankTitle = styled.p`
   color: #ff8200;
 `;
 const StyledCard = styled.div`
-  width: 80%;
+  max-width: 80%;
 
   border: 1px solid black;
   box-shadow: 0px 2px 6px #b56917;

@@ -3,15 +3,19 @@ import GameCard from "@/components/GameCard";
 import styled from "styled-components";
 import { DYNAMIC_URL } from "../utils/dynamicURLs";
 
-const dynamicUrl = DYNAMIC_URL;
-
 export default function HomePage() {
   const { data, error, isLoading } = useSWR(
     // fetchnig data with dynamic endpoints
-    `/api/games?endpoint=/${dynamicUrl.hot.boardgame}}`
+    `/api/games?endpoint=/${DYNAMIC_URL.hot.boardgame}}`
   );
 
-  if (error) return <div>failed to load</div>;
+  if (error)
+    return (
+      <div>
+        Sorry, we couldn&acpos;t retrieve the game data at the moment. Please
+        try again later.
+      </div>
+    );
   if (!data || isLoading) return <div>loading...</div>;
 
   return (
