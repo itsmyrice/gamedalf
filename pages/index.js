@@ -16,7 +16,7 @@ export default function HomePage() {
         try again later.
       </div>
     );
-  if (!data || isLoading) return <div>loading...</div>;
+  if (!data || isLoading) return <small>loading...</small>;
 
   return (
     <>
@@ -60,8 +60,11 @@ const GamesContainer = styled.section`
 `;
 
 const StyledUList = styled.ul`
+  max-width: 80%;
   list-style: none;
   display: flex;
   flex-direction: column;
   gap: 20px;
+  padding: 0;
+  margin: auto;
 `;
