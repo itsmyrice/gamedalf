@@ -1,6 +1,7 @@
 import { parseString } from "xml2js";
 const baseApiUrl = "https://boardgamegeek.com/xmlapi2/";
 
+// convertor function from library
 const parseXMLToJSON = async (xmlData) => {
   return new Promise((resolve, reject) => {
     parseString(
@@ -18,6 +19,7 @@ const parseXMLToJSON = async (xmlData) => {
   });
 };
 
+// fetch xml from API and converting xml to json
 const fetcher = async (url) => {
   const response = await fetch(url);
   const xmlData = await response.text();
@@ -32,8 +34,8 @@ const fetcher = async (url) => {
 
 export default async function handler(request, response) {
   if (request.method === "GET") {
+    // we get endpoing first and we join dynamicUrl to the baseApiUrl
     const dynamicUrl = request.query.endpoint;
-
     const fullUrl = baseApiUrl + dynamicUrl;
 
     try {
