@@ -1,52 +1,46 @@
-const games = [
-    {
-        id: "1",
-        name: 
-        {
-            value: "Monopoly"
-        },
-        rank: "5",
-        thumbnail: 
-        {
-            value: "dfsfjdf"
-        },
-        yearpublished: {
-            value: "2000"
-        },
-    },
-    {
-        id: "2",
-        name: {
-            value: "UNO"
-        },
-        rank: "8",
-        thumbnail: 
-        {
-            value: "dfsfjdfdsc"
-        },
-        yearpublished: {
-            value: "2010"
-        },
-    },
-    {
-        id: "3",
-        name: {
-            value: "Risk"
-        },
-        rank: "7",
-        thumbnail: 
-        {
-            value: "dfsfjdfsdf"
-        },
-        yearpublished: {
-            value: "2020"
-        },
-    },
-]
+import { parseString } from "xml2js";
+const baseApiUrl = "https://boardgamegeek.com/xmlapi2/";
 
-export default function handler(request, response) {
-    if(request.method === "GET") {
-        response.json(games);
+const parseXMLToJSON = async (xmlData) => {
+  return new Promise((resolve, reject) => {
+    parseString(
+      xmlData,
+      { explicitArray: false, mergeAttrs: true },
+      (err, result) => {
+        if (err) {
+          console.error("Error in parseString:", err);
+          reject(err);
+        } else {
+          resolve(result);
+        }
+      }
+    );
+  });
+};
+
+const fetcher = async (url) => {
+  const response = await fetch(url);
+  const xmlData = await response.text();
+  try {
+    const jsonData = await parseXMLToJSON(xmlData);
+    return jsonData.items.item;
+  } catch (error) {
+    console.error("Error parsing XML:", error);
+    throw error;
+  }
+};
+
+export default async function handler(request, response) {
+  if (request.method === "GET") {
+    const dynamicUrl = request.query.endpoint;
+    console.log("🚀  dynamicUrl:", dynamicUrl);
+    const fullUrl = baseApiUrl + dynamicUrl;
+
+    try {
+      const data = await fetcher(fullUrl);
+      response.json(data);
+    } catch (error) {
+      response.status(500).json({ error: "Error to get a correct path" });
     }
+  }
 }
-
