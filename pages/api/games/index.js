@@ -33,7 +33,7 @@ const fetcher = async (url) => {
 export default async function handler(request, response) {
   if (request.method === "GET") {
     const dynamicUrl = request.query.endpoint;
-    console.log("🚀  dynamicUrl:", dynamicUrl);
+
     const fullUrl = baseApiUrl + dynamicUrl;
 
     try {

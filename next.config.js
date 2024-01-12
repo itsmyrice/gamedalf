@@ -4,6 +4,11 @@ const nextConfig = {
     styledComponents: true,
   },
   reactStrictMode: true,
+
+  images: {
+    domains: ["cf.geekdo-images.com"],
+  },
+
   webpack(config) {
     config.module.rules.push({
       test: /\.svg$/i,

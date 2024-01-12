@@ -1,4 +1,4 @@
-import GlobalStyle from "../styles";
+import "../global.css" 
 import { SWRConfig } from "swr";
 
 export default function App({ Component, pageProps }) {
@@ -7,8 +7,7 @@ export default function App({ Component, pageProps }) {
       <SWRConfig
         value={{ fetcher: (resource, init) => fetch(resource, init).then(response => response.json())}}
       >
-        <GlobalStyle />
-        <Component {...pageProps} />
+        <Component {...pageProps}/>
       </SWRConfig>
     </>
   );
