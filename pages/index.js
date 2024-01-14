@@ -43,6 +43,8 @@ const StyledTitle = styled.h1`
   justify-content: center;
   margin: auto;
   text-shadow: 0px 1px 2px #b56917;
+  background-color: white;
+  margin: 1rem 0;
 `;
 
 const StyledSpan = styled.span`
@@ -52,10 +54,8 @@ const StyledSpan = styled.span`
 
 const GamesContainer = styled.section`
   background-color: #5a4fcf;
-  color: #ffffff;
   margin: auto;
   padding: 80px 0px;
-  cursor: pointer;
   width: 100vw;
 `;
 
@@ -67,4 +67,5 @@ const StyledUList = styled.ul`
   gap: 20px;
   padding: 0;
   margin: auto;
+  cursor: pointer;
 `;
