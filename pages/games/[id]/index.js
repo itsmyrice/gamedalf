@@ -11,12 +11,9 @@ export default function DetailsPage() {
     isLoading,
     error,
   } = useSWR(`/api/games?endpoint=/thing?id=${id}`);
-  if (!id) {
-    <h2>check</h2>;
-  } else {
-    <h2>Loading...</h2>;
-  }
-  if (isLoading || error) return <h2>Loading...</h2>;
+
+  if(!id) return <small>ID not found</small>
+  if (isLoading || error) return <small>loading...</small>;
 
   return (
     <>

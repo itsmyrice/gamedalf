@@ -11,10 +11,10 @@ export default function HomePage() {
 
   if (error)
     return (
-      <div>
+      <small>
         Sorry, we couldn&acpos;t retrieve the game data at the moment. Please
         try again later.
-      </div>
+      </small>
     );
   if (!data || isLoading) return <small>loading...</small>;
 
