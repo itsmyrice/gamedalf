@@ -11,11 +11,12 @@ export default function HomePage() {
 
   if (error)
     return (
+
       <small>
-        Sorry, we couldn&acpos;t retrieve the game data at the moment. Please
-        try again later.
+        "Sorry, we couldn't retrieve the game data at the moment. Please try again later."
       </small>
     );
+  
   if (!data || isLoading) return <small>loading...</small>;
 
   return (
