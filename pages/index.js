@@ -12,7 +12,7 @@ export default function HomePage() {
   if (error)
     return (
       <div>
-        Sorry, we couldn&acpos;t retrieve the game data at the moment. Please
+        Sorry, we couldn't retrieve the game data at the moment. Please
         try again later.
       </div>
     );
@@ -55,7 +55,6 @@ const GamesContainer = styled.section`
   color: #ffffff;
   margin: auto;
   padding: 80px 0px;
-  cursor: pointer;
   width: 100vw;
 `;
 
