@@ -7,7 +7,7 @@ import Link from "next/link";
 export default function GameCard({ game }) {
   
   return (
-    <Link href={`/games/${game.id}`}>
+    <Link href={`/games/${game.id}`} aria-label="More details">
     <StyledCard>
       <StyledTitle>{game.name.value}</StyledTitle>
       <StyledRankTitle>{game.rank}</StyledRankTitle>
@@ -17,7 +17,7 @@ export default function GameCard({ game }) {
         width={150}
         height={150}
       />
-      <P>{game.yearpublished.value}</P>
+      <StyledYearDisplay>{game.yearpublished.value}</StyledYearDisplay>
     </StyledCard>
     </Link>
   );
@@ -43,6 +43,6 @@ const StyledTitle = styled.h2`
   color: #CCCCFF;
 `;
 
-const P = styled.p`
+const StyledYearDisplay = styled.p`
 color: #CCCCFF;
 `;

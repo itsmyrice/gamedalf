@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { useRouter } from "next/router";
 import useSWR from "swr";
 import styled from "styled-components";
@@ -6,37 +5,42 @@ import styled from "styled-components";
 export default function DetailsPage() {
   const router = useRouter();
   const { id } = router.query;
+
   const {
     data: game,
     isLoading,
     error,
   } = useSWR(`/api/games?endpoint=/thing?id=${id}`);
-  console.log(game);
+  if (!id) {
+    <h2>check</h2>;
+  } else {
+    <h2>Loading...</h2>;
+  }
   if (isLoading || error) return <h2>Loading...</h2>;
 
   return (
     <>
-      <H1>
-        Game<Span>dalf</Span>
-      </H1>
-      <Section>
-        <StyledImage
+      <StyledTitle>
+        Game<StyledSpan>dalf</StyledSpan>
+      </StyledTitle>
+      <StyledSection>
+        <StyledImageDisplay
           src={game.image}
           alt="game image"
           width={400}
           height={210}
-        ></StyledImage>
+        ></StyledImageDisplay>
         <StyledLink href="/">⬅️ Back</StyledLink>
-        <Div>
-          <P1>{game.yearpublished.value}</P1>
-          <P2>{game.description}</P2>
-        </Div>
-      </Section>
+        <StyledDiv>
+          <StyledYearDisplay>{game.yearpublished.value}</StyledYearDisplay>
+          <StyledDesciption>{game.description}</StyledDesciption>
+        </StyledDiv>
+      </StyledSection>
     </>
   );
 }
 
-const H1 = styled.h1`
+const StyledTitle = styled.h1`
   color: #111111;
   display: flex;
   justify-content: center;
@@ -46,19 +50,19 @@ const H1 = styled.h1`
   margin: 1rem 0;
 `;
 
-const Span = styled.span`
+const StyledSpan = styled.span`
   color: #ff8200;
   text-shadow: 0px 1px 2px #414a4c;
 `;
 
-const Section = styled.section`
+const StyledSection = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
   background-color: #e6e6fa;
 `;
 
-const StyledImage = styled.img`
+const StyledImageDisplay = styled.img`
   margin: 2rem 0;
   border: 1px inherit black;
   box-shadow: 2px 3px 5px #ccccff;
@@ -79,19 +83,19 @@ const StyledLink = styled.a`
   }
 `;
 
-const Div = styled.div`
+const StyledDiv = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 1rem;
 `;
 
-const P1 = styled.p`
+const StyledYearDisplay = styled.p`
   color: #ff8200;
   font-weight: bold;
 `;
 
-const P2 = styled.p`
+const StyledDesciption = styled.p`
   color: #111111;
   border-top: 1px inset black;
   border-bottom: 1px inset black;
