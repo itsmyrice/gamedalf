@@ -4,6 +4,7 @@
   },
   "extends": ["next/core-web-vitals", "plugin:jest/recommended"],
   "rules": {
+    "react/no-unescaped-entities": 0,
     "import/no-anonymous-default-export": [
       "error",
       {
