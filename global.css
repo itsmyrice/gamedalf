@@ -3,8 +3,30 @@
 *::after {
   box-sizing: border-box;
 }
-
+ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  text-decoration: none;
+}
 body {
   margin: 0;
   font-family: system-ui;
+}
+nav {
+  background-color: white;
+  width: 100%;
+  padding: 20px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  border-top: 1px solid black;
+}
+
+.list-items {
+  display: flex;
+  justify-content: space-between;
+}
+.items {
+  cursor: pointer;
 }

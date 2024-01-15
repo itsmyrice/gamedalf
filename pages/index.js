@@ -8,6 +8,7 @@ export default function HomePage() {
     // fetchnig data with dynamic endpoints
     `/api/games?endpoint=/${DYNAMIC_URL.hot.boardgame}}`
   );
+  console.log(data);
 
   if (error)
     return (
