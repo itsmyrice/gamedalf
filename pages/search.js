@@ -1,5 +1,5 @@
 import SearchInput from "components/search/SearchInput.js";
-import GameSearchList from "/components/search/GameSearchedList.js";
+import GameSearchedList from "/components/search/GameSearchedList.js";
 
 import { useState } from "react";
 import useSWR from "swr";
@@ -18,7 +18,7 @@ export default function SearchPage() {
   return (
     <>
       <SearchInput searchInput={searchInput} setSearchInput={setSearchInput} />
-      <GameSearchList data={searchedGames} />
+      <GameSearchedList data={searchedGames} />
     </>
   );
 }

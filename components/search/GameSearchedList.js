@@ -4,8 +4,8 @@ export default function GameSearchedList({ data }) {
   return (
     <ListGames>
       {data.map((game) => (
-        <SingleListItem key={game.id}>
-            <GameCard game={game}/>
+        <SingleListItem key={game._id}>
+          <GameCard game={game} />
         </SingleListItem>
       ))}
     </ListGames>
@@ -24,7 +24,4 @@ const SingleListItem = styled.li`
   overflow: hidden;
   outline: none;
   height: 8rem;
-`;
-const ImageDiv = styled.div`
-  height: 100%;
 `;

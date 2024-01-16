@@ -5,7 +5,7 @@ import Link from "next/link";
 export default function GameCard({ game }) {
   
   return (
-    <Link href={`/games/${game.id}`} aria-label="More details">
+    <Link href={`/games/${game._id}`} aria-label="More details">
     <StyledCard>
 
       <StyledTitle>{game.name}</StyledTitle>

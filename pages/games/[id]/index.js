@@ -6,13 +6,9 @@ export default function DetailsPage() {
   const router = useRouter();
   const { id } = router.query;
 
-  const {
-    data: game,
-    isLoading,
-    error,
-  } = useSWR(`/api/games?endpoint=/thing?id=${id}`);
+  const { data: game, isLoading, error } = useSWR(`/api/games/${id}`);
 
-  if(!id) return <small>ID not found</small>
+  if (!id) return <small>ID not found</small>;
   if (isLoading || error) return <small>loading...</small>;
 
   return (
@@ -23,13 +19,13 @@ export default function DetailsPage() {
       <StyledSection>
         <StyledImageDisplay
           src={game.image}
-          alt="game image"
+          alt={game.name}
           width={400}
           height={210}
         ></StyledImageDisplay>
         <StyledLink href="/">⬅️ Back</StyledLink>
         <StyledDiv>
-          <StyledYearDisplay>{game.yearpublished.value}</StyledYearDisplay>
+          <StyledYearDisplay>{game.yearpublished}</StyledYearDisplay>
           <StyledDesciption>{game.description}</StyledDesciption>
         </StyledDiv>
       </StyledSection>

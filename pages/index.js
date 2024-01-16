@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 export default function HomePage() {
 
-  const { data, error, isLoading } = useSWR("./api/games");
+  const { data, error, isLoading } = useSWR("/api/games");
 
   if (error)
     return (
@@ -25,7 +25,7 @@ export default function HomePage() {
       <GamesContainer>
         <StyledUList>
           {data.map((game) => (
-            <li key={game.id}>
+            <li key={game._id}>
               <GameCard game={game} />
             </li>
           ))}
