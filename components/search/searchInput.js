@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export default function Search({ searchInput, setSearchInput }) {
+export default function SearchInput({ searchInput, setSearchInput }) {
   return (
     <Input
       type="text"
@@ -15,8 +15,8 @@ const Input = styled.input`
   height: 4rem;
   margin-top: 2rem;
   margin-left: 20%;
-  width:60%;
-  font-size: 2.2rem;
+  width: 60%;
+  font-size: 20px;
   border-radius: 1.5rem;
   padding: 0.5rem 1.5rem;
   outline: none;

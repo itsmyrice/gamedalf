@@ -1,13 +1,11 @@
-import Image from "next/image";
 import styled from "styled-components";
-export default function GameSearchList({ data }) {
+import GameCard from "../GameCard";
+export default function GameSearchedList({ data }) {
   return (
     <ListGames>
-      {data.map((item) => (
-        <SingleListItem key={item.id}>
-          <ImageDiv>
-            <Image src={item.image} alt={item.id} height={100} width={120} />
-          </ImageDiv>
+      {data.map((game) => (
+        <SingleListItem key={game.id}>
+            <GameCard game={game}/>
         </SingleListItem>
       ))}
     </ListGames>
@@ -23,13 +21,10 @@ const SingleListItem = styled.li`
   border-radius: 1.4rem;
   margin-bottom: 2rem;
   box-shadow: 3px 3px 5px grey;
-  owerflow: hidden;
+  overflow: hidden;
   outline: none;
   height: 8rem;
 `;
 const ImageDiv = styled.div`
-  height:100%;
-
-
-
-`
+  height: 100%;
+`;
