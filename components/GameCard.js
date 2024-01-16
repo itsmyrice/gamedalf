@@ -18,7 +18,7 @@ export default function GameCard({ game }) {
 }
 
 const StyledRankTitle = styled.p`
-  color: #ff8200;
+  color: #ff8200;x§
 `;
 const StyledCard = styled.div`
   border: 1px solid black;
