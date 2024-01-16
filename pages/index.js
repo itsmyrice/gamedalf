@@ -1,14 +1,12 @@
 import useSWR from "swr";
 import GameCard from "@/components/GameCard";
 import styled from "styled-components";
-import { DYNAMIC_URL } from "../utils/dynamicURLs";
+//import { DYNAMIC_URL } from "../utils/dynamicURLs";
 
 export default function HomePage() {
-  const dynamicUrl = DYNAMIC_URL;
+  // const dynamicUrl = DYNAMIC_URL;
 
-  const { data, error, isLoading } = useSWR(
-    `/api/games?endpoint=/${dynamicUrl.hot.boardgame}}`
-  );
+  const { data, error, isLoading } = useSWR("./api/games");
 
   if (error) return <div>failed to load</div>;
   if (!data || isLoading) return <div>loading...</div>;

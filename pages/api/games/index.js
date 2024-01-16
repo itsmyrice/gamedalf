@@ -1,4 +1,5 @@
-import { parseString } from "xml2js";
+/*
+ import { parseString } from "xml2js";
 const baseApiUrl = "https://boardgamegeek.com/xmlapi2/";
 
 const parseXMLToJSON = async (xmlData) => {
@@ -42,5 +43,18 @@ export default async function handler(request, response) {
     } catch (error) {
       response.status(500).json({ error: "Error to get a correct path" });
     }
+  }
+}
+*/
+
+import dbConnect from "@/db/connect";
+import Games from "@/db/models/Games";
+export default async function handler(request, response) {
+  await dbConnect();
+  if (request.method === "GET") {
+    const games = await Games.find();
+    response.status(200).json(games);
+  }else{
+    response.status(400).json({message:"Something went wrong !!!"})
   }
 }
