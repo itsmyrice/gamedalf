@@ -1,4 +1,4 @@
-import SearchInput from "components/search/SearchInput.js";
+import SearchInput from "/components/search/SearchInput.js";
 import GameSearchedList from "/components/search/GameSearchedList.js";
 
 import { useState } from "react";
