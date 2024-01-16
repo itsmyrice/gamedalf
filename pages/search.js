@@ -1,5 +1,5 @@
-import SearchInput from "components/search/SearchInput";
-import GameSearchedList from "components/search/GameSearchedList";
+import SearchInput from "@/components/search/SearchInput";
+import GameSearchedList from "@/components/search/GameSearchedList";
 
 import { useState } from "react";
 import useSWR from "swr";
