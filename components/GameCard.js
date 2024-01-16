@@ -7,6 +7,7 @@ export default function GameCard({ game }) {
   return (
     <Link href={`/games/${game.id}`} aria-label="More details">
     <StyledCard>
+
       <StyledTitle>{game.name}</StyledTitle>
       <StyledRankTitle>{game.rank}</StyledRankTitle>
       <Image
@@ -16,6 +17,7 @@ export default function GameCard({ game }) {
         height={150}
       />
       <StyledYearDisplay>{game.yearpublished}</StyledYearDisplay>
+
     </StyledCard>
     </Link>
   );
