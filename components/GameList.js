@@ -48,13 +48,3 @@ const GamesContainer = styled.section`
   padding: 80px 0px;
   width: 100vw;
 `;
-
-const StyledUList = styled.ul`
-  max-width: 80%;
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  padding: 0;
-  margin: auto;
-`;
