@@ -2,29 +2,26 @@ import Image from "next/image";
 import styled from "styled-components";
 import Link from "next/link";
 
-
-
 export default function GameCard({ game }) {
-  
   return (
     <Link href={`/games/${game.id}`} aria-label="More details">
-    <StyledCard>
-      <StyledTitle>{game.name.value}</StyledTitle>
-      <StyledRankTitle>{game.rank}</StyledRankTitle>
-      <Image
-        src={game.thumbnail.value}
-        alt={game.name.value}
-        width={150}
-        height={150}
-      />
-      <StyledYearDisplay>{game.yearpublished.value}</StyledYearDisplay>
-    </StyledCard>
+      <StyledCard>
+        <StyledTitle>{game.name.value}</StyledTitle>
+        <StyledRankTitle>{game.rank}</StyledRankTitle>
+        <Image
+          src={game.thumbnail.value}
+          alt={game.name.value}
+          width={150}
+          height={150}
+        />
+        <StyledYearDisplay>{game.yearpublished.value}</StyledYearDisplay>
+      </StyledCard>
     </Link>
   );
 }
 
 const StyledRankTitle = styled.p`
-  color: #ff8200;x§
+  color: #ff8200;
 `;
 const StyledCard = styled.div`
   border: 1px ridge black;
@@ -36,10 +33,9 @@ const StyledCard = styled.div`
 `;
 
 const StyledTitle = styled.h2`
-  color: #CCCCFF;
+  color: #ccccff;
 `;
 
 const StyledYearDisplay = styled.p`
-color: #CCCCFF;
+  color: #ccccff;
 `;
-
