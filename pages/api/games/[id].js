@@ -15,7 +15,7 @@ export default async function handler(request, response) {
     return response.status(200).json(game);
   } else {
     return response
-      .status(405)
-      .json({ error: "Request method is not allowed" });
+      .status(400)
+      .json({ error: "Bad Request" });
   }
 }
