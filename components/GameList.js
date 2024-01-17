@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+"use client";
+import  { useState } from "react";
 import styled from "styled-components";
 import GameCard from "./GameCard";
 import "swiper/css";
