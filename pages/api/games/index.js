@@ -6,6 +6,6 @@ export default async function handler(request, response) {
     const games = await Game.find();
     return response.status(200).json(games);
   } else {
-    return response.status(405).json({ error: "Request method is not allowed" });
+    return response.status(400).json({ error: "Bad Request" });
   }
 }
