@@ -20,7 +20,13 @@ export default function HomePage() {
       <StyledTitle>
         Game<StyledSpan>dalf</StyledSpan>
       </StyledTitle>
-      {data && <GameList data={data} />}
+      {data && (
+        <div>
+          <GameList data={data.slice(0, 25)} categorieId={0} />
+          <GameList data={data.slice(26, 50)} categorieId={1} />
+          <GameList data={data.slice(51, 75)} categorieId={2} />
+        </div>
+      )}
     </>
   );
 }

@@ -8,17 +8,17 @@ export default function GameCard({ game }) {
       <StyledFavoriteButton>
         <FavouriteButton />
       </StyledFavoriteButton>
-      <StyledTitle>{game.name.value}</StyledTitle>
-      <StyledRankTitle>{game.rank}</StyledRankTitle>
-      <Link href={`/games/${game.id}`} aria-label="More details">
+      <StyledTitle>{game.name}</StyledTitle>
+      <StyledRankTitle>{game.rating}</StyledRankTitle>
+      <Link href={`/games/${game._id}`} aria-label="More details">
         <StyledImageDisplay
-          src={game.thumbnail.value}
-          alt={game.name.value}
+          src={game.image}
+          alt={game.name}
           width={150}
           height={150}
         />
       </Link>
-      <StyledYearDisplay>{game.yearpublished.value}</StyledYearDisplay>
+      <StyledYearDisplay>{game.yearpublished}</StyledYearDisplay>
     </StyledCard>
   );
 }

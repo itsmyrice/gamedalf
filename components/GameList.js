@@ -7,7 +7,7 @@ import "swiper/css/navigation";
 import { Navigation } from "swiper/modules";
 import { GoPlus } from "react-icons/go";
 
-export default function GameList({ data }) {
+export default function GameList({ data, categorieId }) {
   const [visibleCount, setVisibleCount] = useState(5);
 
   const handleSeeMore = () => {
@@ -16,6 +16,7 @@ export default function GameList({ data }) {
 
   return (
     <GamesContainer>
+      <Title>{data[0].categories[categorieId]}</Title>
       <Swiper
         spaceBetween={20}
         slidesPerView={2}
@@ -41,7 +42,6 @@ export default function GameList({ data }) {
 }
 
 const GamesContainer = styled.section`
-  min-height: 100vh;
   background-color: #5a4fcf;
   color: #ffffff;
   margin: auto;
@@ -66,4 +66,11 @@ const ShowMore = styled.button`
       0 8px 10px -6px rgb(0 0 0 / 0.1);
     transition: 0.3s;
   }
+`;
+
+const Title = styled.h2`
+  font-size: 40px;
+  margin-left: 5%;
+  border-bottom: 2px solid #fff;
+  display: inline-block;
 `;
