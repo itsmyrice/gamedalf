@@ -3,11 +3,10 @@ import Link from "next/link";
 import FavouriteButton from "./FavouriteButton";
 
 
-
-
 export default function GameCard({ game }) {
   
   return (
+
     <StyledCard>
       <StyledFavoriteButton>
       <FavouriteButton />

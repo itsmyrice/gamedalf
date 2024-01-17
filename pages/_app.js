@@ -1,3 +1,4 @@
+
 import { SWRConfig } from "swr";
 import GlobalStyle from "../styles.js"
 

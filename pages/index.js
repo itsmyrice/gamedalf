@@ -1,14 +1,11 @@
 import useSWR from "swr";
 import GameCard from "@/components/GameCard";
 import styled from "styled-components";
-import { DYNAMIC_URL } from "../utils/dynamicURLs";
 
 
 export default function HomePage() {
-  const { data, error, isLoading } = useSWR(
-    // fetchnig data with dynamic endpoints
-    `/api/games?endpoint=/${DYNAMIC_URL.hot.boardgame}}`
-  );
+
+  const { data, error, isLoading } = useSWR("/api/games");
 
   if (error)
     return (
@@ -29,7 +26,7 @@ export default function HomePage() {
       <GamesContainer>
         <StyledUList>
           {data.map((game) => (
-            <li key={game.id}>
+            <li key={game._id}>
               <GameCard game={game} />
             </li>
           ))}
