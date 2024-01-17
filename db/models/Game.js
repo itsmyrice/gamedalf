@@ -5,6 +5,7 @@ const gameSchema = new Schema({
   name: { type: String, required: true },
   description: { type: String, required: true },
   image: { type: String, required: true },
+  rating: { type: String, required: true },
   yearpublished: { type: String, required: true },
   minPlayers: { type: String, required: true },
   maxPlayers: { type: String, required: true },
