@@ -26,6 +26,7 @@ export default function DetailsPage() {
         <StyledLink href="/">⬅️ Back</StyledLink>
         <StyledDiv>
           <StyledYearDisplay>{game.yearpublished}</StyledYearDisplay>
+          <StyledYearDisplay>{game.rating}</StyledYearDisplay>
           <StyledDesciption>{game.description}</StyledDesciption>
         </StyledDiv>
       </StyledSection>

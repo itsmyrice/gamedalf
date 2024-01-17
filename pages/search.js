@@ -1,3 +1,4 @@
+import styled from "styled-components";
 // import SearchInput from "@/components/search/SearchInput";
 import GameSearchedList from "@/components/search/GameSearchedList";
 
