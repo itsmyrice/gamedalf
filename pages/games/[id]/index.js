@@ -6,7 +6,7 @@ export default function DetailsPage() {
   const router = useRouter();
   const { id } = router.query;
 
-  const { data: game, isLoading, error } = useSWR(`/api/games/${id}`);
+  const { data: game, isLoading, error } = useSWR(id ? `/api/games/${id}` : null);
 
   if (!id) return <small>ID not found</small>;
   if (isLoading || error) return <small>loading...</small>;
@@ -26,7 +26,6 @@ export default function DetailsPage() {
         <StyledLink href="/">⬅️ Back</StyledLink>
         <StyledDiv>
           <StyledYearDisplay>{game.yearpublished}</StyledYearDisplay>
-          <StyledYearDisplay>{game.rating}</StyledYearDisplay>
           <StyledDesciption>{game.description}</StyledDesciption>
         </StyledDiv>
       </StyledSection>

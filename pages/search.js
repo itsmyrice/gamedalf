@@ -1,6 +1,5 @@
 import styled from "styled-components";
-// import SearchInput from "@/components/search/SearchInput";
-import GameSearchedList from "@/components/search/GameSearchedList";
+import GameSearchedList from "@/components/GameSearchedList";
 
 import { useState } from "react";
 import useSWR from "swr";
@@ -18,20 +17,17 @@ export default function SearchPage() {
 
   return (
     <>
-      {/* <SearchInput searchInput={searchInput} setSearchInput={setSearchInput} /> */}
-
       <Input
-      type="text"
-      id="text"
-      placeholder="Insert name"
-      value={searchInput}
-      onChange={(event) => setSearchInput(event.target.value)}
-    />
+        type="text"
+        id="text"
+        placeholder="Insert name"
+        value={searchInput}
+        onChange={(event) => setSearchInput(event.target.value)}
+      />
       <GameSearchedList data={searchedGames} />
     </>
   );
 }
-
 
 const Input = styled.input`
   height: 4rem;

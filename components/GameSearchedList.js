@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import GameCard from "../GameCard";
+import GameCard from "./GameCard";
 export default function GameSearchedList({ data }) {
   return (
     <ListGames>

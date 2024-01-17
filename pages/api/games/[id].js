@@ -7,13 +7,15 @@ export default async function handler(request, response) {
 
   if (request.method === "GET") {
     const game = await Game.findById(id);
-    
+
     if (!game) {
-      return response.status(404).json({ status: "Not found" });
+      return response.status(404).json({ message: "Game not found" });
     }
 
-    response.status(200).json(game);
+    return response.status(200).json(game);
   } else {
-    response.status(400).json({ message: "Something went wrong !!!" });
+    return response
+      .status(405)
+      .json({ error: "Request method is not allowed" });
   }
 }
