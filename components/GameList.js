@@ -1,5 +1,5 @@
 "use client";
-import  { useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import GameCard from "./GameCard";
 import "swiper/css";
@@ -72,6 +72,7 @@ const ShowMore = styled.button`
 const Title = styled.h2`
   font-size: 40px;
   margin-left: 5%;
+  margin-bottom: 20px;
   border-bottom: 2px solid #fff;
   display: inline-block;
 `;
