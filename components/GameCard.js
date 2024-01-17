@@ -18,6 +18,13 @@ export default function GameCard({ game }) {
           height={150}
         />
       </Link>
+      <StyledImageDisplay
+        src={game.image}
+        alt={game.name}
+        width={150}
+        height={150}
+        />
+        </Link>
       <StyledYearDisplay>{game.yearpublished}</StyledYearDisplay>
     </StyledCard>
   );

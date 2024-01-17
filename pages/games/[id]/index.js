@@ -7,7 +7,11 @@ export default function DetailsPage() {
   const router = useRouter();
   const { id } = router.query;
 
-  const { data: game, isLoading, error } = useSWR(id ? `/api/games/${id}` : null);
+  const {
+    data: game,
+    isLoading,
+    error,
+  } = useSWR(id ? `/api/games/${id}` : null);
 
   if (!id) return <small>ID not found</small>;
   if (isLoading || error) return <small>loading...</small>;
@@ -18,8 +22,8 @@ export default function DetailsPage() {
         Game<StyledSpan>dalf</StyledSpan>
       </StyledTitle>
       <StyledSection>
-        <StyledFavoriteButton> 
-        <FavouriteButton />
+        <StyledFavoriteButton>
+          <FavouriteButton />
         </StyledFavoriteButton>
         <StyledImageDisplay
           src={game.image}
@@ -97,7 +101,7 @@ const StyledDesciption = styled.p`
   color: #111111;
   border-top: 1px inset black;
   border-bottom: 1px inset black;
-  padding: 2rem 1rem;
+  padding: 1rem 40px 1rem 1rem;
   text-align: center;
 `;
 
