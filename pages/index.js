@@ -3,6 +3,7 @@ import GameCard from "@/components/GameCard";
 import styled from "styled-components";
 import { DYNAMIC_URL } from "../utils/dynamicURLs";
 
+
 export default function HomePage() {
   const { data, error, isLoading } = useSWR(
     // fetchnig data with dynamic endpoints
@@ -68,5 +69,4 @@ const StyledUList = styled.ul`
   gap: 20px;
   padding: 0;
   margin: auto;
-  cursor: pointer;
 `;
