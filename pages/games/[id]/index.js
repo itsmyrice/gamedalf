@@ -1,18 +1,15 @@
 import { useRouter } from "next/router";
 import useSWR from "swr";
 import styled from "styled-components";
+import FavouriteButton from "@/components/FavouriteButton";
 
 export default function DetailsPage() {
   const router = useRouter();
   const { id } = router.query;
 
-  const {
-    data: game,
-    isLoading,
-    error,
-  } = useSWR(`/api/games?endpoint=/thing?id=${id}`);
+  const { data: game, isLoading, error } = useSWR(id ? `/api/games/${id}` : null);
 
-  if(!id) return <small>ID not found</small>
+  if (!id) return <small>ID not found</small>;
   if (isLoading || error) return <small>loading...</small>;
 
   return (
@@ -21,15 +18,18 @@ export default function DetailsPage() {
         Game<StyledSpan>dalf</StyledSpan>
       </StyledTitle>
       <StyledSection>
+        <StyledFavoriteButton> 
+        <FavouriteButton />
+        </StyledFavoriteButton>
         <StyledImageDisplay
           src={game.image}
-          alt="game image"
+          alt={game.name}
           width={400}
           height={210}
         ></StyledImageDisplay>
         <StyledLink href="/">⬅️ Back</StyledLink>
         <StyledDiv>
-          <StyledYearDisplay>{game.yearpublished.value}</StyledYearDisplay>
+          <StyledYearDisplay>{game.yearpublished}</StyledYearDisplay>
           <StyledDesciption>{game.description}</StyledDesciption>
         </StyledDiv>
       </StyledSection>
@@ -73,7 +73,8 @@ const StyledImageDisplay = styled.img`
 const StyledLink = styled.a`
   text-decoration: none;
   color: #111111;
-  margin-right: 20rem;
+  margin-right: 8rem;
+  word-spacing: 5px;
   cursor: pointer;
   &:hover {
     border-bottom: 1px ridge #ff8200;
@@ -98,4 +99,10 @@ const StyledDesciption = styled.p`
   border-bottom: 1px inset black;
   padding: 2rem 1rem;
   text-align: center;
+`;
+
+const StyledFavoriteButton = styled.div`
+  position: relative;
+  left: 120px;
+  margin: 10px;
 `;

@@ -1,22 +1,25 @@
-import Image from "next/image";
 import styled from "styled-components";
 import Link from "next/link";
+import FavouriteButton from "./FavouriteButton";
 
 export default function GameCard({ game }) {
   return (
-    <Link href={`/games/${game.id}`} aria-label="More details">
-      <StyledCard>
-        <StyledTitle>{game.name.value}</StyledTitle>
-        <StyledRankTitle>{game.rank}</StyledRankTitle>
-        <Image
+    <StyledCard>
+      <StyledFavoriteButton>
+        <FavouriteButton />
+      </StyledFavoriteButton>
+      <StyledTitle>{game.name.value}</StyledTitle>
+      <StyledRankTitle>{game.rank}</StyledRankTitle>
+      <Link href={`/games/${game.id}`} aria-label="More details">
+        <StyledImageDisplay
           src={game.thumbnail.value}
           alt={game.name.value}
           width={150}
           height={150}
         />
-        <StyledYearDisplay>{game.yearpublished.value}</StyledYearDisplay>
-      </StyledCard>
-    </Link>
+      </Link>
+      <StyledYearDisplay>{game.yearpublished.value}</StyledYearDisplay>
+    </StyledCard>
   );
 }
 
@@ -38,4 +41,14 @@ const StyledTitle = styled.h2`
 
 const StyledYearDisplay = styled.p`
   color: #ccccff;
+`;
+
+const StyledImageDisplay = styled.img`
+  cursor: pointer;
+`;
+
+const StyledFavoriteButton = styled.div`
+  position: relative;
+  left: 100px;
+  margin: 10px;
 `;

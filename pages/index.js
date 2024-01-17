@@ -1,22 +1,18 @@
 import useSWR from "swr";
-import GameCard from "@/components/GameCard";
-import { DYNAMIC_URL } from "../utils/dynamicURLs";
 import styled from "styled-components";
 import GameList from "@/components/GameList";
 
 export default function HomePage() {
-  const { data, error, isLoading } = useSWR(
-    // fetchnig data with dynamic endpoints
-    `/api/games?endpoint=/${DYNAMIC_URL.hot.boardgame}}`
-  );
+  const { data, error, isLoading } = useSWR("/api/games");
 
   if (error)
     return (
       <small>
-        "Sorry, we couldn't retrieve the game data at the moment. Please try again later."
+        "Sorry, we couldn't retrieve the game data at the moment. Please try
+        again later."
       </small>
     );
-  
+
   if (!data || isLoading) return <small>loading...</small>;
 
   return (
@@ -24,7 +20,7 @@ export default function HomePage() {
       <StyledTitle>
         Game<StyledSpan>dalf</StyledSpan>
       </StyledTitle>
-      {data && <GameList data={data} />} 
+      {data && <GameList data={data} />}
     </>
   );
 }
@@ -43,4 +39,3 @@ const StyledSpan = styled.span`
   color: #ff8200;
   text-shadow: 0px 1px 2px #414a4c;
 `;
-
