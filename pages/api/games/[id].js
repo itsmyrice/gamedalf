@@ -1,15 +1,19 @@
 import dbConnect from "@/db/connect";
-import Games from "@/db/models/Game";
+import Game from "@/db/models/Game";
 
 export default async function handler(request, response) {
   await dbConnect();
   const { id } = request.query;
-  console.log("🚀  req:", request.query);
 
   if (request.method === "GET") {
-    const games = await Games.findById(id);
-    response.status(200).json(games);
+    const game = await Game.findById(id);
+
+    if (!game) {
+      return response.status(404).json({ message: "Game not found" });
+    }
+
+    return response.status(200).json(game);
   } else {
-    response.status(400).json({ message: "Something went wrong !!!" });
+    return response.status(405).json({ error: "Request method is not allowed" });
   }
 }
