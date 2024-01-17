@@ -2,6 +2,7 @@ import useSWR from "swr";
 import GameCard from "@/components/GameCard";
 import styled from "styled-components";
 
+
 export default function HomePage() {
 
   const { data, error, isLoading } = useSWR("/api/games");
@@ -65,5 +66,4 @@ const StyledUList = styled.ul`
   gap: 20px;
   padding: 0;
   margin: auto;
-  cursor: pointer;
 `;
