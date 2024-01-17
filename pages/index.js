@@ -1,22 +1,20 @@
 import useSWR from "swr";
 import GameCard from "@/components/GameCard";
 import styled from "styled-components";
-import { DYNAMIC_URL } from "../utils/dynamicURLs";
+
 
 export default function HomePage() {
-  const { data, error, isLoading } = useSWR(
-    // fetchnig data with dynamic endpoints
-    `/api/games?endpoint=/${DYNAMIC_URL.hot.boardgame}}`
-  );
-  console.log(data);
+
+  const { data, error, isLoading } = useSWR("/api/games");
 
   if (error)
     return (
-      <div>
-        Sorry, we couldn&acpos;t retrieve the game data at the moment. Please
-        try again later.
-      </div>
+
+      <small>
+        "Sorry, we couldn't retrieve the game data at the moment. Please try again later."
+      </small>
     );
+  
   if (!data || isLoading) return <small>loading...</small>;
 
   return (
@@ -28,7 +26,7 @@ export default function HomePage() {
       <GamesContainer>
         <StyledUList>
           {data.map((game) => (
-            <li key={game.id}>
+            <li key={game._id}>
               <GameCard game={game} />
             </li>
           ))}
@@ -44,6 +42,8 @@ const StyledTitle = styled.h1`
   justify-content: center;
   margin: auto;
   text-shadow: 0px 1px 2px #b56917;
+  background-color: white;
+  margin: 1rem 0;
 `;
 
 const StyledSpan = styled.span`
@@ -53,10 +53,8 @@ const StyledSpan = styled.span`
 
 const GamesContainer = styled.section`
   background-color: #5a4fcf;
-  color: #ffffff;
   margin: auto;
   padding: 80px 0px;
-  cursor: pointer;
   width: 100vw;
 `;
 
