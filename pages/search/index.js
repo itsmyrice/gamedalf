@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import GameSearchedList from "@/components/GameSearchedList";
+import VerticalGameList from "@/components/VerticalGameList";
 
 import { useState } from "react";
 import useSWR from "swr";
@@ -24,7 +24,7 @@ export default function SearchPage() {
         value={searchInput}
         onChange={(event) => setSearchInput(event.target.value)}
       />
-      <GameSearchedList data={searchedGames} />
+      <VerticalGameList data={searchedGames} />
     </>
   );
 }
