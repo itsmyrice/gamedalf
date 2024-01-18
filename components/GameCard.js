@@ -5,9 +5,9 @@ import FavouriteButton from "./FavouriteButton";
 export default function GameCard({ game }) {
   return (
     <StyledCard>
-      <StyledFavoriteButton>
-        <FavouriteButton />
-      </StyledFavoriteButton>
+
+     <FavouriteButton />
+
       <StyledTitle>{game.name}</StyledTitle>
       <StyledRankTitle>{game.rating}</StyledRankTitle>
       <Link href={`/games/${game._id}`} aria-label="More details">
@@ -33,6 +33,8 @@ const StyledCard = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative;
+  padding: 20px 0px;
 `;
 
 const StyledTitle = styled.h2`
@@ -45,10 +47,4 @@ const StyledYearDisplay = styled.p`
 
 const StyledImageDisplay = styled.img`
   cursor: pointer;
-`;
-
-const StyledFavoriteButton = styled.div`
-  position: relative;
-  left: 100px;
-  margin: 10px;
 `;
