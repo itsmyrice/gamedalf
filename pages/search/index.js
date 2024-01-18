@@ -11,7 +11,7 @@ export default function SearchPage() {
   const searchedGames =
     searchInput.length > 0
       ? data.filter((game) =>
-          `${game.name}`.toLowerCase().includes(searchInput.toLowerCase())
+          `${game.name}`.includes(searchInput.toLowerCase())
         )
       : [];
 

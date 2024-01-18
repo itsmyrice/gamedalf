@@ -18,10 +18,6 @@ const ListGames = styled.ul`
   list-style: none;
 `;
 const SingleListItem = styled.li`
-  border-radius: 1.4rem;
-  margin-bottom: 2rem;
-  box-shadow: 3px 3px 5px grey;
-  overflow: hidden;
-  outline: none;
-  height: 8rem;
+  border-radius: 1px solid black;
+  margin-bottom: 20px;
 `;

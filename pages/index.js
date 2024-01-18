@@ -1,7 +1,7 @@
 import useSWR from "swr";
 import GameCard from "@/components/GameCard";
 import styled from "styled-components";
-
+import Loader from "@/components/Loader";
 
 export default function HomePage() {
 
@@ -15,7 +15,7 @@ export default function HomePage() {
       </small>
     );
   
-  if (!data || isLoading) return <small>loading...</small>;
+  if (!data || isLoading) return <Loader />;
 
   return (
     <>
