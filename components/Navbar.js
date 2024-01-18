@@ -17,7 +17,7 @@ export default function Navbar() {
           </StyledLink>
         </Items>
         <Items>
-          <Link href="/user">
+          <Link href="/profile">
             <AiOutlineUser style={{ color: "black", fontSize: "24px" }} />
           </Link>
         </Items>

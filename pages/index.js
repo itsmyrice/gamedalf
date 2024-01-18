@@ -18,12 +18,7 @@ export default function HomePage() {
   if (!data || isLoading) return <small>loading...</small>;
 
   return (
-    <>
-      <StyledTitle>
-        Game<StyledSpan>dalf</StyledSpan>
-      </StyledTitle>
-
-      <GamesContainer>
+     <GamesContainer>
         <StyledUList>
           {data.map((game) => (
             <li key={game._id}>
@@ -32,24 +27,10 @@ export default function HomePage() {
           ))}
         </StyledUList>
       </GamesContainer>
-    </>
   );
 }
 
-const StyledTitle = styled.h1`
-  color: #111111;
-  display: flex;
-  justify-content: center;
-  margin: auto;
-  text-shadow: 0px 1px 2px #b56917;
-  background-color: white;
-  margin: 1rem 0;
-`;
 
-const StyledSpan = styled.span`
-  color: #ff8200;
-  text-shadow: 0px 1px 2px #414a4c;
-`;
 
 const GamesContainer = styled.section`
   background-color: #5a4fcf;
