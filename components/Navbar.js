@@ -1,5 +1,5 @@
 import Link from "next/link";
-import {  IoMdHome } from "react-icons/io";
+import { IoIosSearch, IoMdHome } from "react-icons/io";
 import { AiOutlineUser } from "react-icons/ai";
 import styled from "styled-components";
 export default function Navbar() {
@@ -11,7 +11,11 @@ export default function Navbar() {
             <IoMdHome style={{ color: "black", fontSize: "24px" }} />
           </Link>
         </Items>
-       
+        <Items>
+          <Link href="/search">
+            <IoIosSearch style={{ color: "black", fontSize: "24px" }} />
+          </Link>
+        </Items>
         <Items>
           <Link href="/profile">
             <AiOutlineUser style={{ color: "black", fontSize: "24px" }} />
@@ -21,7 +25,6 @@ export default function Navbar() {
     </Nav>
   );
 }
-
 
 const ListItems = styled.ul`
   display: flex;
