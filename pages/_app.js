@@ -1,7 +1,6 @@
-
 import { SWRConfig } from "swr";
-import GlobalStyle from "../styles.js"
-
+import GlobalStyle from "../styles";
+import Navbar from "@/components/Navbar";
 export default function App({ Component, pageProps }) {
   return (
     <>
@@ -11,6 +10,7 @@ export default function App({ Component, pageProps }) {
             fetch(resource, init).then((response) => response.json()),
         }}
       >
+        <Navbar />
         <GlobalStyle />
         <Component {...pageProps} />
       </SWRConfig>

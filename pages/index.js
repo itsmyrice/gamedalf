@@ -1,6 +1,6 @@
 import useSWR from "swr";
-import GameCard from "@/components/GameCard";
 import styled from "styled-components";
+import GameList from "@/components/GameList";
 
 export default function HomePage() {
   const { data, error, isLoading } = useSWR("/api/games");
@@ -13,23 +13,21 @@ export default function HomePage() {
       </small>
     );
 
-  if (!data || isLoading) return <small>Loading...</small>;
+
+  if (!data || isLoading) return <small>loading...</small>;
 
   return (
     <>
       <StyledTitle>
         Game<StyledSpan>dalf</StyledSpan>
       </StyledTitle>
-
-      <GamesContainer>
-        <StyledUList>
-          {data.map((game) => (
-            <li key={game._id}>
-              <GameCard game={game} />
-            </li>
-          ))}
-        </StyledUList>
-      </GamesContainer>
+      {data && (
+        <div>
+          <GameList data={data.slice(0, 25)} categorieId={0} />
+          <GameList data={data.slice(26, 50)} categorieId={1} />
+          <GameList data={data.slice(51, 75)} categorieId={2} />
+        </div>
+      )}
     </>
   );
 }
@@ -49,19 +47,3 @@ const StyledSpan = styled.span`
   text-shadow: 0px 1px 2px #414a4c;
 `;
 
-const GamesContainer = styled.section`
-  background-color: #5a4fcf;
-  margin: auto;
-  padding: 80px 0px;
-  width: 100vw;
-`;
-
-const StyledUList = styled.ul`
-  max-width: 80%;
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  padding: 0;
-  margin: auto;
-`;

@@ -9,10 +9,10 @@ export default function GameCard({ game }) {
         <FavouriteButton />
       </StyledFavoriteButton>
       <StyledTitle>{game.name}</StyledTitle>
-      <StyledRankTitle>{game.rank}</StyledRankTitle>
+      <StyledRankTitle>{game.rating}</StyledRankTitle>
       <Link href={`/games/${game._id}`} aria-label="More details">
         <StyledImageDisplay
-          src={game.thumbnail}
+          src={game.image}
           alt={game.name}
           width={150}
           height={150}
