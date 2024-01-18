@@ -16,11 +16,7 @@ export default function HomePage() {
   if (!data || isLoading) return <small>loading...</small>;
 
   return (
-
     <>
-      <StyledTitle>
-        Game<StyledSpan>dalf</StyledSpan>
-      </StyledTitle>
       {data && (
         <div>
           <GameList data={data.slice(0, 25)} categorieId={0} />
@@ -31,9 +27,3 @@ export default function HomePage() {
     </>
   );
 }
-
-
-const StyledSpan = styled.span`
-  color: #ff8200;
-  text-shadow: 0px 1px 2px #414a4c;
-`;
