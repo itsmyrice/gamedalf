@@ -1,5 +1,4 @@
 import useSWR from "swr";
-import styled from "styled-components";
 import GameList from "@/components/GameList";
 
 export default function HomePage() {
