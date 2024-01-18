@@ -37,6 +37,7 @@ const Nav = styled.nav`
   width: 100%;
   padding: 20px;
   position: fixed;
+  z-index: 10;
   bottom: 0;
   left: 0;
   z-index: 10;
