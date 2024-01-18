@@ -1,21 +1,19 @@
 import useSWR from "swr";
 import GameCard from "@/components/GameCard";
 import styled from "styled-components";
-import Loader from "@/components/Loader";
 
 export default function HomePage() {
-
   const { data, error, isLoading } = useSWR("/api/games");
 
   if (error)
     return (
-
       <small>
-        "Sorry, we couldn't retrieve the game data at the moment. Please try again later."
+        "Sorry, we couldn't retrieve the game data at the moment. Please try
+        again later."
       </small>
     );
-  
-  if (!data || isLoading) return <Loader />;
+
+  if (!data || isLoading) return <small>Loading...</small>;
 
   return (
     <>
