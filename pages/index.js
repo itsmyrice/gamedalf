@@ -1,5 +1,4 @@
 import useSWR from "swr";
-import styled from "styled-components";
 import HorizontalGameList from "@/components/HorizontalGameList";
 
 export default function HomePage() {
@@ -17,9 +16,6 @@ export default function HomePage() {
 
   return (
     <>
-      <StyledTitle>
-        Game<StyledSpan>dalf</StyledSpan>
-      </StyledTitle>
       {data && (
         <div>
           <HorizontalGameList data={data.slice(0, 25)} categorieId={0} />
@@ -30,18 +26,3 @@ export default function HomePage() {
     </>
   );
 }
-
-const StyledTitle = styled.h1`
-  color: #111111;
-  display: flex;
-  justify-content: center;
-  margin: auto;
-  text-shadow: 0px 1px 2px #b56917;
-  background-color: white;
-  margin: 1rem 0;
-`;
-
-const StyledSpan = styled.span`
-  color: #ff8200;
-  text-shadow: 0px 1px 2px #414a4c;
-`;
