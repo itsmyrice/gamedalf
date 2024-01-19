@@ -8,7 +8,7 @@ import "swiper/css/navigation";
 import { Navigation } from "swiper/modules";
 import { GoPlus } from "react-icons/go";
 
-export default function GameList({ data, categorieId }) {
+export default function HorizontalGameList({ data, categorieId, isFavorite, toggleFavorite}) {
   const [visibleCount, setVisibleCount] = useState(5);
 
   const handleSeeMore = () => {
@@ -25,8 +25,8 @@ export default function GameList({ data, categorieId }) {
         modules={[Navigation]}
       >
         {data.slice(0, visibleCount).map((game) => (
-          <SwiperSlide key={game.id}>
-            <GameCard game={game} />
+          <SwiperSlide key={game._id}>
+            <GameCard game={game} isFavorite={isFavorite} toggleFavorite={toggleFavorite}  />
           </SwiperSlide>
         ))}
         {visibleCount < data.length && (

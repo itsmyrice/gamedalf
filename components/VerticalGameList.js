@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import GameCard from "./GameCard";
-export default function GameSearchedList({ data }) {
+export default function VerticalGameList({ data }) {
   return (
     <ListGames>
       {data.map((game) => (

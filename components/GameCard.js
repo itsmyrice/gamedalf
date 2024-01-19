@@ -2,11 +2,14 @@ import styled from "styled-components";
 import Link from "next/link";
 import FavouriteButton from "./FavouriteButton";
 
-export default function GameCard({ game }) {
+export default function GameCard({ game, isFavorite, toggleFavorite }) {
+  
   return (
     <StyledCard>
-
-     <FavouriteButton />
+      <FavouriteButton
+        isFavorite={() => isFavorite(game._id)}
+        toggleFavorite={() => toggleFavorite(game._id)}
+      />
 
       <StyledTitle>{game.name}</StyledTitle>
       <StyledRankTitle>{game.rating}</StyledRankTitle>
