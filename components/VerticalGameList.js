@@ -1,11 +1,15 @@
 import styled from "styled-components";
 import GameCard from "./GameCard";
-export default function VerticalGameList({ data }) {
+export default function VerticalGameList({ isFavorite, toggleFavorite, data }) {
   return (
     <ListGames>
       {data.map((game) => (
         <SingleListItem key={game._id}>
-          <GameCard game={game} />
+          <GameCard
+            toggleFavorite={toggleFavorite}
+            isFavorite={isFavorite}
+            game={game}
+          />
         </SingleListItem>
       ))}
     </ListGames>

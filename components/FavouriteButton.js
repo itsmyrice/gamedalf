@@ -5,7 +5,7 @@ import { FaHeart } from "react-icons/fa";
 export default function FavouriteButton({ isFavorite, toggleFavorite }) {
   return (
     <StyledButton onClick={toggleFavorite}>
-      {isFavorite ? "TRUE" : "FALSE"}
+      {isFavorite ? <FaHeart /> : <FaRegHeart />}
     </StyledButton>
   );
 }

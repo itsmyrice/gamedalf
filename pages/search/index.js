@@ -4,7 +4,7 @@ import VerticalGameList from "@/components/VerticalGameList";
 import { useState } from "react";
 import useSWR from "swr";
 
-export default function SearchPage() {
+export default function SearchPage({isFavorite, toggleFavorite}) {
   const { data } = useSWR("./api/games");
   const [searchInput, setSearchInput] = useState("");
 
@@ -24,7 +24,11 @@ export default function SearchPage() {
         value={searchInput}
         onChange={(event) => setSearchInput(event.target.value)}
       />
-      <VerticalGameList data={searchedGames} />
+      <VerticalGameList
+        isFavorite={isFavorite}
+        toggleFavorite={toggleFavorite}
+        data={searchedGames}
+      />
     </>
   );
 }

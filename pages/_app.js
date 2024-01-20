@@ -8,9 +8,9 @@ export default function App({ Component, pageProps }) {
 
   function checkIsFavorite(id) {
     const foundGame = localGameData.find((item) => item.id === id);
-   
+
     if (!foundGame) {
-      console.log("nothing")
+      console.log("nothing");
       return false;
     }
 
@@ -20,31 +20,31 @@ export default function App({ Component, pageProps }) {
 
   function toggleFavorite(id) {
     const localData = localGameData.find((item) => item.id === id);
-    console.log('localData first:', localData)
+    console.log("localData first:", localData);
     if (!localData) {
       const newLocalData = {
-        id,
+        id: id,
         isFavorite: true,
       };
-      console.log("newLocalData:",newLocalData)
+      console.log("newLocalData:", newLocalData);
       setLocalGameData([...localGameData, newLocalData]);
     } else {
       const updatedLocalGameData = localGameData.map((item) => {
         if (item.id === id) {
-          console.log( "updatedLocalData item",item)
+          console.log("updatedLocalData item", item);
           return {
             ...item,
             isFavorite: !item.isFavorite,
           };
         } else {
-          console.log("updatedLocalData item 2",item)
+          console.log("updatedLocalData item 2", item);
           return item;
         }
-        
       });
       setLocalGameData(updatedLocalGameData);
 
       console.log("🚀  updatedLocalGameData:", updatedLocalGameData);
+      console.log("localData second:", localData);
       return;
     }
   }
@@ -63,6 +63,7 @@ export default function App({ Component, pageProps }) {
         <Component
           isFavorite={checkIsFavorite}
           toggleFavorite={toggleFavorite}
+          localGameData={localGameData}
           {...pageProps}
         />
       </SWRConfig>

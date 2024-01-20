@@ -4,10 +4,12 @@ import FavouriteButton from "./FavouriteButton";
 
 export default function GameCard({ game, isFavorite, toggleFavorite }) {
   
+  const checkIsFavorite = isFavorite(game._id)
+
   return (
     <StyledCard>
       <FavouriteButton
-        isFavorite={() => isFavorite(game._id)}
+        isFavorite={checkIsFavorite}
         toggleFavorite={() => toggleFavorite(game._id)}
       />
 

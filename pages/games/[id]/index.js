@@ -3,34 +3,44 @@ import useSWR from "swr";
 import styled from "styled-components";
 import FavouriteButton from "@/components/FavouriteButton";
 
-export default function DetailsPage() {
+export default function DetailsPage({
+  isFavorite,
+  toggleFavorite,
+}) {
   const router = useRouter();
   const { id } = router.query;
 
-  const { data: game, isLoading, error } = useSWR(id ? `/api/games/${id}` : null);
-
+  const {
+    data: game,
+    isLoading,
+    error,
+  } = useSWR(id ? `/api/games/${id}` : null);
 
   if (!id) return <small>ID not found</small>;
   if (isLoading || error) return <small>loading...</small>;
 
-  return (
-      <StyledSection>
+  const checkIsFavorite = isFavorite(game._id)
 
-        <StyledFavoriteButton>
-          <FavouriteButton />
-        </StyledFavoriteButton>
-        <StyledImageDisplay
-          src={game.image}
-          alt={game.name}
-          width={400}
-          height={210}
-        ></StyledImageDisplay>
-        <StyledLink href="/">⬅️ Back</StyledLink>
-        <StyledDiv>
-          <StyledYearDisplay>{game.yearpublished}</StyledYearDisplay>
-          <StyledDesciption>{game.description}</StyledDesciption>
-        </StyledDiv>
-      </StyledSection>
+  return (
+    <StyledSection>
+      <StyledFavoriteButton>
+        <FavouriteButton
+          toggleFavorite={() => toggleFavorite(game._id)}
+          isFavorite={checkIsFavorite}
+        />
+      </StyledFavoriteButton>
+      <StyledImageDisplay
+        src={game.image}
+        alt={game.name}
+        width={400}
+        height={210}
+      ></StyledImageDisplay>
+      <StyledLink href="/">⬅️ Back</StyledLink>
+      <StyledDiv>
+        <StyledYearDisplay>{game.yearpublished}</StyledYearDisplay>
+        <StyledDesciption>{game.description}</StyledDesciption>
+      </StyledDiv>
+    </StyledSection>
   );
 }
 
@@ -87,5 +97,4 @@ const StyledFavoriteButton = styled.div`
   position: relative;
   left: 120px;
   margin: 10px;
-
 `;
