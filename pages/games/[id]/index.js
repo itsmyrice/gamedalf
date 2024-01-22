@@ -21,12 +21,12 @@ export default function DetailsPage({ isFavorite, toggleFavorite }) {
 
   return (
     <StyledSection>
-      <StyledFavoriteButton>
+      <FavouriteButtonWrapper>
         <FavouriteButton
           toggleFavorite={() => toggleFavorite(game._id)}
           isFavorite={checkIsFavorite}
         />
-      </StyledFavoriteButton>
+      </FavouriteButtonWrapper>
       <StyledImageDisplay
         src={game.image}
         alt={game.name}
@@ -91,7 +91,7 @@ const StyledDesciption = styled.p`
   text-align: center;
 `;
 
-const StyledFavoriteButton = styled.div`
+const FavouriteButtonWrapper = styled.div`
   position: relative;
   left: 120px;
   margin: 10px;
