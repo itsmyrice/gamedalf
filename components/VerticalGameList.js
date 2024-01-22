@@ -16,9 +16,7 @@ export default function VerticalGameList({ isFavorite, toggleFavorite, data }) {
   );
 }
 const ListGames = styled.ul`
-  width: 80%;
-  margin-left: 10%;
-  margin-top: 6rem;
+  margin-top: 40px;
   list-style: none;
 `;
 const SingleListItem = styled.li`

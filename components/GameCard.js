@@ -7,12 +7,10 @@ export default function GameCard({ game, isFavorite, toggleFavorite }) {
 
   return (
     <StyledCard>
-      <StyledFavoriteButton>
         <FavouriteButton
           isFavorite={checkIsFavorite}
           toggleFavorite={() => toggleFavorite(game._id)}
         />
-      </StyledFavoriteButton>
 
       <StyledTitle>{game.name}</StyledTitle>
       <StyledRankTitle>{game.rating}</StyledRankTitle>
@@ -53,8 +51,4 @@ const StyledImageDisplay = styled.img`
   cursor: pointer;
 `;
 
-const StyledFavoriteButton = styled.div`
-  position: relative;
-  left: 100px;
-  margin: 10px;
-`;
+

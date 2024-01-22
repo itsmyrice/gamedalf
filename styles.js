@@ -9,7 +9,9 @@ export default createGlobalStyle`
     margin: 0;
   }
   body {
+    background: #5a4fcf;
     margin: 0;
     font-family: system-ui;
   }
+
 `;
