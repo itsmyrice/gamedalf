@@ -3,15 +3,16 @@ import Link from "next/link";
 import FavouriteButton from "./FavouriteButton";
 
 export default function GameCard({ game, isFavorite, toggleFavorite }) {
-  
-  const checkIsFavorite = isFavorite(game._id)
+  const checkIsFavorite = isFavorite(game._id);
 
   return (
     <StyledCard>
-      <FavouriteButton
-        isFavorite={checkIsFavorite}
-        toggleFavorite={() => toggleFavorite(game._id)}
-      />
+      <StyledFavoriteButton>
+        <FavouriteButton
+          isFavorite={checkIsFavorite}
+          toggleFavorite={() => toggleFavorite(game._id)}
+        />
+      </StyledFavoriteButton>
 
       <StyledTitle>{game.name}</StyledTitle>
       <StyledRankTitle>{game.rating}</StyledRankTitle>
