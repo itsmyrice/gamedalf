@@ -1,28 +1,60 @@
 import VerticalGameList from "@/components/VerticalGameList";
+import styled from "styled-components";
 import useSWR from "swr";
+import { CiFolderOff } from "react-icons/ci";
 
-export default function FavoritesPage({ isFavorite, toggleFavorite, localGameData }) {
-    const { data, isLoading, error } = useSWR("/api/games")
+export default function FavoritesPage({
+  isFavorite,
+  toggleFavorite,
+  localGameData,
+}) {
+  const { data, isLoading, error } = useSWR("/api/games");
 
-    if(!data || isLoading ) return <small>Loading...</small>
-    if(error) return <small>Oops! Something went wrong. Please try again.</small>
+  if (!data || isLoading) return <small>Loading...</small>;
+  if (error)
+    return <small>Oops! Something went wrong. Please try again.</small>;
 
-    const favoriteGames = localGameData.filter((game) => game.isFavorite === true)
-    
+  //   const favoriteGames = localGameData.filter((game) => game.isFavorite === true)
+  //    const favoriteGamesData = favoriteGames.filter((game) => data.filter((item) => item._id === game.id))
+  //    console.log(favoriteGamesData)
 
-     const favoriteGamesData = favoriteGames.filter((game) => data.filter((item) => item._id === game.id))
-     console.log(favoriteGamesData)
-
+  const favoriteGames = localGameData
+    .filter((game) => game.isFavorite)
+    .map((game) => game.id);
+  const favoriteGamesData = data.filter((game) =>
+    favoriteGames.includes(game._id)
+  );
 
   return (
-  <div>
-        <h2>My Favorites</h2>      
-        {favoriteGames.length === 0 ? (
-            <p>You have no favorites yet.</p>
+    <div>
+      <StyledTitle>My Favorites</StyledTitle>
+      <StyledFavoriteGames>
+        {favoriteGamesData.length === 0 ? (
+          <p>
+            <CiFolderOff />
+            You have no favorites yet.
+          </p>
         ) : (
-        <VerticalGameList data={favoriteGamesData} isFavorite={isFavorite} toggleFavorite={toggleFavorite}/>
+          <VerticalGameList
+            data={favoriteGamesData}
+            isFavorite={isFavorite}
+            toggleFavorite={toggleFavorite}
+          />
         )}
-  </div>
-  )
-  
-    }
+      </StyledFavoriteGames>
+    </div>
+  );
+        }
+
+const StyledTitle = styled.h2`
+  margin: 2rem 0;
+`;
+
+const StyledFavoriteGames = styled.main`
+  padding-bottom: 4rem;
+  p {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+`;
