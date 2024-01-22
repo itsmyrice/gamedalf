@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { IoIosSearch, IoMdHome } from "react-icons/io";
 import { AiOutlineUser } from "react-icons/ai";
+import { GiRollingDices } from "react-icons/gi";
 import styled from "styled-components";
 export default function Navbar() {
   return (
@@ -14,6 +15,11 @@ export default function Navbar() {
         <Items>
           <Link href="/search">
             <IoIosSearch style={{ color: "black", fontSize: "24px" }} />
+          </Link>
+        </Items>
+        <Items>
+          <Link href="/dice-game">
+            <GiRollingDices style={{ color: "black", fontSize: "24px" }} />
           </Link>
         </Items>
         <Items>

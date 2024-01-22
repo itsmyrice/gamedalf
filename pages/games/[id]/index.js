@@ -2,11 +2,9 @@ import { useRouter } from "next/router";
 import useSWR from "swr";
 import styled from "styled-components";
 import FavouriteButton from "@/components/FavouriteButton";
+import Link from "next/link";
 
-export default function DetailsPage({
-  isFavorite,
-  toggleFavorite,
-}) {
+export default function DetailsPage({ isFavorite, toggleFavorite }) {
   const router = useRouter();
   const { id } = router.query;
 
@@ -19,7 +17,7 @@ export default function DetailsPage({
   if (!id) return <small>ID not found</small>;
   if (isLoading || error) return <small>loading...</small>;
 
-  const checkIsFavorite = isFavorite(game._id)
+  const checkIsFavorite = isFavorite(game._id);
 
   return (
     <StyledSection>
@@ -62,7 +60,7 @@ const StyledImageDisplay = styled.img`
   height: 50%;
 `;
 
-const StyledLink = styled.a`
+const StyledLink = styled(Link)`
   text-decoration: none;
   color: #111111;
   margin-right: 8rem;
