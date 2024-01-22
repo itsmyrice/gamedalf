@@ -38,8 +38,6 @@ const StyledCard = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  position: relative;
-  padding: 20px 0px;
 `;
 
 const StyledTitle = styled.h2`
@@ -52,4 +50,10 @@ const StyledYearDisplay = styled.p`
 
 const StyledImageDisplay = styled.img`
   cursor: pointer;
+`;
+
+const StyledFavoriteButton = styled.div`
+  position: relative;
+  left: 100px;
+  margin: 10px;
 `;
