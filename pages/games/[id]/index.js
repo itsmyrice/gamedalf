@@ -2,6 +2,7 @@ import { useRouter } from "next/router";
 import useSWR from "swr";
 import styled from "styled-components";
 import FavouriteButton from "@/components/FavouriteButton";
+import Link from "next/link";
 
 export default function DetailsPage({
   isFavorite,
@@ -62,7 +63,7 @@ const StyledImageDisplay = styled.img`
   height: 50%;
 `;
 
-const StyledLink = styled.a`
+const StyledLink = styled(Link)`
   text-decoration: none;
   color: #111111;
   margin-right: 8rem;

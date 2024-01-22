@@ -10,41 +10,32 @@ export default function App({ Component, pageProps }) {
     const foundGame = localGameData.find((item) => item.id === id);
 
     if (!foundGame) {
-      console.log("nothing");
       return false;
     }
 
-    console.log("🚀  foundGame:", foundGame);
     return foundGame.isFavorite;
   }
 
   function toggleFavorite(id) {
     const localData = localGameData.find((item) => item.id === id);
-    console.log("localData first:", localData);
     if (!localData) {
       const newLocalData = {
         id: id,
         isFavorite: true,
       };
-      console.log("newLocalData:", newLocalData);
       setLocalGameData([...localGameData, newLocalData]);
     } else {
       const updatedLocalGameData = localGameData.map((item) => {
         if (item.id === id) {
-          console.log("updatedLocalData item", item);
           return {
             ...item,
             isFavorite: !item.isFavorite,
           };
         } else {
-          console.log("updatedLocalData item 2", item);
           return item;
         }
       });
       setLocalGameData(updatedLocalGameData);
-
-      console.log("🚀  updatedLocalGameData:", updatedLocalGameData);
-      console.log("localData second:", localData);
       return;
     }
   }
