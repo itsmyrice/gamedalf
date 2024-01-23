@@ -3,6 +3,7 @@ import { IoIosSearch, IoMdHome } from "react-icons/io";
 import { AiOutlineUser } from "react-icons/ai";
 import { GiRollingDices } from "react-icons/gi";
 import styled from "styled-components";
+import { FaRegHeart } from "react-icons/fa";
 export default function Navbar() {
   return (
     <Nav>
@@ -20,6 +21,11 @@ export default function Navbar() {
         <Items>
           <Link href="/dice-game">
             <GiRollingDices style={{ color: "black", fontSize: "24px" }} />
+          </Link>
+        </Items>
+        <Items>
+          <Link href="/favorites">
+            <FaRegHeart style={{ color: "black", fontSize: "24px" }} />
           </Link>
         </Items>
         <Items>
