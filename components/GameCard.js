@@ -3,17 +3,15 @@ import Link from "next/link";
 import FavouriteButton from "./FavouriteButton";
 
 export default function GameCard({ game, isFavorite, toggleFavorite }) {
-  const checkIsFavorite = isFavorite(game._id);
-
   return (
     <StyledCard>
       <FavouriteButton
-        isFavorite={checkIsFavorite}
+        isFavorite={isFavorite(game._id)}
         toggleFavorite={() => toggleFavorite(game._id)}
       />
 
       <StyledTitle>{game.name}</StyledTitle>
-      <StyledRankTitle>{game.rating}</StyledRankTitle>
+      <StyledRankTitle>{game.rating.slice(0, 3)}</StyledRankTitle>
       <Link href={`/games/${game._id}`} aria-label="More details">
         <StyledImageDisplay
           src={game.image}

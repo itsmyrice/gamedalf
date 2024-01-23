@@ -16,7 +16,7 @@ export default function DiceGamePage({ isFavorite, toggleFavorite }) {
 
   function rollDice() {
     setd20((prevD20) => {
-      const newD20 = Math.floor(Math.random() * 20) + 1; //choose 20 possible dice rolls to 7 different outcome
+      const newD20 = Math.ceil(Math.random() * 20); //choose 20 possible dice rolls to 7 different outcome
 
       const d20result =
         newD20 === 1
