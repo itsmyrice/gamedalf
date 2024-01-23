@@ -65,7 +65,6 @@ export default function App({ Component, pageProps }) {
 }
 
 const ContentWrapper = styled.section`
-  
   max-width: 80ch;
   margin-inline: auto;
   padding-inline: 1rem;

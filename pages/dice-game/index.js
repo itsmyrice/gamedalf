@@ -4,7 +4,11 @@ import { useState } from "react";
 import useSWR from "swr";
 import { SCENARIOS } from "@/utils/scenarios";
 
-export default function DiceGamePage({ isFavorite, toggleFavorite }) {
+export default function DiceGamePage({
+  isFavorite,
+  toggleFavorite,
+  localGameData,
+}) {
   const { data } = useSWR("/api/games");
   const [currentStory, setCurrentStory] = useState(null);
   const [suggestedGame, setSuggestedGame] = useState(null);
@@ -15,50 +19,49 @@ export default function DiceGamePage({ isFavorite, toggleFavorite }) {
   const intro = SCENARIOS[today].intro; //pick different story every day
 
   function rollDice() {
-    setd20((prevD20) => {
-      const newD20 = Math.ceil(Math.random() * 20); //choose 20 possible dice rolls to 7 different outcome
+    const roll = Math.ceil(Math.random() * 20); //choose 20 possible dice rolls to 7 different outcome
 
-      const d20result =
-        newD20 === 1
-          ? "unworthy"
-          : newD20 >= 2 && newD20 <= 4
-          ? "criticalFail"
-          : newD20 >= 5 && newD20 <= 8
-          ? "fail"
-          : newD20 >= 9 && newD20 <= 12
-          ? "neutral"
-          : newD20 >= 13 && newD20 <= 16
-          ? "success"
-          : newD20 >= 17 && newD20 <= 19
-          ? "criticalSuccess"
-          : newD20 === 20 && "godlike";
+    setd20(roll);
 
-      const outcomeTitle =
-        d20result.toUpperCase().replace("CRITICAL", "CRITICAL ") + "!";
-      const outcomeText = SCENARIOS[today].outcome[d20result]; //choose 1 outcome with title and text according to dice roll
+    const d20result =
+      roll === 1
+        ? "unworthy"
+        : roll >= 2 && roll <= 4
+        ? "criticalFail"
+        : roll >= 5 && roll <= 8
+        ? "fail"
+        : roll >= 9 && roll <= 12
+        ? "neutral"
+        : roll >= 13 && roll <= 16
+        ? "success"
+        : roll >= 17 && roll <= 19
+        ? "criticalSuccess"
+        : roll === 20 && "godlike";
 
-      getRandomGame(data);
+    const outcomeTitle = SCENARIOS[today].outcome[d20result].title;
+    const outcomeText = SCENARIOS[today].outcome[d20result].text;
 
-      setCurrentStory({
-        d20: newD20,
-        outcomeTitle: outcomeTitle, // Set the current story to the chosen outcome
-        outcomeText: outcomeText,
-      });
+    getRandomGame(data);
 
-      return newD20; // Return the updated value for the state
+    setCurrentStory({
+      d20: roll,
+      outcomeTitle: outcomeTitle, // Set the current story to the chosen outcome
+      outcomeText: outcomeText,
     });
   }
 
   function getRandomGame(data) {
-    let randomGame = data[Math.floor(Math.random() * data.length)]; // get a random game from database
+    const favoriteGames = localGameData
+      .filter((game) => game.isFavorite)
+      .map((game) => game.id);
 
-    const alreadyFavorite = isFavorite(randomGame._id); // check if it's already favorited
+    const nonFavoriteGames = data.filter(
+      (game) => !favoriteGames.includes(game._id)
+    );
 
-    do {
-      randomGame = data[Math.floor(Math.random() * data.length)];
-    } while (alreadyFavorite === true); // if it's already favorited, get a new game until finding a non-favorited game
-
-    setSuggestedGame(randomGame);
+    setSuggestedGame(
+      nonFavoriteGames[Math.floor(Math.random() * nonFavoriteGames.length)]
+    );
   }
 
   function restartGame() {
@@ -94,20 +97,20 @@ export default function DiceGamePage({ isFavorite, toggleFavorite }) {
   );
 }
 
-const DiceGameContainer = styled.section`
-  padding: 5%;
+const DiceGameContainer = styled.div`
+  padding: 1rem 0 6rem 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
   row-gap: 20px;
+  color: #ddd;
 `;
 
 const IntroText = styled.p`
-  font-size: large;
   font-weight: bold;
 `;
 
-const StoryContainer = styled.section`
+const StoryContainer = styled.div`
   text-align: center;
   display: flex;
   flex-direction: column;
