@@ -1,7 +1,7 @@
 import useSWR from "swr";
-import GameList from "@/components/GameList";
+import HorizontalGameList from "@/components/HorizontalGameList";
 
-export default function HomePage() {
+export default function HomePage({isFavorite, toggleFavorite }) {
   const { data, error, isLoading } = useSWR("/api/games");
 
   if (error)
@@ -17,11 +17,29 @@ export default function HomePage() {
   return (
     <>
       {data && (
-        <div>
-          <GameList data={data.slice(0, 25)} categorieId={0} />
-          <GameList data={data.slice(26, 50)} categorieId={1} />
-          <GameList data={data.slice(51, 75)} categorieId={2} />
-        </div>
+        <>
+          <HorizontalGameList
+            toggleFavorite={toggleFavorite}
+            isFavorite={isFavorite}
+            data={data.slice(0, 25)}
+            categorieId={0}
+            listLength={5}
+          />
+          <HorizontalGameList
+            toggleFavorite={toggleFavorite}
+            isFavorite={isFavorite}
+            data={data.slice(26, 50)}
+            categorieId={1}
+            listLength={5}
+          />
+          <HorizontalGameList
+            toggleFavorite={toggleFavorite}
+            isFavorite={isFavorite}
+            data={data.slice(51, 75)}
+            categorieId={2}
+            listLength={5}
+          />
+        </>
       )}
     </>
   );
