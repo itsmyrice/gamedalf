@@ -14,7 +14,6 @@ export default function FavoritesPage({
   if (error)
     return <small>Oops! Something went wrong. Please try again.</small>;
 
-
   const favoriteGames = localGameData
     .filter((game) => game.isFavorite)
     .map((game) => game.id);
@@ -25,33 +24,27 @@ export default function FavoritesPage({
   return (
     <>
       <StyledTitle>My Favorites</StyledTitle>
-      <StyledFavoriteGames>
-        {favoriteGamesData.length === 0 ? (
-          <p>
-            <CiFolderOff />
-            You have no favorites yet.
-          </p>
-        ) : (
-          <VerticalGameList
-            data={favoriteGamesData}
-            isFavorite={isFavorite}
-            toggleFavorite={toggleFavorite}
-          />
-        )}
-      </StyledFavoriteGames>
+      {favoriteGamesData.length === 0 ? (
+        <StyledText>
+          <CiFolderOff />
+          You have no favorites yet.
+        </StyledText>
+      ) : (
+        <VerticalGameList
+          data={favoriteGamesData}
+          isFavorite={isFavorite}
+          toggleFavorite={toggleFavorite}
+        />
+      )}
     </>
   );
-        }
+}
 
 const StyledTitle = styled.h2`
   margin: 2rem 0;
 `;
 
-const StyledFavoriteGames = styled.main`
-  padding-bottom: 4rem;
-  p {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+const StyledText = styled.p`
+  display: flex;
+  justify-content: center;
 `;
