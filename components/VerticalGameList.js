@@ -18,6 +18,7 @@ export default function VerticalGameList({ isFavorite, toggleFavorite, data }) {
 const ListGames = styled.ul`
   margin-top: 40px;
   list-style: none;
+  position: relative;
 `;
 const SingleListItem = styled.li`
   border-radius: 1px solid black;
