@@ -7,10 +7,10 @@ export default function GameCard({ game, isFavorite, toggleFavorite }) {
 
   return (
     <StyledCard>
-        <FavouriteButton
-          isFavorite={checkIsFavorite}
-          toggleFavorite={() => toggleFavorite(game._id)}
-        />
+      <FavouriteButton
+        isFavorite={checkIsFavorite}
+        toggleFavorite={() => toggleFavorite(game._id)}
+      />
 
       <StyledTitle>{game.name}</StyledTitle>
       <StyledRankTitle>{game.rating}</StyledRankTitle>
@@ -37,6 +37,7 @@ const StyledCard = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative;
 `;
 
 const StyledTitle = styled.h2`
@@ -50,5 +51,3 @@ const StyledYearDisplay = styled.p`
 const StyledImageDisplay = styled.img`
   cursor: pointer;
 `;
-
-

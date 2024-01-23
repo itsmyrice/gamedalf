@@ -16,7 +16,7 @@ export default function DiceGamePage({ isFavorite, toggleFavorite }) {
 
   function rollDice() {
     setd20((prevD20) => {
-      const newD20 = Math.floor(Math.random() * 20) + 1;   //choose 20 possible dice rolls to 7 different outcome
+      const newD20 = Math.floor(Math.random() * 20) + 1; //choose 20 possible dice rolls to 7 different outcome
 
       const d20result =
         newD20 === 1
@@ -34,14 +34,14 @@ export default function DiceGamePage({ isFavorite, toggleFavorite }) {
           : newD20 === 20 && "godlike";
 
       const outcomeTitle =
-        d20result.toUpperCase().replace("CRITICAL", "CRITICAL ") + "!"; 
-      const outcomeText = SCENARIOS[today].outcome[d20result];            //choose 1 outcome with title and text according to dice roll
+        d20result.toUpperCase().replace("CRITICAL", "CRITICAL ") + "!";
+      const outcomeText = SCENARIOS[today].outcome[d20result]; //choose 1 outcome with title and text according to dice roll
 
       getRandomGame(data);
 
       setCurrentStory({
         d20: newD20,
-        outcomeTitle: outcomeTitle,  // Set the current story to the chosen outcome
+        outcomeTitle: outcomeTitle, // Set the current story to the chosen outcome
         outcomeText: outcomeText,
       });
 
@@ -99,15 +99,7 @@ const DiceGameContainer = styled.section`
   display: flex;
   flex-direction: column;
   justify-content: center;
-
-  p {
-    margin-block: 10px;
-  }
-
-  button {
-    padding: 5px;
-    margin-block: 10px;
-  }
+  row-gap: 20px;
 `;
 
 const IntroText = styled.p`
@@ -117,4 +109,7 @@ const IntroText = styled.p`
 
 const StoryContainer = styled.section`
   text-align: center;
-`
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+`;
