@@ -1,7 +1,7 @@
 import useSWR from "swr";
 import HorizontalGameList from "@/components/HorizontalGameList";
 
-export default function HomePage({isFavorite, toggleFavorite }) {
+export default function HomePage({ isFavorite, toggleFavorite }) {
   const { data, error, isLoading } = useSWR("/api/games");
 
   if (error)
