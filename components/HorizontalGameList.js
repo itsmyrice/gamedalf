@@ -13,8 +13,9 @@ export default function HorizontalGameList({
   categorieId,
   isFavorite,
   toggleFavorite,
+  listLength
 }) {
-  const [visibleCount, setVisibleCount] = useState(5);
+  const [visibleCount, setVisibleCount] = useState(listLength);
 
   const handleSeeMore = () => {
     setVisibleCount((prevCount) => prevCount + 5);
@@ -62,8 +63,7 @@ export default function HorizontalGameList({
   );
 }
 
-const GamesContainer = styled.section`
-  background-color: #5a4fcf;
+const GamesContainer = styled.div`
   color: #ffffff;
   margin: auto;
   padding: 40px 20px;

@@ -1,5 +1,6 @@
 import { SWRConfig } from "swr";
 import GlobalStyle from "../styles";
+import styled from "styled-components";
 import Navbar from "@/components/Navbar";
 import Header from "@/components/Header";
 import { useState } from "react";
@@ -36,12 +37,12 @@ export default function App({ Component, pageProps }) {
         }
       });
       setLocalGameData(updatedLocalGameData);
-      return;
     }
   }
 
   return (
     <>
+      <GlobalStyle />
       <SWRConfig
         value={{
           fetcher: (resource, init) =>
@@ -49,15 +50,23 @@ export default function App({ Component, pageProps }) {
         }}
       >
         <Header />
+        <ContentWrapper>
+          <Component
+            isFavorite={checkIsFavorite}
+            toggleFavorite={toggleFavorite}
+            localGameData={localGameData}
+            {...pageProps}
+          />
+        </ContentWrapper>
         <Navbar />
-        <GlobalStyle />
-        <Component
-          isFavorite={checkIsFavorite}
-          toggleFavorite={toggleFavorite}
-          localGameData={localGameData}
-          {...pageProps}
-        />
       </SWRConfig>
     </>
   );
 }
+
+const ContentWrapper = styled.section`
+  
+  max-width: 80ch;
+  margin-inline: auto;
+  padding-inline: 1rem;
+`;

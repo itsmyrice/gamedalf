@@ -46,15 +46,12 @@ export default function ProfilePage() {
   );
 }
 
-const StyledSection = styled.section`
+const StyledSection = styled.div`
   display: flex;
   flex-direction: column;
   row-gap: 2rem;
-  border-top: 1px ridge #111111;
-  background-color: #6a5acd;
   padding-top: 2rem;
   color: #111111;
-  width: auto;
   height: 100vh;
 `;
 

@@ -17,26 +17,29 @@ export default function HomePage({ isFavorite, toggleFavorite }) {
   return (
     <>
       {data && (
-        <div>
+        <>
           <HorizontalGameList
             toggleFavorite={toggleFavorite}
             isFavorite={isFavorite}
             data={data.slice(0, 25)}
             categorieId={0}
+            listLength={5}
           />
           <HorizontalGameList
             toggleFavorite={toggleFavorite}
             isFavorite={isFavorite}
             data={data.slice(26, 50)}
             categorieId={1}
+            listLength={5}
           />
           <HorizontalGameList
             toggleFavorite={toggleFavorite}
             isFavorite={isFavorite}
             data={data.slice(51, 75)}
             categorieId={2}
+            listLength={5}
           />
-        </div>
+        </>
       )}
     </>
   );
