@@ -14,9 +14,6 @@ export default function FavoritesPage({
   if (error)
     return <small>Oops! Something went wrong. Please try again.</small>;
 
-  //   const favoriteGames = localGameData.filter((game) => game.isFavorite === true)
-  //    const favoriteGamesData = favoriteGames.filter((game) => data.filter((item) => item._id === game.id))
-  //    console.log(favoriteGamesData)
 
   const favoriteGames = localGameData
     .filter((game) => game.isFavorite)
@@ -26,7 +23,7 @@ export default function FavoritesPage({
   );
 
   return (
-    <div>
+    <>
       <StyledTitle>My Favorites</StyledTitle>
       <StyledFavoriteGames>
         {favoriteGamesData.length === 0 ? (
@@ -42,7 +39,7 @@ export default function FavoritesPage({
           />
         )}
       </StyledFavoriteGames>
-    </div>
+    </>
   );
         }
 
