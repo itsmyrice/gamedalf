@@ -1,19 +1,31 @@
 import useSWR from "swr";
+import { useRouter } from "next/router";
 
 export default function DeleteButton({ id }) {
+  const router = useRouter();
 
-    const { data, isLoading, error, mutate } = useSWR(id ? `api/games/${id}` : null);
-    async function handleDelete(id) {
+  const { data, isLoading, error, mutate } = useSWR(`api/games/${id}`);
 
-    const response = await fetch(`/api/games/${id}`, {
-      method: "DELETE",
-    });
+  if (!data || isLoading) return <small>Loading...</small>;
+  if (error)
+    return <small>Oops! Something went wrong. Please try again.</small>;
 
-    if (response.ok) {
-      await response.json();
-      mutate();
-    } else {
-      console.error();
+  async function handleDelete(id) {
+    if (window.confirm("Are you sure you want to delete this game?")) {
+      await fetch(`/api/games/${id}`, {
+        method: "DELETE",
+      });
+
+      const response = await fetch("/api/games");
+
+      if (response.ok) {
+        await response.json();
+        mutate();
+        router.push("/profile");
+      }
+      if (!response.ok) {
+        response.status(404).json({ status: "Could not be deleted." });
+      }
     }
   }
   return (
