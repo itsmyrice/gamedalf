@@ -4,10 +4,7 @@ import styled from "styled-components";
 import FavouriteButton from "@/components/FavouriteButton";
 import Link from "next/link";
 
-export default function DetailsPage({
-  isFavorite,
-  toggleFavorite,
-}) {
+export default function DetailsPage({ isFavorite, toggleFavorite }) {
   const router = useRouter();
   const { id } = router.query;
 
@@ -20,7 +17,7 @@ export default function DetailsPage({
   if (!id) return <small>ID not found</small>;
   if (isLoading || error) return <small>loading...</small>;
 
-  const checkIsFavorite = isFavorite(game._id)
+  const checkIsFavorite = isFavorite(game._id);
 
   return (
     <StyledSection>
