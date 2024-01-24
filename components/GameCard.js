@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import Link from "next/link";
 import FavouriteButton from "./FavouriteButton";
+import DeleteButton from "./DeleteButton";
 
 export default function GameCard({ game, isFavorite, toggleFavorite }) {
   return (
@@ -17,6 +18,7 @@ export default function GameCard({ game, isFavorite, toggleFavorite }) {
         <StyledRankTitle>{game.rating}</StyledRankTitle>
         <StyledYearDisplay>{game.yearpublished}</StyledYearDisplay>
       </StyledLink>
+      {game.userCreated && <DeleteButton id={game._id}/>}
     </StyledCard>
   );
 }

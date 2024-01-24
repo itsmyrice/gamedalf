@@ -9,7 +9,7 @@ import VerticalGameList from "@/components/VerticalGameList";
 export default function ProfilePage({ toggleFavorite, isFavorite }) {
   const [showModal, setShowModal] = useState(false);
   const [content, setContent] = useState("form");
-  const { data: gameData, isLoading, error } = useSWR("/api/games");
+  const { data: gameData, isLoading, error, mutate } = useSWR("/api/games");
 
   const userCreatedGame = gameData
     ? gameData.filter(({ userCreated }) => userCreated)
@@ -86,6 +86,7 @@ const StyledUserCreatedGameList = styled.div`
   display: flex;
   flex-direction: column;
   text-decoration: underline;
+  padding: 3.5rem 0;
 `;
 
 const StyledModal = styled.div`
