@@ -13,5 +13,7 @@ export default createGlobalStyle`
     margin: 0;
     font-family: system-ui;
   }
-
+  a {
+    text-decoration: none;
+}
 `;

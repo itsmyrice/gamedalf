@@ -26,9 +26,20 @@ export default function HorizontalGameList({
       <Title>{data[0].categories[categorieId]}</Title>
       <Swiper
         spaceBetween={20}
-        slidesPerView={2}
+        slidesPerView={1.5}
         navigation
         modules={[Navigation]}
+        breakpoints={{
+          640: {
+            slidesPerView: 2,
+            spaceBetween: 20,
+          },
+
+          1024: {
+            slidesPerView: 3,
+            spaceBetween: 50,
+          },
+        }}
       >
         {data.slice(0, visibleCount).map((game) => (
           <SwiperSlide key={game._id}>
@@ -42,8 +53,8 @@ export default function HorizontalGameList({
         {visibleCount < data.length && (
           <SwiperSlide>
             <ShowMore onClick={handleSeeMore}>
-              See More
               <GoPlus />
+              See More
             </ShowMore>
           </SwiperSlide>
         )}
@@ -54,7 +65,10 @@ export default function HorizontalGameList({
 
 const GamesContainer = styled.div`
   color: #ffffff;
-  padding: 80px 0px;
+  margin: auto;
+  padding: 40px 20px;
+  width: 100%;
+  box-sizing: border-box;
 `;
 
 const ShowMore = styled.button`
@@ -62,24 +76,26 @@ const ShowMore = styled.button`
   align-items: center;
   justify-content: center;
   border: 1px solid black;
-  background-color: transparent;
-  color: black;
-  font-size: 60px;
+  background-color: black;
+  color: white;
+  font-size: 24px;
   border-radius: 0.75rem;
   cursor: pointer;
-  position: relative;
-
+  padding: 10px 20px;
+  transition: background-color 0.3s, box-shadow 0.3s;
+  svg {
+    margin-right: 10px;
+  }
   &:hover {
+    background-color: #333;
     box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1),
       0 8px 10px -6px rgb(0 0 0 / 0.1);
-    transition: 0.3s;
   }
 `;
 
 const Title = styled.h2`
   font-size: 40px;
-  margin-left: 5%;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
   border-bottom: 2px solid #fff;
   display: inline-block;
 `;

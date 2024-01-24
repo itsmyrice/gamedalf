@@ -5,8 +5,13 @@ export default async function handler(request, response) {
   if (request.method === "GET") {
     const games = await Game.find();
     return response.status(200).json(games);
-  } else {
-
-    return response.status(400).json({ error: "Bad Request" });
+  }
+  if (request.method === "POST") {
+    try {
+      await Game.create(request.body);
+      response.status(201).json({ status: "game created" });
+    } catch (error) {
+      response.status(400).json({ error: error.message });
+    }
   }
 }
