@@ -16,7 +16,7 @@ export default function Form({ onClose, onSubmit }) {
     image: "",
     yearpublished: "",
     playtime: "",
-    userCreated: "true",
+    userCreated: true,
   });
 
   const handleInputChange = (e) => {

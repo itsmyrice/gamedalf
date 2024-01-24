@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { MdOutlineFolderOff } from "react-icons/md";
 import { useState } from "react";
 import Form from "@/components/Form";
-import SendingConfirmation from "@/components/SendingConfiramtion";
+import SendingConfirmation from "@/components/SendingConfirmation";
 import useSWR from "swr";
 import VerticalGameList from "@/components/VerticalGameList";
 
@@ -18,6 +18,7 @@ export default function ProfilePage({ toggleFavorite, isFavorite }) {
 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Failed to load games</div>;
+
   const toggleModalVisibility = () => setShowModal(!showModal);
   const handleFormSubmit = () => {
     setContent("confirmation");
@@ -27,8 +28,7 @@ export default function ProfilePage({ toggleFavorite, isFavorite }) {
     setShowModal(false);
     setContent("form");
   };
-  console.log(gameData);
-  console.log(userCreatedGame);
+
   return (
     <StyledSection>
       <StyledDivBigText>
@@ -37,7 +37,7 @@ export default function ProfilePage({ toggleFavorite, isFavorite }) {
       </StyledDivBigText>
       <StyledButton onClick={toggleModalVisibility}>Create</StyledButton>
 
-      <StyledDivSmallText>
+      <StyledUserCreatedGameList>
         {userCreatedGame.length > 0 ? (
           <VerticalGameList
             data={userCreatedGame}
@@ -49,7 +49,7 @@ export default function ProfilePage({ toggleFavorite, isFavorite }) {
             <MdOutlineFolderOff /> No games yet.
           </p>
         )}
-      </StyledDivSmallText>
+      </StyledUserCreatedGameList>
 
       {showModal && (
         <>
@@ -83,7 +83,7 @@ const StyledDivBigText = styled.div`
   padding-left: 2rem;
 `;
 
-const StyledDivSmallText = styled.div`
+const StyledUserCreatedGameList = styled.div`
   display: flex;
   flex-direction: column;
   text-decoration: underline;
@@ -105,6 +105,7 @@ const StyledModal = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  overflow: scroll;
 `;
 
 const Overlay = styled.div`
@@ -125,7 +126,6 @@ const StyledButton = styled.button`
   color: black;
   border: none;
   font-size: 24px;
-  font-family: "Roboto";
   transition: 0.3s ease-in-out;
 
   cursor: pointer;
