@@ -4,25 +4,30 @@ import FavouriteButton from "./FavouriteButton";
 
 export default function GameCard({ game, isFavorite, toggleFavorite }) {
   return (
-    <Link href={`/games/${game._id}`} aria-label="More details">
-      <StyledCard>
-        <StyledImageWrapper>
-          <StyledImageDisplay src={game.image} alt={game.name} />
-          <FavouriteButton
-            isFavorite={isFavorite(game._id)}
-            toggleFavorite={() => toggleFavorite(game._id)}
-          />
-        </StyledImageWrapper>
-        <StyledInfo>
-          <StyledTitle>{game.name}</StyledTitle>
-          <StyledRankTitle>{game.rating}</StyledRankTitle>
-          <StyledYearDisplay>{game.yearpublished}</StyledYearDisplay>
-        </StyledInfo>
-      </StyledCard>
-    </Link>
+    <StyledCard>
+      <StyledImageWrapper>
+        <StyledImageDisplay src={game.image} alt={game.name} />
+        <FavouriteButton
+          isFavorite={isFavorite(game._id)}
+          toggleFavorite={() => toggleFavorite(game._id)}
+        />
+      </StyledImageWrapper>
+      <StyledLink href={`/games/${game._id}`} aria-label="More details">
+        <StyledTitle>{game.name}</StyledTitle>
+        <StyledRankTitle>{game.rating}</StyledRankTitle>
+        <StyledYearDisplay>{game.yearpublished}</StyledYearDisplay>
+      </StyledLink>
+    </StyledCard>
   );
 }
-
+const StyledLink = styled(Link)`
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding: 20px 0;
+`;
 const StyledRankTitle = styled.p`
   color: #ff8200;
   margin: 0;
