@@ -10,11 +10,10 @@ export default function ProfilePage({ toggleFavorite, isFavorite }) {
   const [showModal, setShowModal] = useState(false);
   const [content, setContent] = useState("form");
   const { data: gameData, isLoading, error } = useSWR("/api/games");
-  let userCreatedGame = [];
 
-  if (gameData) {
-    userCreatedGame = gameData.filter((game) => game.userCreated === true);
-  }
+  const userCreatedGame = gameData
+    ? gameData.filter(({ userCreated }) => userCreated)
+    : [];
 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Failed to load games</div>;

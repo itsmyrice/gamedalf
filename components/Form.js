@@ -26,20 +26,6 @@ export default function Form({ onClose, onSubmit }) {
 
   async function handleSubmit(event) {
     event.preventDefault();
-    if (
-      !formData.name ||
-      !formData.image ||
-      !formData.categories ||
-      !formData.description ||
-      !formData.yearpublished ||
-      !formData.playtime ||
-      !formData.minAge ||
-      !formData.minPlayers ||
-      !formData.maxPlayers
-    ) {
-      setValidationError("Please fill in all fields");
-      return;
-    }
 
     if (!formData.image.startsWith("https://images.unsplash.com")) {
       setValidationError("Only images from unsplash.com are allowed");
@@ -74,6 +60,7 @@ export default function Form({ onClose, onSubmit }) {
       <StyledForm onSubmit={handleSubmit}>
         <Label htmlFor="image">Image URL</Label>
         <Input
+          required
           type="text"
           name="image"
           id="image"
@@ -94,6 +81,7 @@ export default function Form({ onClose, onSubmit }) {
 
         <Label htmlFor="name">Name</Label>
         <Input
+          required
           type="text"
           name="name"
           id="name"
@@ -102,6 +90,7 @@ export default function Form({ onClose, onSubmit }) {
         />
         <Label htmlFor="categories">Categories</Label>
         <Input
+          required
           type="text"
           name="categories"
           id="categories"
@@ -110,6 +99,7 @@ export default function Form({ onClose, onSubmit }) {
         />
         <Label htmlFor="yearpublished">Year</Label>
         <Input
+          required
           type="number"
           name="yearpublished"
           id="yearpublished"
@@ -118,6 +108,7 @@ export default function Form({ onClose, onSubmit }) {
         />
         <Label htmlFor="playtime">Play time</Label>
         <Input
+          required
           type="number"
           name="playtime"
           id="playtime"
@@ -126,6 +117,7 @@ export default function Form({ onClose, onSubmit }) {
         />
         <Label htmlFor="minAge">Min Age</Label>
         <Input
+          required
           type="number"
           name="minAge"
           id="minAge"
@@ -134,6 +126,7 @@ export default function Form({ onClose, onSubmit }) {
         />
         <Label htmlFor="minPlayers">Min Players</Label>
         <Input
+          required
           type="number"
           name="minPlayers"
           id="minPlayers"
@@ -142,6 +135,7 @@ export default function Form({ onClose, onSubmit }) {
         />
         <Label htmlFor="maxPlayers">Max Players</Label>
         <Input
+          required
           type="number"
           name="maxPlayers"
           id="maxPlayers"
@@ -150,6 +144,7 @@ export default function Form({ onClose, onSubmit }) {
         />
         <Label htmlFor="description">Description</Label>
         <textarea
+          required
           name="description"
           id="description"
           rows="4"
