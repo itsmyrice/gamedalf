@@ -19,18 +19,23 @@ export default function Form({ onClose, onSubmit }) {
     userCreated: true,
   });
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
     setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
   };
 
-  async function handleSubmit(e) {
-    e.preventDefault();
+  async function handleSubmit(event) {
+    event.preventDefault();
     if (
       !formData.name ||
       !formData.image ||
       !formData.categories ||
-      !formData.description
+      !formData.description ||
+      !formData.yearpublished ||
+      !formData.playtime ||
+      !formData.minAge ||
+      !formData.minPlayers ||
+      !formData.maxPlayers
     ) {
       setValidationError("Please fill in all fields");
       return;
@@ -51,8 +56,8 @@ export default function Form({ onClose, onSubmit }) {
       onSubmit();
       mutate("/api/games");
     } else {
-      const errorData = await response.json();
-      setValidationError(errorData.message || "An error occurred");
+      const error = await response.json();
+      setValidationError(error.message || "An error occurred");
     }
   }
 
@@ -77,13 +82,13 @@ export default function Form({ onClose, onSubmit }) {
         />
         <SmallText>
           Only images from{" "}
-          <a
+          <StyledAnchor
             href="https://unsplash.com"
             target="_blank"
             rel="noopener noreferrer"
           >
             unsplash.com
-          </a>{" "}
+          </StyledAnchor>{" "}
           are allowed
         </SmallText>
 
@@ -105,7 +110,7 @@ export default function Form({ onClose, onSubmit }) {
         />
         <Label htmlFor="yearpublished">Year</Label>
         <Input
-          type="text"
+          type="number"
           name="yearpublished"
           id="yearpublished"
           value={formData.yearpublished}
@@ -169,10 +174,12 @@ const ValidationError = styled.div`
 const SmallText = styled.p`
   font-size: 12px;
   margin-top: 5px;
-  a {
-    color: #0011ff;
-  }
 `;
+
+const StyledAnchor = styled.a`
+  color: #0011ff;
+`;
+
 const FormLayout = styled.section`
   width: 90%;
   margin: auto;

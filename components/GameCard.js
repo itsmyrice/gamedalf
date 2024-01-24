@@ -9,7 +9,7 @@ export default function GameCard({ game, isFavorite, toggleFavorite }) {
         <StyledImageWrapper>
           <StyledImageDisplay src={game.image} alt={game.name} />
           <FavouriteButton
-            isFavorite={checkIsFavorite}
+            isFavorite={isFavorite(game._id)}
             toggleFavorite={() => toggleFavorite(game._id)}
           />
         </StyledImageWrapper>
