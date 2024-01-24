@@ -1,71 +1,60 @@
 import { useState, useEffect } from "react";
 import styled from "styled-components";
 import { FaTimes } from "react-icons/fa";
+import { mutate } from "swr";
 
 export default function Form({ onClose, onSubmit }) {
-  const [isDragging, setIsDragging] = useState(false);
+  const [validationError, setValidationError] = useState("");
+
   const [formData, setFormData] = useState({
     name: "",
     categories: "",
-    age: "",
+    minAge: "",
     description: "",
-    minplayers: "",
-    maxplayers: "",
-    imageFile: null,
+    minPlayers: "",
+    maxPlayers: "",
+    image: "",
     yearpublished: "",
     playtime: "",
+    userCreated: "true",
   });
-
-  const handleDragEnter = (e) => {
-    e.preventDefault();
-    setIsDragging(true);
-  };
-
-  const handleDragLeave = (e) => {
-    e.preventDefault();
-    setIsDragging(false);
-  };
-
-  const handleDragOver = (e) => {
-    e.preventDefault();
-  };
-
-  const handleDrop = (e) => {
-    e.preventDefault();
-    setIsDragging(false);
-    const files = e.dataTransfer.files;
-    if (files.length > 0) {
-      const file = files[0];
-      setFormData((prevFormData) => ({ ...prevFormData, imageFile: file }));
-    }
-  };
-
-  const handleFilePreview = () => {
-    if (formData.imageFile) {
-      const url = URL.createObjectURL(formData.imageFile);
-      window.open(url, "_blank");
-    }
-  };
-
-  const handleRemoveFile = () => {
-    setFormData((prevFormData) => ({ ...prevFormData, imageFile: null }));
-  };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
   };
 
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    setFormData((prevFormData) => ({ ...prevFormData, imageFile: file }));
-  };
-
-  const handleSubmit = (e) => {
+  async function handleSubmit(e) {
     e.preventDefault();
-    console.log(formData);
-    onSubmit();
-  };
+    if (
+      !formData.name ||
+      !formData.image ||
+      !formData.categories ||
+      !formData.description
+    ) {
+      setValidationError("Please fill in all fields");
+      return;
+    }
+
+    if (!formData.image.startsWith("https://images.unsplash.com")) {
+      setValidationError("Only images from unsplash.com are allowed");
+      return;
+    }
+
+    const response = await fetch("/api/games", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(formData),
+    });
+
+    if (response.ok) {
+      onSubmit();
+      mutate("/api/games");
+    } else {
+      const errorData = await response.json();
+      setValidationError(errorData.message || "An error occurred");
+    }
+  }
 
   useEffect(() => {
     document.body.style.overflow = "hidden";
@@ -78,24 +67,26 @@ export default function Form({ onClose, onSubmit }) {
     <FormLayout>
       <CloseButton onClick={onClose} />
       <StyledForm onSubmit={handleSubmit}>
-        <Label htmlFor="image">Image</Label>
-        <FileDropArea
+        <Label htmlFor="image">Image URL</Label>
+        <Input
+          type="text"
+          name="image"
           id="image"
-          isDragging={isDragging}
-          onDragEnter={handleDragEnter}
-          onDragOver={handleDragOver}
-          onDragLeave={handleDragLeave}
-          onDrop={handleDrop}
-        >
-          <FileInput type="file" name="imageFile" onChange={handleFileChange} />
-          {formData.imageFile ? (
-            <FilePreview onClick={handleFilePreview}>
-              {formData.imageFile.name}
-            </FilePreview>
-          ) : (
-            "Drag an image here or click to select"
-          )}
-        </FileDropArea>
+          value={formData.image}
+          onChange={handleInputChange}
+        />
+        <SmallText>
+          Only images from{" "}
+          <a
+            href="https://unsplash.com"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            unsplash.com
+          </a>{" "}
+          are allowed
+        </SmallText>
+
         <Label htmlFor="name">Name</Label>
         <Input
           type="text"
@@ -104,10 +95,6 @@ export default function Form({ onClose, onSubmit }) {
           value={formData.name}
           onChange={handleInputChange}
         />
-        {formData.imageFile && (
-          <button onClick={handleRemoveFile}>Remove File</button>
-        )}
-
         <Label htmlFor="categories">Categories</Label>
         <Input
           type="text"
@@ -132,28 +119,28 @@ export default function Form({ onClose, onSubmit }) {
           value={formData.playtime}
           onChange={handleInputChange}
         />
-        <Label htmlFor="age">Age</Label>
+        <Label htmlFor="minAge">Min Age</Label>
         <Input
           type="number"
-          name="age"
-          id="age"
-          value={formData.age}
+          name="minAge"
+          id="minAge"
+          value={formData.minAge}
           onChange={handleInputChange}
         />
-        <Label htmlFor="minplayers">Minplayers</Label>
+        <Label htmlFor="minPlayers">Min Players</Label>
         <Input
           type="number"
-          name="minplayers"
-          id="minplayers"
-          value={formData.minplayers}
+          name="minPlayers"
+          id="minPlayers"
+          value={formData.minPlayers}
           onChange={handleInputChange}
         />
-        <Label htmlFor="maxplayers">Maxplayers</Label>
+        <Label htmlFor="maxPlayers">Max Players</Label>
         <Input
           type="number"
-          name="maxplayers"
-          id="maxplayers"
-          value={formData.maxplayers}
+          name="maxPlayers"
+          id="maxPlayers"
+          value={formData.maxPlayers}
           onChange={handleInputChange}
         />
         <Label htmlFor="description">Description</Label>
@@ -164,12 +151,28 @@ export default function Form({ onClose, onSubmit }) {
           value={formData.description}
           onChange={handleInputChange}
         />
-        <SubmitBtn type="submit">Submit</SubmitBtn>
+        {validationError && (
+          <ValidationError>{validationError}</ValidationError>
+        )}
+
+        <SubmitButton type="submit">Submit</SubmitButton>
       </StyledForm>
     </FormLayout>
   );
 }
 
+const ValidationError = styled.div`
+  color: red;
+  margin-top: 10px;
+`;
+
+const SmallText = styled.p`
+  font-size: 12px;
+  margin-top: 5px;
+  a {
+    color: #0011ff;
+  }
+`;
 const FormLayout = styled.section`
   width: 90%;
   margin: auto;
@@ -180,40 +183,18 @@ const StyledForm = styled.form`
   flex-direction: column;
 `;
 
-const FileDropArea = styled.label`
-  border: 2px dashed #ccc;
-  padding: 20px;
-  text-align: center;
-  margin: 10px 0;
-  background-color: ${(props) =>
-    props.isDragging ? "#e3e3e3" : "transparent"};
-  transition: background-color 0.3s ease;
-  cursor: pointer;
-  &:hover {
-    background-color: #e9e9e9;
-  }
-`;
-
-const FileInput = styled.input`
-  display: none;
-`;
 const Input = styled.input`
   border: 1px solid black;
   padding: 4px;
   margin-top: 4px;
 `;
+
 const Label = styled.label`
   margin: 10px 0px;
   font-size: 14px;
 `;
-const FilePreview = styled.div`
-  margin-top: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-`;
 
-const SubmitBtn = styled.button`
+const SubmitButton = styled.button`
   border: 1px solid #0011ff;
   background-color: #0011ff;
   color: white;

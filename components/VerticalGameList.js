@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import GameCard from "./GameCard";
-export default function VerticalGameList({ isFavorite, toggleFavorite, data }) {
+export default function VerticalGameList({ isFavorite, toggleFavorite, data}) {
   return (
     <ListGames>
       {data.map((game) => (

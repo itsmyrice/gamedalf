@@ -2,12 +2,22 @@ import styled from "styled-components";
 import { MdOutlineFolderOff } from "react-icons/md";
 import { useState } from "react";
 import Form from "@/components/Form";
-import SendingConfirmation from "@/components/SendingConfirmation";
+import SendingConfirmation from "@/components/SendingConfiramtion";
+import useSWR from "swr";
+import VerticalGameList from "@/components/VerticalGameList";
 
-export default function ProfilePage() {
+export default function ProfilePage({ toggleFavorite, isFavorite }) {
   const [showModal, setShowModal] = useState(false);
   const [content, setContent] = useState("form");
+  const { data: gameData, isLoading, error } = useSWR("/api/games");
+  let userCreatedGame = [];
 
+  if (gameData) {
+    userCreatedGame = gameData.filter((game) => game.userCreated === true);
+  }
+
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Failed to load games</div>;
   const toggleModalVisibility = () => setShowModal(!showModal);
   const handleFormSubmit = () => {
     setContent("confirmation");
@@ -17,19 +27,30 @@ export default function ProfilePage() {
     setShowModal(false);
     setContent("form");
   };
-
+  console.log(gameData);
+  console.log(userCreatedGame);
   return (
     <StyledSection>
       <StyledDivBigText>
         <h2>Profile</h2>
         <h3>Your games:</h3>
       </StyledDivBigText>
-      <StyledDivSmallText>
-        <p>
-          <MdOutlineFolderOff /> No games yet.
-        </p>
-      </StyledDivSmallText>
       <StyledButton onClick={toggleModalVisibility}>Create</StyledButton>
+
+      <StyledDivSmallText>
+        {userCreatedGame.length > 0 ? (
+          <VerticalGameList
+            data={userCreatedGame}
+            isFavorite={isFavorite}
+            toggleFavorite={toggleFavorite}
+          />
+        ) : (
+          <p>
+            <MdOutlineFolderOff /> No games yet.
+          </p>
+        )}
+      </StyledDivSmallText>
+
       {showModal && (
         <>
           <Overlay onClick={handleCloseModal} />
@@ -65,7 +86,6 @@ const StyledDivBigText = styled.div`
 const StyledDivSmallText = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
   text-decoration: underline;
 `;
 
