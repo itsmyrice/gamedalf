@@ -3,8 +3,6 @@ import Link from "next/link";
 import FavouriteButton from "./FavouriteButton";
 
 export default function GameCard({ game, isFavorite, toggleFavorite }) {
-  const checkIsFavorite = isFavorite(game._id);
-
   return (
     <Link href={`/games/${game._id}`} aria-label="More details">
       <StyledCard>
