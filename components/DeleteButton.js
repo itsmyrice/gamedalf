@@ -4,11 +4,7 @@ import { useRouter } from "next/router";
 export default function DeleteButton({ id }) {
   const router = useRouter();
 
-  const { data, isLoading, error, mutate } = useSWR(`api/games/${id}`);
-
-  if (!data || isLoading) return <small>Loading...</small>;
-  if (error)
-    return <small>Oops! Something went wrong. Please try again.</small>;
+  const {data, mutate } = useSWR();
 
   async function handleDelete(id) {
     if (window.confirm("Are you sure you want to delete this game?")) {
@@ -21,6 +17,7 @@ export default function DeleteButton({ id }) {
       if (response.ok) {
         await response.json();
         mutate();
+        window.alert("Your game is successfully deleted.")
         router.push("/profile");
       }
       if (!response.ok) {
