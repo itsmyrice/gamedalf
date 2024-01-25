@@ -7,14 +7,13 @@ export default async function handler(request, response) {
 
   if (request.method === "GET") {
     const game = await Game.findById(id);
-
-    if (!game) {
+   if (!game) {
       return response.status(404).json({ message: "Game not found" });
     }
-
     return response.status(200).json(game);
-  } else {
-
-    return response.status(400).json({ error: "Bad Request" });
+  } if (request.method === "DELETE") {
+    const updatedGame = request.body;
+    await Game.findByIdAndDelete(id, updatedGame);
+    response.status(200).json({ status: "Game is successfully deleted."})
   }
 }
