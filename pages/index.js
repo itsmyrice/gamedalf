@@ -1,5 +1,6 @@
 import useSWR from "swr";
 import HorizontalGameList from "@/components/HorizontalGameList";
+import AboutUs from "@/components/AboutUs";
 
 export default function HomePage({ isFavorite, toggleFavorite }) {
   const { data, error, isLoading } = useSWR("/api/games");
@@ -16,6 +17,7 @@ export default function HomePage({ isFavorite, toggleFavorite }) {
 
   return (
     <>
+    <AboutUs />
       {data && (
         <>
           <HorizontalGameList
