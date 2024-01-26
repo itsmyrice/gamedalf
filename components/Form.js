@@ -33,6 +33,8 @@ export default function Form({ showModal }) {
   async function handleSubmit(event) {
     event.preventDefault();
 
+    // showModal.toggle("create");
+
     if (!formData.image.startsWith("https://images.unsplash.com")) {
       setValidationError("Only images from unsplash.com are allowed");
       return;

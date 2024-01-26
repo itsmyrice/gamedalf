@@ -6,7 +6,6 @@ import SendingConfirmation from "@/components/SendingConfirmation";
 export default function FormModal({ showModal }) {
   const [content, setContent] = useState("form");
 
-//SHOULD I PUT THE API REQUESTS HERE?
 
   useEffect(() => {
     document.body.style.overflow = "hidden";
@@ -20,7 +19,7 @@ export default function FormModal({ showModal }) {
       <Overlay onClick={() => showModal.toggle("create")} />
       <StyledModal>
         {content === "form" ? (
-          <Form showModal={showModal} onSubmit={null} />
+          <Form showModal={showModal} onSubmit={()=> setContent("confirm")} />
         ) : (
           <SendingConfirmation onClose={showModal} />
         )}
