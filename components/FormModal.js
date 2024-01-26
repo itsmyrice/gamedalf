@@ -1,10 +1,9 @@
 import styled from "styled-components";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import Form from "@/components/Form";
 import SendingConfirmation from "@/components/SendingConfirmation";
 
 export default function FormModal({ showModal }) {
-
   useEffect(() => {
     document.body.style.overflow = "hidden";
     return () => {
@@ -29,7 +28,7 @@ export default function FormModal({ showModal }) {
 const StyledModal = styled.div`
   background-color: #f5f5f7;
   width: 90%;
-  height: 80%;
+  height: 90%;
   color: black;
   position: fixed;
   top: 50%;
@@ -40,6 +39,7 @@ const StyledModal = styled.div`
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   z-index: 1000;
   display: flex;
+  overflow: scroll;
 `;
 
 const Overlay = styled.div`
