@@ -41,6 +41,7 @@ export default function Form({ showModal }) {
     const url = showModal.modal.isEdit
       ? `/api/games/${showModal.modal.game._id}`
       : "/api/games";
+    console.log("🚀  url:", url);
 
     const response = await fetch(url, {
       method: showModal.modal.isEdit ? "PATCH" : "POST",
@@ -48,6 +49,7 @@ export default function Form({ showModal }) {
       body: JSON.stringify(formData),
     });
 
+    console.log("🚀  response:", response);
     if (response.ok) {
       mutate("/api/games");
     } else {
