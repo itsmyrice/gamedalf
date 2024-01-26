@@ -8,6 +8,7 @@ export default function DiceGamePage({
   isFavorite,
   toggleFavorite,
   localGameData,
+  showModal,
 }) {
   const { data } = useSWR("/api/games");
   const [currentStory, setCurrentStory] = useState(null);
@@ -89,6 +90,7 @@ export default function DiceGamePage({
             game={suggestedGame}
             isFavorite={isFavorite}
             toggleFavorite={() => toggleFavorite(suggestedGame._id)}
+            showModal={showModal}
           />
           <button onClick={restartGame}>Restart</button>
         </>

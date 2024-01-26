@@ -1,14 +1,9 @@
 import styled from "styled-components";
 import { MdOutlineFolderOff } from "react-icons/md";
-import { useState } from "react";
-import Form from "@/components/Form";
-import SendingConfirmation from "@/components/SendingConfirmation";
 import useSWR from "swr";
 import VerticalGameList from "@/components/VerticalGameList";
 
-export default function ProfilePage({ toggleFavorite, isFavorite }) {
-  const [showModal, setShowModal] = useState(false);
-  const [content, setContent] = useState("form");
+export default function ProfilePage({ toggleFavorite, isFavorite, showModal }) {
   const { data: gameData, isLoading, error, mutate } = useSWR("/api/games");
 
   const userCreatedGame = gameData
@@ -18,23 +13,13 @@ export default function ProfilePage({ toggleFavorite, isFavorite }) {
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Failed to load games</div>;
 
-  const toggleModalVisibility = () => setShowModal(!showModal);
-  const handleFormSubmit = () => {
-    setContent("confirmation");
-  };
-
-  const handleCloseModal = () => {
-    setShowModal(false);
-    setContent("form");
-  };
-
   return (
     <StyledSection>
       <StyledDivBigText>
         <h2>Profile</h2>
         <h3>Your games:</h3>
       </StyledDivBigText>
-      <StyledButton onClick={toggleModalVisibility}>Create</StyledButton>
+      <StyledButton onClick={() => showModal.toggle("create")}>Create</StyledButton>
 
       <StyledUserCreatedGameList>
         {userCreatedGame.length > 0 ? (
@@ -42,6 +27,7 @@ export default function ProfilePage({ toggleFavorite, isFavorite }) {
             data={userCreatedGame}
             isFavorite={isFavorite}
             toggleFavorite={toggleFavorite}
+            showModal={showModal}
           />
         ) : (
           <p>
@@ -49,19 +35,6 @@ export default function ProfilePage({ toggleFavorite, isFavorite }) {
           </p>
         )}
       </StyledUserCreatedGameList>
-
-      {showModal && (
-        <>
-          <Overlay onClick={handleCloseModal} />
-          <StyledModal>
-            {content === "form" ? (
-              <Form onClose={handleCloseModal} onSubmit={handleFormSubmit} />
-            ) : (
-              <SendingConfirmation onClose={handleCloseModal} />
-            )}
-          </StyledModal>
-        </>
-      )}
     </StyledSection>
   );
 }

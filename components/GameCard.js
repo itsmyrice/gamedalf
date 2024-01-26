@@ -2,8 +2,14 @@ import styled from "styled-components";
 import Link from "next/link";
 import FavouriteButton from "./FavouriteButton";
 import DeleteButton from "./DeleteButton";
+import EditButton from "./EditButton";
 
-export default function GameCard({ game, isFavorite, toggleFavorite }) {
+export default function GameCard({
+  game,
+  isFavorite,
+  toggleFavorite,
+  showModal,
+}) {
   return (
     <StyledCard>
       <StyledImageWrapper>
@@ -18,7 +24,12 @@ export default function GameCard({ game, isFavorite, toggleFavorite }) {
         <StyledRankTitle>{game.rating}</StyledRankTitle>
         <StyledYearDisplay>{game.yearpublished}</StyledYearDisplay>
       </StyledLink>
-      {game.userCreated && <DeleteButton id={game._id}/>}
+      {game.userCreated && (
+        <>
+          <EditButton showModal={showModal} data={game}/>
+          <DeleteButton id={game._id} />
+        </>
+      )}
     </StyledCard>
   );
 }
@@ -66,13 +77,5 @@ const StyledImageDisplay = styled.img`
 
 const StyledImageWrapper = styled.div`
   position: relative;
-  width: 100%;
-`;
-
-const StyledInfo = styled.div`
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   width: 100%;
 `;

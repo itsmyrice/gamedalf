@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { FaTimes } from "react-icons/fa";
 import { mutate } from "swr";
 
-export default function Form({ onClose, onSubmit }) {
+export default function Form({ showModal }) {
   const [validationError, setValidationError] = useState("");
 
   const [formData, setFormData] = useState({
@@ -19,6 +19,12 @@ export default function Form({ onClose, onSubmit }) {
     userCreated: true,
   });
 
+  useEffect(() => {
+    if (showModal.modal.isEdit && showModal.modal.game) {
+      setFormData(showModal.modal.game);
+    }
+  }, [showModal.modal.isEdit, showModal.modal.game]);
+
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
@@ -32,14 +38,17 @@ export default function Form({ onClose, onSubmit }) {
       return;
     }
 
-    const response = await fetch("/api/games", {
-      method: "POST",
+    const url = showModal.modal.isEdit
+      ? `/api/games/${showModal.modal.game._id}`
+      : "/api/games";
+
+    const response = await fetch(url, {
+      method: showModal.modal.isEdit ? "PATCH" : "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(formData),
     });
 
     if (response.ok) {
-      onSubmit();
       mutate("/api/games");
     } else {
       const error = await response.json();
@@ -47,16 +56,10 @@ export default function Form({ onClose, onSubmit }) {
     }
   }
 
-  useEffect(() => {
-    document.body.style.overflow = "hidden";
-    return () => {
-      document.body.style.overflow = "unset";
-    };
-  }, []);
-
   return (
     <FormLayout>
-      <CloseButton onClick={onClose} />
+      <CloseButton onClick={() => showModal.toggle("create")} />
+      {showModal.modal.isEdit ? <h2>Edit</h2> : <h2>Create</h2>}
       <StyledForm onSubmit={handleSubmit}>
         <Label htmlFor="image">Image URL</Label>
         <Input

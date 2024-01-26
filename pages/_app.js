@@ -4,8 +4,22 @@ import styled from "styled-components";
 import Navbar from "@/components/Navbar";
 import Header from "@/components/Header";
 import { useState } from "react";
+import FormModal from "@/components/FormModal";
 export default function App({ Component, pageProps }) {
   const [localGameData, setLocalGameData] = useState([]);
+  const [modal, setModal] = useState({
+    isVisible: false,
+    isEdit: false,
+    game: null,
+  });
+
+  function toggleShowModal(string, game) {
+    string === "edit"
+      ? setModal({ isVisible: !modal.isVisible, isEdit: true, game: game })
+      : string === "create"
+      ? setModal({ isVisible: !modal.isVisible, isEdit: false })
+      : null;
+  }
 
   function checkIsFavorite(id) {
     const foundGame = localGameData.find((item) => item.id === id);
@@ -55,8 +69,13 @@ export default function App({ Component, pageProps }) {
             isFavorite={checkIsFavorite}
             toggleFavorite={toggleFavorite}
             localGameData={localGameData}
+            showModal={{ toggle: toggleShowModal, modal: modal }}
             {...pageProps}
           />
+
+          {modal.isVisible && (
+            <FormModal showModal={{ toggle: toggleShowModal, modal: modal }} />
+          )}
         </ContentWrapper>
         <Navbar />
       </SWRConfig>
