@@ -5,8 +5,19 @@ import { useState } from "react";
 import useSWR from "swr";
 
 export default function SearchPage({ isFavorite, toggleFavorite }) {
-  const { data } = useSWR("./api/games");
+  const { data, isLoading } = useSWR("./api/games");
   const [searchInput, setSearchInput] = useState("");
+
+  const [showFilters, setShowFilters] = useState(false);
+  const filteredResults = new Set();
+
+  const [formData, setFormData] = useState({
+    keyword: "",
+    minAge: "",
+    players: "",
+    yearpublished: "",
+    playtime: "",
+  });
 
   const searchedGames =
     searchInput.length > 0
@@ -15,15 +26,91 @@ export default function SearchPage({ isFavorite, toggleFavorite }) {
         )
       : [];
 
+  function handleSubmit(event) {
+    event.preventDefault();
+
+    !formData.keyword &&
+      filteredResults.add(
+        data.filter((game) =>
+          game.name.toLowerCase().includes(formData.keyword.toLowerCase())
+        )
+      );
+
+    !formData.minAge &&
+      filteredResults.add(
+        data.filter((game) => (game.minAge = formData.minAge))
+      );
+
+    console.log("🚀  filteredResults:", filteredResults);
+  }
+
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
+  };
+
   return (
     <>
-      <Input
+      <SearchInput
         type="text"
         id="text"
         placeholder="Insert name"
         value={searchInput}
         onChange={(event) => setSearchInput(event.target.value)}
       />
+
+      <button type="button" onClick={() => setShowFilters(!showFilters)}>
+        Advanced Search
+      </button>
+
+      {showFilters && (
+        <>
+          <StyledForm onSubmit={handleSubmit}>
+            <Label htmlFor="keyword">Keyword</Label>
+            <Input
+              type="text"
+              name="keyword"
+              id="keyword"
+              defaultValue={""}
+              onChange={handleInputChange}
+            />
+            <Label htmlFor="minAge">Minimum Age</Label>
+            <Input
+              type="number"
+              name="minAge"
+              id="minAge"
+              defaultValue={""}
+              onChange={handleInputChange}
+            />
+            <Label htmlFor="players">Players</Label>
+            <Input
+              type="number"
+              name="player"
+              id="players"
+              defaultValue={""}
+              onChange={handleInputChange}
+            />
+            <Label htmlFor="yearpublished">Release Year (yyyy)</Label>
+            <Input
+              type="number"
+              name="yearpublished"
+              id="yearpublished"
+              defaultValue={""}
+              onChange={handleInputChange}
+            />
+            <Label htmlFor="playtime">Playtime (minutes)</Label>
+            <Input
+              type="number"
+              name="playtime"
+              id="playtime"
+              defaultValue={""}
+              onChange={handleInputChange}
+            />
+            <SubmitButton type="submit">Submit</SubmitButton>
+          </StyledForm>
+        </>
+      )}
+
       <VerticalGameList
         isFavorite={isFavorite}
         toggleFavorite={toggleFavorite}
@@ -33,10 +120,18 @@ export default function SearchPage({ isFavorite, toggleFavorite }) {
   );
 }
 
-const Input = styled.input`
+const StyledForm = styled.form`
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 1rem;
+  margin-block: 1rem;
+`;
+
+const SearchInput = styled.input`
   height: 4rem;
   margin-top: 2rem;
-  margin-left: 20%;
   width: 60%;
   font-size: 20px;
   border-radius: 1.5rem;
@@ -46,3 +141,32 @@ const Input = styled.input`
   box-shadow: 3px 3px 5px grey;
 `;
 
+const Input = styled.input`
+  border: 1px solid black;
+  padding: 4px;
+  margin-top: 4px;
+`;
+
+const Label = styled.label`
+  margin: 10px 0px;
+  font-size: 14px;
+`;
+
+const SubmitButton = styled.button`
+  border: 1px solid #0011ff;
+  background-color: #0011ff;
+  color: white;
+  padding: 10px 40px;
+  border-radius: 40px;
+  cursor: pointer;
+  display: inline-block;
+  text-align: center;
+  margin-top: 20px;
+  align-self: center;
+  transition: 0.3s ease-in-out;
+  &:hover {
+    background-color: transparent;
+    color: #0011ff;
+    transition: 0.3s ease-in-out;
+  }
+`;
