@@ -9,7 +9,7 @@ export default function SearchPage({ isFavorite, toggleFavorite }) {
   const [searchInput, setSearchInput] = useState("");
 
   const [showFilters, setShowFilters] = useState(false);
-  const filteredResults = new Set();
+  const [filteredResults, setFilteredResults] = useState([]);
 
   const [formData, setFormData] = useState({
     keyword: "",
@@ -29,16 +29,40 @@ export default function SearchPage({ isFavorite, toggleFavorite }) {
   function handleSubmit(event) {
     event.preventDefault();
 
-    !formData.keyword &&
-      filteredResults.add(
-        data.filter((game) =>
-          game.name.toLowerCase().includes(formData.keyword.toLowerCase())
-        )
+    formData.keyword &&
+      setFilteredResults(
+        data.filter(
+          (game) => game.name.toLowerCase() === formData.keyword.toLowerCase()
+        ),
+        ...filteredResults
       );
 
-    !formData.minAge &&
-      filteredResults.add(
-        data.filter((game) => (game.minAge = formData.minAge))
+    formData.minAge &&
+      setFilteredResults(
+        data.filter((game) => +game.minAge >= +formData.minAge),
+        ...filteredResults
+      );
+
+    formData.players &&
+      setFilteredResults(
+        data.filter((game) => game.minPlayers <= formData.players && game.maxPlayers >= formData.players),
+        ...filteredResults
+      );
+
+    formData.yearpublished &&
+      setFilteredResults(
+        data.filter(
+          (game) => game.yearpublished === formData.yearpublished
+        ),
+        ...filteredResults
+      );
+
+    formData.playtime &&
+      setFilteredResults(
+        data.filter(
+          (game) => game.minPlaytime <= formData.playtime && game.maxPlaytime >= formData.playtime
+        ),
+        ...filteredResults
       );
 
     console.log("🚀  filteredResults:", filteredResults);
