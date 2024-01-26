@@ -10,15 +10,37 @@ export default function App({ Component, pageProps }) {
   const [modal, setModal] = useState({
     isVisible: false,
     isEdit: false,
+    isSubmit: false,
     game: null,
   });
 
   function toggleShowModal(string, game) {
-    string === "edit"
-      ? setModal({ isVisible: !modal.isVisible, isEdit: true, game: game })
-      : string === "create"
-      ? setModal({ isVisible: !modal.isVisible, isEdit: false })
-      : null;
+    string === "edit" &&
+      setModal({
+        isVisible: true,
+        isEdit: true,
+        game: game,
+        isSubmit: false,
+      });
+
+    string === "create" &&
+      setModal({ isVisible: true, isEdit: false, isSubmit: false, game: null });
+
+    string === "submit" &&
+      setModal({
+        isVisible: true,
+        isEdit: modal.isEdit,
+        isSubmit: true,
+        game: null,
+      });
+
+    string === "close" &&
+      setModal({
+        isVisible: false,
+        isEdit: false,
+        isSubmit: false,
+        game: null,
+      });
   }
 
   function checkIsFavorite(id) {

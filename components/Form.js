@@ -33,7 +33,7 @@ export default function Form({ showModal }) {
   async function handleSubmit(event) {
     event.preventDefault();
 
-    // showModal.toggle("create");
+    showModal.toggle("submit");
 
     if (!formData.image.startsWith("https://images.unsplash.com")) {
       setValidationError("Only images from unsplash.com are allowed");
@@ -43,7 +43,6 @@ export default function Form({ showModal }) {
     const url = showModal.modal.isEdit
       ? `/api/games/${showModal.modal.game._id}`
       : "/api/games";
-    console.log("🚀  url:", url);
 
     const response = await fetch(url, {
       method: showModal.modal.isEdit ? "PATCH" : "POST",
@@ -51,7 +50,6 @@ export default function Form({ showModal }) {
       body: JSON.stringify(formData),
     });
 
-    console.log("🚀  response:", response);
     if (response.ok) {
       mutate("/api/games");
     } else {
@@ -62,7 +60,7 @@ export default function Form({ showModal }) {
 
   return (
     <FormLayout>
-      <CloseButton onClick={() => showModal.toggle("create")} />
+      <CloseButton onClick={() => showModal.toggle("close")} />
       {showModal.modal.isEdit ? <h2>Edit</h2> : <h2>Create</h2>}
       <StyledForm onSubmit={handleSubmit}>
         <Label htmlFor="image">Image URL</Label>

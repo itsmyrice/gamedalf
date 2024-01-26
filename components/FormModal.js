@@ -4,8 +4,6 @@ import Form from "@/components/Form";
 import SendingConfirmation from "@/components/SendingConfirmation";
 
 export default function FormModal({ showModal }) {
-  const [content, setContent] = useState("form");
-
 
   useEffect(() => {
     document.body.style.overflow = "hidden";
@@ -16,12 +14,12 @@ export default function FormModal({ showModal }) {
 
   return (
     <>
-      <Overlay onClick={() => showModal.toggle("create")} />
+      <Overlay onClick={() => showModal.toggle("close")} />
       <StyledModal>
-        {content === "form" ? (
-          <Form showModal={showModal} onSubmit={()=> setContent("confirm")} />
+        {!showModal.modal.isSubmit ? (
+          <Form showModal={showModal} />
         ) : (
-          <SendingConfirmation onClose={showModal} />
+          <SendingConfirmation showModal={showModal} />
         )}
       </StyledModal>
     </>

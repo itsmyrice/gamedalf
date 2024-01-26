@@ -4,7 +4,7 @@ import useSWR from "swr";
 import VerticalGameList from "@/components/VerticalGameList";
 
 export default function ProfilePage({ toggleFavorite, isFavorite, showModal }) {
-  const { data: gameData, isLoading, error, mutate } = useSWR("/api/games");
+  const { data: gameData, isLoading, error  } = useSWR("/api/games");
 
   const userCreatedGame = gameData
     ? gameData.filter(({ userCreated }) => userCreated)
