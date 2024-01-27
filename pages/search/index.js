@@ -1,18 +1,21 @@
 import styled from "styled-components";
 import VerticalGameList from "@/components/VerticalGameList";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import useSWR from "swr";
+import { FaTimes } from "react-icons/fa";
 
 export default function SearchPage({ isFavorite, toggleFavorite }) {
-  const { data, isLoading } = useSWR("./api/games");
-  const [searchInput, setSearchInput] = useState("");
+  const { data } = useSWR("./api/games");
+  const [searchQuery, setSearchQuery] = useState("");
 
   const [showFilters, setShowFilters] = useState(false);
   const [filteredResults, setFilteredResults] = useState([]);
 
   const [formData, setFormData] = useState({
     keyword: "",
+    categories: "",
+    rating: "",
     minAge: "",
     players: "",
     yearpublished: "",
@@ -20,53 +23,80 @@ export default function SearchPage({ isFavorite, toggleFavorite }) {
   });
 
   const searchedGames =
-    searchInput.length > 0
+    searchQuery.length > 0
       ? data.filter((game) =>
-          `${game.name}`.toLowerCase().includes(searchInput.toLowerCase())
+          `${game.name}`.toLowerCase().includes(searchQuery.toLowerCase())
         )
       : [];
 
   function handleSubmit(event) {
     event.preventDefault();
 
-    formData.keyword &&
-      setFilteredResults(
-        data.filter(
-          (game) => game.name.toLowerCase() === formData.keyword.toLowerCase()
-        ),
-        ...filteredResults
-      );
+    const allInputsEmpty = Object.values(formData).every(
+      (value) => value === ""
+    );
 
-    formData.minAge &&
-      setFilteredResults(
-        data.filter((game) => +game.minAge >= +formData.minAge),
-        ...filteredResults
-      );
+    if (allInputsEmpty) {
+      alert("Elders.");
+      return;
+    }
 
-    formData.players &&
-      setFilteredResults(
-        data.filter((game) => game.minPlayers <= formData.players && game.maxPlayers >= formData.players),
-        ...filteredResults
-      );
+    let updatedResults = [...data];
 
-    formData.yearpublished &&
-      setFilteredResults(
-        data.filter(
-          (game) => game.yearpublished === formData.yearpublished
-        ),
-        ...filteredResults
+    if (formData.keyword !== "") {
+      updatedResults = updatedResults.filter((game) =>
+        game.name.toLowerCase().includes(formData.keyword.toLowerCase())
       );
+    }
 
-    formData.playtime &&
-      setFilteredResults(
-        data.filter(
-          (game) => game.minPlaytime <= formData.playtime && game.maxPlaytime >= formData.playtime
-        ),
-        ...filteredResults
+    if (formData.categories !== "") {
+      updatedResults = updatedResults.filter((game) =>
+        game.categories.some((category) =>
+          category.toLowerCase().includes(formData.categories.toLowerCase())
+        )
       );
+    }
 
-    console.log("🚀  filteredResults:", filteredResults);
+    if (formData.rating !== "") {
+      updatedResults = updatedResults.filter(
+        (game) => +game.rating >= +formData.rating
+      );
+    }
+
+    if (formData.minAge !== "") {
+      updatedResults = updatedResults.filter(
+        (game) => +game.minAge >= +formData.minAge
+      );
+    }
+
+    if (formData.players !== "") {
+      updatedResults = updatedResults.filter(
+        (game) =>
+          +game.minPlayers <= +formData.players &&
+          +game.maxPlayers >= +formData.players
+      );
+    }
+
+    if (formData.yearpublished !== "") {
+      updatedResults = updatedResults.filter(
+        (game) => +game.yearpublished === +formData.yearpublished
+      );
+    }
+
+    if (formData.playtime !== "") {
+      updatedResults = updatedResults.filter(
+        (game) =>
+          +game.minPlaytime <= +formData.playtime &&
+          +game.maxPlaytime >= +formData.playtime
+      );
+    }
+
+    setFilteredResults(updatedResults);
   }
+
+  useEffect(() => {
+    console.log("🚀  filteredResults:", filteredResults);
+  }, [filteredResults]);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -79,27 +109,45 @@ export default function SearchPage({ isFavorite, toggleFavorite }) {
         type="text"
         id="text"
         placeholder="Insert name"
-        value={searchInput}
-        onChange={(event) => setSearchInput(event.target.value)}
+        value={searchQuery}
+        onChange={(event) => setSearchQuery(event.target.value)}
       />
 
-      <button type="button" onClick={() => setShowFilters(!showFilters)}>
+      <StyledButton type="button" onClick={() => setShowFilters(!showFilters)}>
         Advanced Search
-      </button>
+      </StyledButton>
 
       {showFilters && (
         <>
           <StyledForm onSubmit={handleSubmit}>
+            <CloseButton onClick={() => setShowFilters(!showFilters)} />
             <Label htmlFor="keyword">Keyword</Label>
-            <Input
+            <FormInput
               type="text"
               name="keyword"
               id="keyword"
               defaultValue={""}
               onChange={handleInputChange}
             />
+            <Label htmlFor="categories">Categories</Label>
+            <FormInput
+              type="text"
+              name="categories"
+              id="categories"
+              defaultValue={""}
+              onChange={handleInputChange}
+            />
+            <Label htmlFor="rating">Rating</Label>
+            <FormInput
+              type="number"
+              name="rating"
+              id="rating"
+              step="0.1"
+              defaultValue={""}
+              onChange={handleInputChange}
+            />
             <Label htmlFor="minAge">Minimum Age</Label>
-            <Input
+            <FormInput
               type="number"
               name="minAge"
               id="minAge"
@@ -107,15 +155,15 @@ export default function SearchPage({ isFavorite, toggleFavorite }) {
               onChange={handleInputChange}
             />
             <Label htmlFor="players">Players</Label>
-            <Input
+            <FormInput
               type="number"
-              name="player"
+              name="players"
               id="players"
               defaultValue={""}
               onChange={handleInputChange}
             />
             <Label htmlFor="yearpublished">Release Year (yyyy)</Label>
-            <Input
+            <FormInput
               type="number"
               name="yearpublished"
               id="yearpublished"
@@ -123,14 +171,14 @@ export default function SearchPage({ isFavorite, toggleFavorite }) {
               onChange={handleInputChange}
             />
             <Label htmlFor="playtime">Playtime (minutes)</Label>
-            <Input
+            <FormInput
               type="number"
               name="playtime"
               id="playtime"
               defaultValue={""}
               onChange={handleInputChange}
             />
-            <SubmitButton type="submit">Submit</SubmitButton>
+            <StyledButton type="submit">Submit</StyledButton>
           </StyledForm>
         </>
       )}
@@ -148,24 +196,23 @@ const StyledForm = styled.form`
   display: flex;
   flex-direction: column;
   background-color: #fff;
-  border-radius: 10px;
+  border-radius: 1rem;
   padding: 1rem;
   margin-block: 1rem;
 `;
 
 const SearchInput = styled.input`
-  height: 4rem;
-  margin-top: 2rem;
-  width: 60%;
-  font-size: 20px;
-  border-radius: 1.5rem;
+  height: 3rem;
+  margin-top: 1rem;
+  font-size: 1rem;
+  border-radius: 1rem;
   padding: 0.5rem 1.5rem;
   outline: none;
   border: none;
   box-shadow: 3px 3px 5px grey;
 `;
 
-const Input = styled.input`
+const FormInput = styled.input`
   border: 1px solid black;
   padding: 4px;
   margin-top: 4px;
@@ -176,7 +223,7 @@ const Label = styled.label`
   font-size: 14px;
 `;
 
-const SubmitButton = styled.button`
+const StyledButton = styled.button`
   border: 1px solid #0011ff;
   background-color: #0011ff;
   color: white;
@@ -193,4 +240,9 @@ const SubmitButton = styled.button`
     color: #0011ff;
     transition: 0.3s ease-in-out;
   }
+`;
+const CloseButton = styled(FaTimes)`
+  align-self: flex-end;
+  cursor: pointer;
+  font-size: 20px;
 `;
