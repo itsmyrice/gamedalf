@@ -1,6 +1,6 @@
-export default function EditButton({ showModal, data }) {
+export default function EditButton({ onClick }) {
   return (
-    <button type="button" onClick={() => showModal.toggle("edit", data)}>
+    <button type="button" onClick={onClick}>
       Edit
     </button>
   );

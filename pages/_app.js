@@ -14,34 +14,48 @@ export default function App({ Component, pageProps }) {
     game: null,
   });
 
-  function toggleShowModal(string, game) {
-    string === "edit" &&
+  function toggleShowModal(action, game) {
+    if (action === "edit") {
       setModal({
         isVisible: true,
         isEdit: true,
         game: game,
         isSubmit: false,
       });
-
-    string === "create" &&
-      setModal({ isVisible: true, isEdit: false, isSubmit: false, game: null });
-
-    string === "submit" &&
+      return;
+    }
+  
+    if (action === "create") {
+      setModal({
+        isVisible: true,
+        isEdit: false,
+        isSubmit: false,
+        game: null,
+      });
+      return;
+    }
+  
+    if (action === "submit") {
       setModal({
         isVisible: true,
         isEdit: modal.isEdit,
         isSubmit: true,
         game: null,
       });
-
-    string === "close" &&
+      return;
+    }
+  
+    if (action === "close") {
       setModal({
         isVisible: false,
         isEdit: false,
         isSubmit: false,
         game: null,
       });
+      return;
+    }
   }
+  
 
   function checkIsFavorite(id) {
     const foundGame = localGameData.find((item) => item.id === id);

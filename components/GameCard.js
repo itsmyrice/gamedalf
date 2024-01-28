@@ -26,7 +26,7 @@ export default function GameCard({
       </StyledLink>
       {game.userCreated && (
         <>
-          <EditButton showModal={showModal} data={game}/>
+          <EditButton showModal={showModal} onClick={() => showModal.toggle('edit',game)}/>
           <DeleteButton id={game._id} />
         </>
       )}

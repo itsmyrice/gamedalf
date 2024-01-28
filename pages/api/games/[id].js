@@ -16,12 +16,14 @@ export default async function handler(request, response) {
   if (request.method === "DELETE") {
     const updatedGame = request.body;
     await Game.findByIdAndDelete(id, updatedGame);
-    response.status(200).json({ status: "Game is successfully deleted." });
+    return response
+      .status(200)
+      .json({ status: "Game is successfully deleted." });
   }
 
   if (request.method === "PATCH") {
     const updatedGame = request.body;
     await Game.findByIdAndUpdate(id, updatedGame);
-    response.status(200).json({ status: "Game successfully updated." });
+    return response.status(200).json({ status: "Game successfully updated." });
   }
 }

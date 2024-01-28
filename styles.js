@@ -12,6 +12,7 @@ export default createGlobalStyle`
     background: #5a4fcf;
     margin: 0;
     font-family: system-ui;
+    overflow:hidden;
   }
   a {
     text-decoration: none;
