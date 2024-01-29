@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import VerticalGameList from "@/components/VerticalGameList";
 
+import Fuse from "fuse.js";
+
 import { useState, useEffect } from "react";
 import useSWR from "swr";
 import { FaTimes } from "react-icons/fa";
@@ -22,12 +24,35 @@ export default function SearchPage({ isFavorite, toggleFavorite }) {
     playtime: "",
   });
 
-  const searchedGames =
-    searchQuery.length > 0
-      ? data.filter((game) =>
-          `${game.name}`.toLowerCase().includes(searchQuery.toLowerCase())
-        )
-      : [];
+  function searchedGames(query) {
+    const fuseOptions = {
+      // isCaseSensitive: false,
+      // includeScore: false,
+      // shouldSort: true,
+      // includeMatches: false,
+      // findAllMatches: false,
+      minMatchCharLength: 2,
+      // location: 0,
+      threshold: 0.4,
+      // distance: 100,
+      // useExtendedSearch: false,
+      // ignoreLocation: false,
+      // ignoreFieldNorm: false,
+      // fieldNormWeight: 1,
+      keys: ["name", "description"],
+    };
+
+    const fuse = new Fuse(data, fuseOptions);
+
+    if (query.length > 0) {
+      const fuzzy = fuse.search(query);
+      const fuzzyResults = fuzzy.map((object) => object.item);
+      console.log("🚀  fuzzyResults:", fuzzyResults);
+      return fuzzyResults;
+    } else {
+      return [];
+    }
+  }
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -37,7 +62,7 @@ export default function SearchPage({ isFavorite, toggleFavorite }) {
     );
 
     if (allInputsEmpty) {
-      alert("Elders.");
+      alert("Please fill at least one field");
       return;
     }
 
@@ -77,17 +102,17 @@ export default function SearchPage({ isFavorite, toggleFavorite }) {
       );
     }
 
-    if (formData.yearpublished !== "") {
-      updatedResults = updatedResults.filter(
-        (game) => +game.yearpublished === +formData.yearpublished
-      );
-    }
-
     if (formData.playtime !== "") {
       updatedResults = updatedResults.filter(
         (game) =>
           +game.minPlaytime <= +formData.playtime &&
           +game.maxPlaytime >= +formData.playtime
+      );
+    }
+
+    if (formData.yearpublished !== "") {
+      updatedResults = updatedResults.filter(
+        (game) => +game.yearpublished === +formData.yearpublished
       );
     }
 
@@ -162,14 +187,6 @@ export default function SearchPage({ isFavorite, toggleFavorite }) {
               defaultValue={""}
               onChange={handleInputChange}
             />
-            <Label htmlFor="yearpublished">Release Year (yyyy)</Label>
-            <FormInput
-              type="number"
-              name="yearpublished"
-              id="yearpublished"
-              defaultValue={""}
-              onChange={handleInputChange}
-            />
             <Label htmlFor="playtime">Playtime (minutes)</Label>
             <FormInput
               type="number"
@@ -178,6 +195,15 @@ export default function SearchPage({ isFavorite, toggleFavorite }) {
               defaultValue={""}
               onChange={handleInputChange}
             />
+            <Label htmlFor="yearpublished">Release Year (yyyy)</Label>
+            <FormInput
+              type="number"
+              name="yearpublished"
+              id="yearpublished"
+              defaultValue={""}
+              onChange={handleInputChange}
+            />
+
             <StyledButton type="submit">Submit</StyledButton>
           </StyledForm>
         </>
@@ -186,7 +212,7 @@ export default function SearchPage({ isFavorite, toggleFavorite }) {
       <VerticalGameList
         isFavorite={isFavorite}
         toggleFavorite={toggleFavorite}
-        data={searchedGames}
+        data={searchedGames(searchQuery)}
       />
     </>
   );
@@ -241,6 +267,7 @@ const StyledButton = styled.button`
     transition: 0.3s ease-in-out;
   }
 `;
+
 const CloseButton = styled(FaTimes)`
   align-self: flex-end;
   cursor: pointer;
