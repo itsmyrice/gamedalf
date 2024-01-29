@@ -3,9 +3,19 @@ import VerticalGameList from "@/components/VerticalGameList";
 
 import Fuse from "fuse.js";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import useSWR from "swr";
 import { FaTimes } from "react-icons/fa";
+
+const INITIAL_DATA = {
+  keyword: "",
+  categories: "",
+  rating: "",
+  minAge: "",
+  players: "",
+  yearpublished: "",
+  playtime: "",
+};
 
 export default function SearchPage({ isFavorite, toggleFavorite }) {
   const { data } = useSWR("./api/games");
@@ -14,31 +24,12 @@ export default function SearchPage({ isFavorite, toggleFavorite }) {
   const [showFilters, setShowFilters] = useState(false);
   const [filteredResults, setFilteredResults] = useState([]);
 
-  const [formData, setFormData] = useState({
-    keyword: "",
-    categories: "",
-    rating: "",
-    minAge: "",
-    players: "",
-    yearpublished: "",
-    playtime: "",
-  });
+  const [formData, setFormData] = useState(INITIAL_DATA);
 
   function searchedGames(query) {
     const fuseOptions = {
-      // isCaseSensitive: false,
-      // includeScore: false,
-      // shouldSort: true,
-      // includeMatches: false,
-      // findAllMatches: false,
-      minMatchCharLength: 2,
-      // location: 0,
+      minMatchCharLength: 3,
       threshold: 0.4,
-      // distance: 100,
-      // useExtendedSearch: false,
-      // ignoreLocation: false,
-      // ignoreFieldNorm: false,
-      // fieldNormWeight: 1,
       keys: ["name", "description"],
     };
 
@@ -119,10 +110,6 @@ export default function SearchPage({ isFavorite, toggleFavorite }) {
     setFilteredResults(updatedResults);
   }
 
-  useEffect(() => {
-    console.log("🚀  filteredResults:", filteredResults);
-  }, [filteredResults]);
-
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
@@ -130,29 +117,47 @@ export default function SearchPage({ isFavorite, toggleFavorite }) {
 
   return (
     <>
-      <SearchInput
-        type="text"
-        id="text"
-        placeholder="Insert name"
-        value={searchQuery}
-        onChange={(event) => setSearchQuery(event.target.value)}
-      />
+      {!showFilters && (
+        <>
+          <SearchInput
+            type="text"
+            id="text"
+            placeholder="Search"
+            value={searchQuery}
+            onChange={(event) => setSearchQuery(event.target.value)}
+          />
 
-      <StyledButton type="button" onClick={() => setShowFilters(!showFilters)}>
-        Advanced Search
-      </StyledButton>
+          <StyledButton
+            type="button"
+            onClick={() => {
+              setSearchQuery("");
+              setShowFilters(true);
+              setFilteredResults([]);
+            }}
+          >
+            Advanced Search
+          </StyledButton>
+        </>
+      )}
 
       {showFilters && (
         <>
           <StyledForm onSubmit={handleSubmit}>
-            <CloseButton onClick={() => setShowFilters(!showFilters)} />
-            <Label htmlFor="keyword">Keyword</Label>
+            <CloseButton
+              onClick={() => {
+                setFilteredResults([]);
+                setShowFilters(false);
+              }}
+            />
+            <h2>Advanced Search</h2>
+            <Label htmlFor="name">Name</Label>
             <FormInput
               type="text"
-              name="keyword"
-              id="keyword"
+              name="name"
+              id="name"
               defaultValue={""}
               onChange={handleInputChange}
+              placeholder="Exact name"
             />
             <Label htmlFor="categories">Categories</Label>
             <FormInput
@@ -161,6 +166,7 @@ export default function SearchPage({ isFavorite, toggleFavorite }) {
               id="categories"
               defaultValue={""}
               onChange={handleInputChange}
+              placeholder="Genre, theme, etc."
             />
             <Label htmlFor="rating">Rating</Label>
             <FormInput
@@ -170,6 +176,7 @@ export default function SearchPage({ isFavorite, toggleFavorite }) {
               step="0.1"
               defaultValue={""}
               onChange={handleInputChange}
+              placeholder="Decimal points are allowed"
             />
             <Label htmlFor="minAge">Minimum Age</Label>
             <FormInput
@@ -178,6 +185,7 @@ export default function SearchPage({ isFavorite, toggleFavorite }) {
               id="minAge"
               defaultValue={""}
               onChange={handleInputChange}
+              placeholder="(1-99)"
             />
             <Label htmlFor="players">Players</Label>
             <FormInput
@@ -186,22 +194,25 @@ export default function SearchPage({ isFavorite, toggleFavorite }) {
               id="players"
               defaultValue={""}
               onChange={handleInputChange}
+              placeholder="min. 1"
             />
-            <Label htmlFor="playtime">Playtime (minutes)</Label>
+            <Label htmlFor="playtime">Playtime</Label>
             <FormInput
               type="number"
               name="playtime"
               id="playtime"
               defaultValue={""}
               onChange={handleInputChange}
+              placeholder="in minutes"
             />
-            <Label htmlFor="yearpublished">Release Year (yyyy)</Label>
+            <Label htmlFor="yearpublished">Release Year</Label>
             <FormInput
               type="number"
               name="yearpublished"
               id="yearpublished"
               defaultValue={""}
               onChange={handleInputChange}
+              placeholder="yyyy"
             />
 
             <StyledButton type="submit">Submit</StyledButton>
@@ -212,7 +223,7 @@ export default function SearchPage({ isFavorite, toggleFavorite }) {
       <VerticalGameList
         isFavorite={isFavorite}
         toggleFavorite={toggleFavorite}
-        data={searchedGames(searchQuery)}
+        data={showFilters ? filteredResults : searchedGames(searchQuery)}
       />
     </>
   );
@@ -236,6 +247,7 @@ const SearchInput = styled.input`
   outline: none;
   border: none;
   box-shadow: 3px 3px 5px grey;
+  width: 100%;
 `;
 
 const FormInput = styled.input`
