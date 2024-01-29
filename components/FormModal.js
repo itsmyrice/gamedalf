@@ -2,6 +2,8 @@ import styled from "styled-components";
 import Form from "@/components/Form";
 import SendingConfirmation from "@/components/SendingConfirmation";
 import { mutate } from "swr";
+import { useEffect } from "react";
+
 
 export default function FormModal({ showModal }) {
   async function handleCreate(formData) {
@@ -37,6 +39,13 @@ export default function FormModal({ showModal }) {
       return error.message || "An error occurred while editing the game";
     }
   }
+
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, []);
 
   return (
     <>
