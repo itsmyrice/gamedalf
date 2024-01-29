@@ -1,15 +1,53 @@
 import styled from "styled-components";
 import Form from "@/components/Form";
 import SendingConfirmation from "@/components/SendingConfirmation";
+import { mutate } from "swr";
 
 export default function FormModal({ showModal }) {
+  async function handleCreate(formData) {
+    const url = "/api/games";
+
+    const response = await fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(formData),
+    });
+
+    if (response.ok) {
+      mutate("/api/games");
+    } else {
+      const error = await response.json();
+      return error.message || "An error occurred while creating the game";
+    }
+  }
+
+  async function handleEdit(formData) {
+    const url = `/api/games/${showModal.modal.game._id}`;
+
+    const response = await fetch(url, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(formData),
+    });
+
+    if (response.ok) {
+      mutate("/api/games");
+    } else {
+      const error = await response.json();
+      return error.message || "An error occurred while editing the game";
+    }
+  }
 
   return (
     <>
       <Overlay onClick={() => showModal.toggle("close")} />
       <StyledModal>
         {!showModal.modal.isSubmit ? (
-          <Form showModal={showModal} />
+          <Form
+            showModal={showModal}
+            onSubmit={showModal.modal.isEdit ? handleEdit : handleCreate}
+            initialFormData={showModal.modal.isEdit && showModal.modal.game}
+          />
         ) : (
           <SendingConfirmation showModal={showModal} />
         )}

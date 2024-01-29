@@ -1,29 +1,28 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import { FaTimes } from "react-icons/fa";
-import { mutate } from "swr";
 
-export default function Form({ showModal }) {
+const INITIAL_DATA = {
+  name: "",
+  categories: "",
+  minAge: "",
+  description: "",
+  minPlayers: "",
+  maxPlayers: "",
+  image: "",
+  yearpublished: "",
+  playtime: "",
+  userCreated: true,
+};
+
+export default function Form({
+  showModal,
+  onSubmit,
+  initialFormData = INITIAL_DATA,
+}) {
   const [validationError, setValidationError] = useState("");
 
-  const [formData, setFormData] = useState({
-    name: "",
-    categories: "",
-    minAge: "",
-    description: "",
-    minPlayers: "",
-    maxPlayers: "",
-    image: "",
-    yearpublished: "",
-    playtime: "",
-    userCreated: true,
-  });
-
-  useEffect(() => {
-    if (showModal.modal.isEdit && showModal.modal.game) {
-      setFormData(showModal.modal.game);
-    }
-  }, [showModal.modal.isEdit, showModal.modal.game]);
+  const [formData, setFormData] = useState(initialFormData);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -40,22 +39,9 @@ export default function Form({ showModal }) {
       return;
     }
 
-    const url = showModal.modal.isEdit
-      ? `/api/games/${showModal.modal.game._id}`
-      : "/api/games";
-
-    const response = await fetch(url, {
-      method: showModal.modal.isEdit ? "PATCH" : "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(formData),
-    });
-
-    if (response.ok) {
-      mutate("/api/games");
-    } else {
-      const error = await response.json();
-      setValidationError(error.message || "An error occurred");
-    }
+    const validationMessage = await onSubmit(formData);
+    setValidationError(validationMessage);
+    onSubmit(formData);
   }
 
   return (
