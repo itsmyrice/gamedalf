@@ -4,7 +4,6 @@ import SendingConfirmation from "@/components/SendingConfirmation";
 import { mutate } from "swr";
 import { useEffect } from "react";
 
-
 export default function FormModal({ showModal }) {
   async function handleCreate(formData) {
     const url = "/api/games";
