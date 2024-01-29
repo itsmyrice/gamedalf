@@ -32,12 +32,12 @@ export default function Form({
   async function handleSubmit(event) {
     event.preventDefault();
 
-    showModal.toggle("submit");
-
     if (!formData.image.startsWith("https://images.unsplash.com")) {
       setValidationError("Only images from unsplash.com are allowed");
       return;
     }
+
+    showModal.toggle("submit");
 
     const validationMessage = await onSubmit(formData);
     setValidationError(validationMessage);
