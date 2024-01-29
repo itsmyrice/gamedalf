@@ -41,7 +41,6 @@ export default function Form({
 
     const validationMessage = await onSubmit(formData);
     setValidationError(validationMessage);
-    onSubmit(formData);
   }
 
   return (
