@@ -1,23 +1,28 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import { FaTimes } from "react-icons/fa";
-import { mutate } from "swr";
 
-export default function Form({ onClose, onSubmit }) {
+const INITIAL_DATA = {
+  name: "",
+  categories: "",
+  minAge: "",
+  description: "",
+  minPlayers: "",
+  maxPlayers: "",
+  image: "",
+  yearpublished: "",
+  playtime: "",
+  userCreated: true,
+};
+
+export default function Form({
+  showModal,
+  onSubmit,
+  initialFormData = INITIAL_DATA,
+}) {
   const [validationError, setValidationError] = useState("");
 
-  const [formData, setFormData] = useState({
-    name: "",
-    categories: "",
-    minAge: "",
-    description: "",
-    minPlayers: "",
-    maxPlayers: "",
-    image: "",
-    yearpublished: "",
-    playtime: "",
-    userCreated: true,
-  });
+  const [formData, setFormData] = useState(initialFormData);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -32,31 +37,16 @@ export default function Form({ onClose, onSubmit }) {
       return;
     }
 
-    const response = await fetch("/api/games", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(formData),
-    });
+    showModal.toggle("submit");
 
-    if (response.ok) {
-      onSubmit();
-      mutate("/api/games");
-    } else {
-      const error = await response.json();
-      setValidationError(error.message || "An error occurred");
-    }
+    const validationMessage = await onSubmit(formData);
+    setValidationError(validationMessage);
   }
-
-  useEffect(() => {
-    document.body.style.overflow = "hidden";
-    return () => {
-      document.body.style.overflow = "unset";
-    };
-  }, []);
 
   return (
     <FormLayout>
-      <CloseButton onClick={onClose} />
+      <CloseButton onClick={() => showModal.toggle("close")} />
+      {showModal.modal.isEdit ? <h2>Edit</h2> : <h2>Create</h2>}
       <StyledForm onSubmit={handleSubmit}>
         <Label htmlFor="image">Image URL</Label>
         <Input

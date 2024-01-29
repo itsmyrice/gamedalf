@@ -1,15 +1,10 @@
 import styled from "styled-components";
 import { MdOutlineFolderOff } from "react-icons/md";
-import { useState } from "react";
-import Form from "@/components/Form";
-import SendingConfirmation from "@/components/SendingConfirmation";
 import useSWR from "swr";
 import VerticalGameList from "@/components/VerticalGameList";
 
-export default function ProfilePage({ toggleFavorite, isFavorite }) {
-  const [showModal, setShowModal] = useState(false);
-  const [content, setContent] = useState("form");
-  const { data: gameData, isLoading, error, mutate } = useSWR("/api/games");
+export default function ProfilePage({ toggleFavorite, isFavorite, showModal }) {
+  const { data: gameData, isLoading, error  } = useSWR("/api/games");
 
   const userCreatedGame = gameData
     ? gameData.filter(({ userCreated }) => userCreated)
@@ -18,23 +13,13 @@ export default function ProfilePage({ toggleFavorite, isFavorite }) {
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Failed to load games</div>;
 
-  const toggleModalVisibility = () => setShowModal(!showModal);
-  const handleFormSubmit = () => {
-    setContent("confirmation");
-  };
-
-  const handleCloseModal = () => {
-    setShowModal(false);
-    setContent("form");
-  };
-
   return (
     <StyledSection>
       <StyledDivBigText>
         <h2>Profile</h2>
         <h3>Your games:</h3>
       </StyledDivBigText>
-      <StyledButton onClick={toggleModalVisibility}>Create</StyledButton>
+      <StyledButton onClick={() => showModal.toggle("create")}>Create</StyledButton>
 
       <StyledUserCreatedGameList>
         {userCreatedGame.length > 0 ? (
@@ -42,6 +27,7 @@ export default function ProfilePage({ toggleFavorite, isFavorite }) {
             data={userCreatedGame}
             isFavorite={isFavorite}
             toggleFavorite={toggleFavorite}
+            showModal={showModal}
           />
         ) : (
           <p>
@@ -49,19 +35,6 @@ export default function ProfilePage({ toggleFavorite, isFavorite }) {
           </p>
         )}
       </StyledUserCreatedGameList>
-
-      {showModal && (
-        <>
-          <Overlay onClick={handleCloseModal} />
-          <StyledModal>
-            {content === "form" ? (
-              <Form onClose={handleCloseModal} onSubmit={handleFormSubmit} />
-            ) : (
-              <SendingConfirmation onClose={handleCloseModal} />
-            )}
-          </StyledModal>
-        </>
-      )}
     </StyledSection>
   );
 }
@@ -87,35 +60,6 @@ const StyledUserCreatedGameList = styled.div`
   flex-direction: column;
   text-decoration: underline;
   padding: 3.5rem 0;
-`;
-
-const StyledModal = styled.div`
-  background-color: #f5f5f7;
-  width: 90%;
-  height: 80%;
-  color: black;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  z-index: 1000;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  overflow: scroll;
-`;
-
-const Overlay = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(0, 0, 0, 0.7);
-  z-index: 900;
 `;
 
 const StyledButton = styled.button`

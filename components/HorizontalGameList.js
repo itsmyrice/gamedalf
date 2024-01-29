@@ -13,7 +13,8 @@ export default function HorizontalGameList({
   categorieId,
   isFavorite,
   toggleFavorite,
-  listLength
+  listLength,
+  showModal,
 }) {
   const [visibleCount, setVisibleCount] = useState(listLength);
 
@@ -47,6 +48,7 @@ export default function HorizontalGameList({
               game={game}
               isFavorite={isFavorite}
               toggleFavorite={toggleFavorite}
+              showModal={showModal}
             />
           </SwiperSlide>
         ))}

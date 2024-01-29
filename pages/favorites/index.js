@@ -7,6 +7,7 @@ export default function FavoritesPage({
   isFavorite,
   toggleFavorite,
   localGameData,
+  showModal,
 }) {
   const { data, isLoading, error } = useSWR("/api/games");
 
@@ -34,6 +35,7 @@ export default function FavoritesPage({
           data={favoriteGamesData}
           isFavorite={isFavorite}
           toggleFavorite={toggleFavorite}
+          showModal={showModal}
         />
       )}
     </>

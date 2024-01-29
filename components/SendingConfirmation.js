@@ -2,6 +2,32 @@ import React from "react";
 import styled from "styled-components";
 import { FaTimes } from "react-icons/fa";
 
+export default function SendingConfirmation({ showModal }) {
+  return (
+    <ConfirmationLayout>
+      <CloseButton onClick={() => showModal.toggle("close")} />
+      {showModal.modal.isEdit ? (
+        <>
+          <h1>Updated! 🙌</h1>
+          <p>Now go, explore some other games</p>
+        </>
+      ) : (
+        <>
+          <h1>Added! 🙌</h1>
+          <p>Thank you, your game is added to the collection</p>
+        </>
+      )}
+      <DoneButton
+        onClick={() => {
+          showModal.toggle("close");
+        }}
+      >
+        Done
+      </DoneButton>
+    </ConfirmationLayout>
+  );
+}
+
 const ConfirmationLayout = styled.div`
   width: 100%;
   padding: 20px;
@@ -33,16 +59,3 @@ const DoneButton = styled.button`
     transition: 0.3s ease-in-out;
   }
 `;
-
-const SendingConfirmation = ({ onClose }) => {
-  return (
-    <ConfirmationLayout>
-      <CloseButton onClick={onClose} />
-      <h1>Added! 🙌</h1>
-      <p>Thanks for adding new game to your collection</p>
-      <DoneButton onClick={onClose}>Done</DoneButton>
-    </ConfirmationLayout>
-  );
-};
-
-export default SendingConfirmation;

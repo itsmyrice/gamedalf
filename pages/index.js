@@ -1,7 +1,7 @@
 import useSWR from "swr";
 import HorizontalGameList from "@/components/HorizontalGameList";
 
-export default function HomePage({ isFavorite, toggleFavorite }) {
+export default function HomePage({ isFavorite, toggleFavorite, showModal }) {
   const { data, error, isLoading } = useSWR("/api/games");
 
   if (error)
@@ -24,6 +24,7 @@ export default function HomePage({ isFavorite, toggleFavorite }) {
             data={data.slice(0, 25)}
             categorieId={0}
             listLength={5}
+            showModal={showModal}
           />
           <HorizontalGameList
             toggleFavorite={toggleFavorite}
@@ -31,6 +32,7 @@ export default function HomePage({ isFavorite, toggleFavorite }) {
             data={data.slice(26, 50)}
             categorieId={1}
             listLength={5}
+            showModal={showModal}
           />
           <HorizontalGameList
             toggleFavorite={toggleFavorite}
@@ -38,6 +40,7 @@ export default function HomePage({ isFavorite, toggleFavorite }) {
             data={data.slice(51, 75)}
             categorieId={2}
             listLength={5}
+            showModal={showModal}
           />
         </>
       )}

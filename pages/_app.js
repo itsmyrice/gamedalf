@@ -4,8 +4,58 @@ import styled from "styled-components";
 import Navbar from "@/components/Navbar";
 import Header from "@/components/Header";
 import { useState } from "react";
+import FormModal from "@/components/FormModal";
 export default function App({ Component, pageProps }) {
   const [localGameData, setLocalGameData] = useState([]);
+  const [modal, setModal] = useState({
+    isVisible: false,
+    isEdit: false,
+    isSubmit: false,
+    game: null,
+  });
+
+  function toggleShowModal(action, game) {
+    if (action === "edit") {
+      setModal({
+        isVisible: true,
+        isEdit: true,
+        game: game,
+        isSubmit: false,
+      });
+      return;
+    }
+  
+    if (action === "create") {
+      setModal({
+        isVisible: true,
+        isEdit: false,
+        isSubmit: false,
+        game: null,
+      });
+      return;
+    }
+  
+    if (action === "submit") {
+      setModal({
+        isVisible: true,
+        isEdit: modal.isEdit,
+        isSubmit: true,
+        game: null,
+      });
+      return;
+    }
+  
+    if (action === "close") {
+      setModal({
+        isVisible: false,
+        isEdit: false,
+        isSubmit: false,
+        game: null,
+      });
+      return;
+    }
+  }
+  
 
   function checkIsFavorite(id) {
     const foundGame = localGameData.find((item) => item.id === id);
@@ -55,8 +105,13 @@ export default function App({ Component, pageProps }) {
             isFavorite={checkIsFavorite}
             toggleFavorite={toggleFavorite}
             localGameData={localGameData}
+            showModal={{ toggle: toggleShowModal, modal: modal }}
             {...pageProps}
           />
+
+          {modal.isVisible && (
+            <FormModal showModal={{ toggle: toggleShowModal, modal: modal }} />
+          )}
         </ContentWrapper>
         <Navbar />
       </SWRConfig>
