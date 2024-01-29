@@ -1,6 +1,7 @@
 import useSWR from "swr";
 import HorizontalGameList from "@/components/HorizontalGameList";
-import AboutUs from "@/components/AboutUs";
+import Link from "next/link";
+import styled from "styled-components";
 
 export default function HomePage({ isFavorite, toggleFavorite }) {
   const { data, error, isLoading } = useSWR("/api/games");
@@ -17,7 +18,7 @@ export default function HomePage({ isFavorite, toggleFavorite }) {
 
   return (
     <>
-    <AboutUs />
+    <StyledLink href={"/aboutus"}>About us</StyledLink>
       {data && (
         <>
           <HorizontalGameList
@@ -46,3 +47,13 @@ export default function HomePage({ isFavorite, toggleFavorite }) {
     </>
   );
 }
+
+const StyledLink = styled(Link)`
+color: #111111;
+padding: 0.3rem;
+margin-left: 1.2rem;
+&:hover {
+    color: #ff8200;
+    border-left: 1px solid #111111;
+}
+`;
