@@ -27,7 +27,6 @@ export default function Form({
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
-    console.log("🚀  formData:", formData);
   };
 
   async function handleSubmit(event) {

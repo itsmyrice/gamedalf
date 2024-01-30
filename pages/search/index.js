@@ -1,7 +1,8 @@
 import styled from "styled-components";
 import VerticalGameList from "@/components/VerticalGameList";
 
-import Fuse from "fuse.js";
+import Fuse from 'fuse.js'
+
 
 import { useState } from "react";
 import useSWR from "swr";
@@ -24,7 +25,7 @@ export default function SearchPage({ isFavorite, toggleFavorite }) {
   const [showFilters, setShowFilters] = useState(false);
   const [filteredResults, setFilteredResults] = useState([]);
 
-  const [formData, setFormData] = useState(INITIAL_DATA);
+  const [searchFormData, setSearchFormData] = useState(INITIAL_DATA);
 
   function fuzzySearch(query, threshold, keys) {
     const fuseOptions = {
