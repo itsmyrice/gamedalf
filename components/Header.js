@@ -11,10 +11,10 @@ const StyledTitle = styled.h1`
   color: #111111;
   display: flex;
   justify-content: center;
-  margin: auto;
   padding: 0.5rem;
   text-shadow: 0px 1px 2px #b56917;
   background-color: white;
+  margin-bottom: 1rem;
 `;
 
 const StyledSpan = styled.span`
