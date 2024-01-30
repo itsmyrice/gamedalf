@@ -5,6 +5,9 @@ import Navbar from "@/components/Navbar";
 import Header from "@/components/Header";
 import { useState } from "react";
 import FormModal from "@/components/FormModal";
+import { SessionProvider } from "next-auth/react";
+
+
 export default function App({ Component, pageProps }) {
   const [localGameData, setLocalGameData] = useState([]);
   const [modal, setModal] = useState({
@@ -24,7 +27,7 @@ export default function App({ Component, pageProps }) {
       });
       return;
     }
-  
+
     if (action === "create") {
       setModal({
         isVisible: true,
@@ -34,7 +37,7 @@ export default function App({ Component, pageProps }) {
       });
       return;
     }
-  
+
     if (action === "submit") {
       setModal({
         isVisible: true,
@@ -44,7 +47,7 @@ export default function App({ Component, pageProps }) {
       });
       return;
     }
-  
+
     if (action === "close") {
       setModal({
         isVisible: false,
@@ -55,7 +58,6 @@ export default function App({ Component, pageProps }) {
       return;
     }
   }
-  
 
   function checkIsFavorite(id) {
     const foundGame = localGameData.find((item) => item.id === id);
@@ -92,29 +94,33 @@ export default function App({ Component, pageProps }) {
 
   return (
     <>
-      <GlobalStyle />
-      <SWRConfig
-        value={{
-          fetcher: (resource, init) =>
-            fetch(resource, init).then((response) => response.json()),
-        }}
-      >
-        <Header />
-        <ContentWrapper>
-          <Component
-            isFavorite={checkIsFavorite}
-            toggleFavorite={toggleFavorite}
-            localGameData={localGameData}
-            showModal={{ toggle: toggleShowModal, modal: modal }}
-            {...pageProps}
-          />
+      <SessionProvider session={pageProps.session}>
+        <GlobalStyle />
+        <SWRConfig
+          value={{
+            fetcher: (resource, init) =>
+              fetch(resource, init).then((response) => response.json()),
+          }}
+        >
+          <Header />
+          <ContentWrapper>
+            <Component
+              isFavorite={checkIsFavorite}
+              toggleFavorite={toggleFavorite}
+              localGameData={localGameData}
+              showModal={{ toggle: toggleShowModal, modal: modal }}
+              {...pageProps}
+            />
 
-          {modal.isVisible && (
-            <FormModal showModal={{ toggle: toggleShowModal, modal: modal }} />
-          )}
-        </ContentWrapper>
-        <Navbar />
-      </SWRConfig>
+            {modal.isVisible && (
+              <FormModal
+                showModal={{ toggle: toggleShowModal, modal: modal }}
+              />
+            )}
+          </ContentWrapper>
+          <Navbar />
+        </SWRConfig>
+      </SessionProvider>
     </>
   );
 }

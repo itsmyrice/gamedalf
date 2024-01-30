@@ -2,9 +2,15 @@ import useSWR from "swr";
 import HorizontalGameList from "@/components/HorizontalGameList";
 import Link from "next/link";
 import styled from "styled-components";
+import Login from "components/Login.js";
+
+import { useSession } from "next-auth/react";
 
 export default function HomePage({ isFavorite, toggleFavorite, showModal }) {
   const { data, error, isLoading } = useSWR("/api/games");
+
+  const session = useSession();
+  const isLoggedIn = session.status === "authenticated";
 
   if (error)
     return (
@@ -18,7 +24,10 @@ export default function HomePage({ isFavorite, toggleFavorite, showModal }) {
 
   return (
     <>
-    <StyledLink href={"/aboutus"}>About us</StyledLink>
+    {session ? <p>session exist</p> : <p>NOT LOGGED</p>} 
+      {isLoggedIn ? <p>LOGGED</p> : <p>NOT LOGGED</p>}
+      <Login />
+      <StyledLink href={"/aboutus"}>About us</StyledLink>
       {data && (
         <>
           <HorizontalGameList
@@ -52,11 +61,11 @@ export default function HomePage({ isFavorite, toggleFavorite, showModal }) {
 }
 
 const StyledLink = styled(Link)`
-color: #111111;
-padding: 0.3rem;
-margin-left: 1.2rem;
-&:hover {
+  color: #111111;
+  padding: 0.3rem;
+  margin-left: 1.2rem;
+  &:hover {
     color: #ff8200;
     border-left: 1px solid #111111;
-}
+  }
 `;
