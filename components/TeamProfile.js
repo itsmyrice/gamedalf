@@ -6,7 +6,6 @@ import { TiSocialFacebook } from "react-icons/ti";
 import { IoLogoInstagram } from "react-icons/io5";
 import styled from "styled-components";
 
-
 export const profiles = [
   {
     name: "Oguz Kabasakal",
@@ -16,7 +15,7 @@ export const profiles = [
     socialNetworks: [
       {
         icon: <CgWebsite />,
-        link: "https://github.com/kabaskill",
+        link: "https://www.oguzkabasakal.com/",
       },
       {
         icon: <FaGithub />,
@@ -26,7 +25,7 @@ export const profiles = [
   },
   {
     name: "Kristian Kenjeres",
-    position: "Web Developer",
+    position: "Web Developer | Instagram Influencer",
     bio: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa vero doloremque reprehenderit!!.",
     imageUrl: "/images/pirate.jpg",
     socialNetworks: [
@@ -74,7 +73,7 @@ export function SocialNetwork({ link, icon }) {
   );
 }
 
-export default function TeamProfiles({
+export default function TeamProfile({
   name,
   position,
   socialNetworks,
@@ -85,13 +84,15 @@ export default function TeamProfiles({
     <StyledProfileWrapper>
       <Image src={imageUrl} width={130} height={150} alt={name} />
       <StyledProfileContent>
-      <h4>{name}</h4>
-      <p>{position}</p>
-      <p>
-        {socialNetworks.map((social, index) => (
-          <SocialNetwork key={index} {...social} />
-        ))}
-      </p>
+        <h4>{name}</h4>
+        <p>{position}</p>
+        <StyledUl>
+          {socialNetworks.map((social) => (
+            <li key={social.link}>
+              <SocialNetwork {...social} />
+            </li>
+          ))}
+        </StyledUl>
       </StyledProfileContent>
       <p>{bio}</p>
     </StyledProfileWrapper>
@@ -120,7 +121,12 @@ const StyledProfileContent = styled.div`
     font-size: 1.3rem;
     margin: 0 0.1rem;
     &:hover {
-      color: #111111;;
+      color: #111111;
     }
   }
+`;
+
+const StyledUl = styled.ul`
+  list-style: none;
+  display: flex;
 `;

@@ -1,6 +1,6 @@
 import TechStack from "@/components/TechStack";
-import TeamProfiles from "@/components/ProfileTeam";
-import { profiles } from "@/components/ProfileTeam";
+import TeamProfile from "@/components/TeamProfile";
+import { profiles } from "@/components/TeamProfile";
 import { techStacks } from "@/components/TechStack";
 import Link from "next/link";
 import styled from "styled-components";
@@ -24,8 +24,8 @@ export default function AboutUsPage() {
         wherever you need it.'
       </p>
       <h3>Lets us introduce ourselves.</h3>
-      {profiles.map((profile, index) => (       
-          <TeamProfiles key={index} {...profile} />
+      {profiles.map((profile) => (       
+          <TeamProfile key={profile.name} {...profile} />
       ))}
 
       <h3>Let us introduce our app.</h3>
@@ -45,8 +45,8 @@ export default function AboutUsPage() {
       </StyledAppContent>
       <h3>Tech Stack</h3>
       <StyledTechWrapper>
-        {techStacks.map((tech, index) => (
-          <TechStack key={index} {...tech} />
+        {techStacks.map((tech) => (
+          <TechStack key={tech.name} {...tech} />
         ))}
       </StyledTechWrapper>
     </StyledPageWrapper>
