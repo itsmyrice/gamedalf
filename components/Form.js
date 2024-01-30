@@ -18,15 +18,16 @@ const INITIAL_DATA = {
 export default function Form({
   showModal,
   onSubmit,
-  initialFormData = INITIAL_DATA,
+  initialFormData,
 }) {
   const [validationError, setValidationError] = useState("");
 
-  const [formData, setFormData] = useState(initialFormData);
+  const [formData, setFormData] = useState(initialFormData || INITIAL_DATA);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
+    console.log("🚀  formData:", formData);
   };
 
   async function handleSubmit(event) {
