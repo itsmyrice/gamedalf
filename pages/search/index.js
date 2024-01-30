@@ -56,14 +56,14 @@ export default function SearchPage({ isFavorite, toggleFavorite }) {
       return;
     }
 
-    let updatedResults = [];
+    let updatedResults = [...data];
 
     if (formData.name !== "") {
       updatedResults = fuzzySearch(formData.name, 0, ["name"]);
     }
 
     if (formData.categories !== "") {
-      updatedResults = fuzzySearch(formData.categories, 0, ["categories"]);
+      updatedResults = fuzzySearch(formData.categories, 0.1, ["categories"]);
     }
 
     if (formData.rating !== "") {
@@ -120,8 +120,11 @@ export default function SearchPage({ isFavorite, toggleFavorite }) {
       );
     }
 
-    setFilteredResults(updatedResults);
-    console.log("🚀  updatedResults:", updatedResults);
+    if (updatedResults.length > 0) {
+      setFilteredResults(updatedResults);
+    } else {
+      alert("No results");
+    }
   }
 
   const handleInputChange = (event) => {
