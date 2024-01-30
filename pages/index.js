@@ -24,8 +24,7 @@ export default function HomePage({ isFavorite, toggleFavorite, showModal }) {
 
   return (
     <>
-    {session ? <p>session exist</p> : <p>NOT LOGGED</p>} 
-      {isLoggedIn ? <p>LOGGED</p> : <p>NOT LOGGED</p>}
+
       <Login />
       <StyledLink href={"/aboutus"}>About us</StyledLink>
       {data && (
