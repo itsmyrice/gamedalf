@@ -37,41 +37,46 @@ export default function DetailsPage({ isFavorite, toggleFavorite }) {
         height={210}
       ></StyledImageDisplay>
       <h1>{game.name}</h1>
-      <StyledRating>{game.rating}</StyledRating>
       <StyledTable>
         <thead>
           <tr>
+            <StyledTh>Rating</StyledTh>
             <StyledTh>Age</StyledTh>
-            <StyledTh>Min.Players</StyledTh>
-            <StyledTh2>Max. Players</StyledTh2>
           </tr>
         </thead>
         <tbody>
           <tr>
+            <StyledTd>{game.rating.slice(0, 3)}</StyledTd>
             <StyledTd>{game.minAge}+</StyledTd>
-            <StyledTd>{game.minPlayers}</StyledTd>
-            <StyledTd2>{game.maxPlayers}</StyledTd2>
           </tr>
         </tbody>
         <thead>
           <tr>
             <StyledTh>Year Released</StyledTh>
             <StyledTh>Playing Time</StyledTh>
-            <StyledTh2>Minimum Playtime</StyledTh2>
           </tr>
         </thead>
         <tbody>
           <tr>
             <StyledTd>{game.yearpublished}</StyledTd>
             <StyledTd>{game.playtime}</StyledTd>
-            <StyledTd2>{game.minPlaytime}</StyledTd2>
+          </tr>
+        </tbody>
+        <thead>
+          <tr>           
+            <StyledTh>Min. Players</StyledTh>
+            <StyledTh>Max. Players</StyledTh>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>           
+            <StyledTd>{game.minPlayers}</StyledTd>
+            <StyledTd>{game.maxPlayers}</StyledTd>
           </tr>
         </tbody>
       </StyledTable>
       <StyledContents>Categories</StyledContents>
-      <StyledPTexts>{`${game.categories.join(
-        ","
-      )}`}</StyledPTexts>
+      <StyledPTexts>{`${game.categories.slice(0, 7)}`}</StyledPTexts>
       <StyledContents>Description</StyledContents>
       <StyledPTexts>{game.description}</StyledPTexts>
       {game.userCreated ? <p>{game.userCreated}</p> : ""}
@@ -83,7 +88,7 @@ const StyledSection = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #e6e6fa;
+  background-color: #f5f5f7;
   margin-bottom: 5rem;
 `;
 
@@ -112,49 +117,32 @@ const StyledLink = styled(Link)`
   }
 `;
 
-const StyledRating = styled.p`
-  color: #ff8200;
-  font-weight: bold;
-  margin: 0.5rem 0;
-`;
-
 const StyledTable = styled.table`
   border-collapse: collapse;
   text-align: center;
   display: inline;
   justify-content: space-between;
-  box-shadow: 1px 0px 4px #8a8686;
-  padding: 0.7rem;
-  margin: 1rem;
+  margin-top: 2rem;
   font-size: 0.9rem;
 `;
 
 const StyledTh = styled.th`
-  border-right: 1px ridge #d8d2d2;
-  padding: 0.7rem;
+  padding: 0.5rem 5rem;
 `;
 
 const StyledTd = styled.td`
-  padding: 0.7rem;
   color: #ff8200;
-`;
-
-const StyledTh2 = styled.th`
-  padding: 0.7rem;
-`;
-
-const StyledTd2 = styled.td`
-  color: #ff8200;
-  padding: 0.7rem;
 `;
 
 const StyledContents = styled.h2`
   font-size: 1.1rem;
   margin: 1rem 0;
 `;
+
 const StyledPTexts = styled.p`
   border-top: 1px inset #d8d2d2;
   margin: 0 1rem;
   padding: 1rem 0;
   font-size: 0.8rem;
+  text-align: center;
 `;
