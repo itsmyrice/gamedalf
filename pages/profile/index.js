@@ -46,6 +46,7 @@ const StyledSection = styled.div`
   padding-top: 2rem;
   color: #111111;
   height: 100vh;
+  
 `;
 
 const StyledDivBigText = styled.div`
@@ -58,8 +59,10 @@ const StyledDivBigText = styled.div`
 const StyledUserCreatedGameList = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: center;
   text-decoration: underline;
   padding: 3.5rem 0;
+  margin-bottom: 4rem;
 `;
 
 const StyledButton = styled.button`
