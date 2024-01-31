@@ -13,7 +13,7 @@ export default function HorizontalGameList({
   categorieId,
   isFavorite,
   toggleFavorite,
-  listLength
+  listLength,
 }) {
   const [visibleCount, setVisibleCount] = useState(listLength);
 
@@ -25,9 +25,9 @@ export default function HorizontalGameList({
     <GamesContainer>
       <Title>{data[0].categories[categorieId]}</Title>
       <Swiper
-        spaceBetween={20}
-        slidesPerView={1.5}
-        navigation
+        style={{ "--swiper-navigation-size": "30px" }}
+        spaceBetween={15}
+        slidesPerView={1.1}
         modules={[Navigation]}
         breakpoints={{
           640: {
@@ -51,7 +51,7 @@ export default function HorizontalGameList({
           </SwiperSlide>
         ))}
         {visibleCount < data.length && (
-          <SwiperSlide>
+          <SwiperSlide style={{ height: "100%" }}>
             <ShowMore onClick={handleSeeMore}>
               <GoPlus />
               See More
@@ -65,14 +65,14 @@ export default function HorizontalGameList({
 
 const GamesContainer = styled.div`
   color: #ffffff;
-  margin: auto;
-  padding: 40px 20px;
   width: 100%;
   box-sizing: border-box;
+  margin: 40px 0;
 `;
 
 const ShowMore = styled.button`
   display: flex;
+  height: 100%;
   align-items: center;
   justify-content: center;
   border: 1px solid black;
@@ -94,8 +94,7 @@ const ShowMore = styled.button`
 `;
 
 const Title = styled.h2`
-  font-size: 40px;
-  margin-bottom: 40px;
-  border-bottom: 2px solid #fff;
-  display: inline-block;
+  font-size: 20px;
+  margin-bottom: 10px;
+  color: gray;
 `;

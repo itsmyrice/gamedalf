@@ -2,6 +2,7 @@ import styled from "styled-components";
 import Link from "next/link";
 import FavouriteButton from "./FavouriteButton";
 import DeleteButton from "./DeleteButton";
+import { MdArrowOutward } from "react-icons/md";
 
 export default function GameCard({ game, isFavorite, toggleFavorite }) {
   return (
@@ -14,30 +15,39 @@ export default function GameCard({ game, isFavorite, toggleFavorite }) {
         />
       </StyledImageWrapper>
       <StyledLink href={`/games/${game._id}`} aria-label="More details">
-        <StyledTitle>{game.name}</StyledTitle>
-        <StyledRankTitle>{game.rating}</StyledRankTitle>
-        <StyledYearDisplay>{game.yearpublished}</StyledYearDisplay>
+        <StyledWrapper>
+          <StyledTitle>{game.name}</StyledTitle>
+          <StyledRankTitle>Rating: {game.rating}</StyledRankTitle>
+          <StyledYearDisplay>Release: {game.yearpublished}</StyledYearDisplay>
+        </StyledWrapper>
+        <MdArrowOutward
+          style={{
+            fontSize: "30px",
+            color: "black",
+            position: "absolute",
+            bottom: "10px",
+            right: "10px",
+          }}
+        />
       </StyledLink>
-      {game.userCreated && <DeleteButton id={game._id}/>}
+      {game.userCreated && <DeleteButton id={game._id} />}
     </StyledCard>
   );
 }
 const StyledLink = styled(Link)`
   cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   width: 100%;
-  padding: 20px 0;
+  padding: 10px 0;
+  display: flex;
+  justify-content: space-between;
+  position: relative;
 `;
 const StyledRankTitle = styled.p`
   color: #ff8200;
-  margin: 0;
+  font-size: 14px;
 `;
 
 const StyledCard = styled.div`
-  border: 1px ridge black;
-  box-shadow: 0px 2px 6px #b56917;
   border-radius: 20px;
   overflow: hidden;
   display: flex;
@@ -47,21 +57,30 @@ const StyledCard = styled.div`
 `;
 
 const StyledTitle = styled.h2`
-  color: white;
-  font-size: 1.5em;
-  margin: 0.5em 0;
-  text-decoration: und;
+  color: black;
+  font-size: 20px;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+  margin-bottom: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
 `;
 
 const StyledYearDisplay = styled.p`
-  color: #ccccff;
-  margin: 0;
+  color: black;
+  font-size: 14px;
 `;
 
 const StyledImageDisplay = styled.img`
   width: 100%;
-  height: 200px;
+  height: 210px;
   object-fit: cover;
+  border-radius: 20px;
 `;
 
 const StyledImageWrapper = styled.div`
@@ -69,10 +88,7 @@ const StyledImageWrapper = styled.div`
   width: 100%;
 `;
 
-const StyledInfo = styled.div`
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
+const StyledWrapper = styled.div`
+  position: relative;
+  width: 90%;
 `;

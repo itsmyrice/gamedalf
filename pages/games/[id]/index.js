@@ -3,6 +3,7 @@ import useSWR from "swr";
 import styled from "styled-components";
 import FavouriteButton from "@/components/FavouriteButton";
 import Link from "next/link";
+import { FaArrowLeft } from "react-icons/fa6";
 
 export default function DetailsPage({ isFavorite, toggleFavorite }) {
   const router = useRouter();
@@ -21,6 +22,10 @@ export default function DetailsPage({ isFavorite, toggleFavorite }) {
 
   return (
     <StyledSection>
+      <StyledLink href="/">
+        <FaArrowLeft style={{ marginRight: "4px" }} />
+        Back
+      </StyledLink>
       <FavouriteButtonWrapper>
         <FavouriteButton
           toggleFavorite={() => toggleFavorite(game._id)}
@@ -33,7 +38,6 @@ export default function DetailsPage({ isFavorite, toggleFavorite }) {
         width={400}
         height={210}
       ></StyledImageDisplay>
-      <StyledLink href="/">⬅️ Back</StyledLink>
       <StyledDiv>
         <StyledYearDisplay>{game.yearpublished}</StyledYearDisplay>
         <StyledDesciption>{game.description}</StyledDesciption>
@@ -45,30 +49,27 @@ export default function DetailsPage({ isFavorite, toggleFavorite }) {
 const StyledSection = styled.section`
   display: flex;
   flex-direction: column;
-  align-items: center;
-  background-color: #e6e6fa;
+  width: 100%;
+  padding: 100px 0;
+  position: relative;
 `;
 
 const StyledImageDisplay = styled.img`
-  margin: 2rem 0;
-  border: 1px inherit black;
-  box-shadow: 2px 3px 5px #ccccff;
-  background-color: #ccccff;
-  border-radius: 1rem;
-  padding: 0.7rem;
-  width: 50%;
+  width: 100%;
   height: 50%;
 `;
 
 const StyledLink = styled(Link)`
-  text-decoration: none;
-  color: #111111;
-  margin-right: 8rem;
-  word-spacing: 5px;
+  color: black;
+  border: 1px solid white;
+  border-radius: 20px;
+  padding: 6px 20px;
+  position: absolute;
+  top: 10px;
   cursor: pointer;
-  &:hover {
-    border-bottom: 1px ridge #ff8200;
-  }
+  display: flex;
+  align-items: center;
+  color: white;
 `;
 
 const StyledDiv = styled.div`
@@ -84,15 +85,7 @@ const StyledYearDisplay = styled.p`
 `;
 
 const StyledDesciption = styled.p`
-  color: #111111;
-  border-top: 1px inset black;
-  border-bottom: 1px inset black;
-  padding: 1rem 40px 1rem 1rem;
-  text-align: center;
+  color: white;
 `;
 
-const FavouriteButtonWrapper = styled.div`
-  position: relative;
-  left: 120px;
-  margin: 10px;
-`;
+const FavouriteButtonWrapper = styled.div``;
