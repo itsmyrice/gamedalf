@@ -44,7 +44,7 @@ export default function SearchPage({ isFavorite, toggleFavorite }) {
   }
 
   function filterGames(games) {
-    const filteredResults = [...games];
+     let filteredResults = [...games];
 
     if (filters.name !== "") {
       filteredResults = fuzzySearch(filters.name, 0.6, ["name"]);
