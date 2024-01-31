@@ -1,14 +1,11 @@
 import styled from "styled-components";
 import VerticalGameList from "@/components/VerticalGameList";
-
-import Fuse from 'fuse.js'
-
-
+import Fuse from "fuse.js";
 import { useState } from "react";
 import useSWR from "swr";
 import { FaTimes } from "react-icons/fa";
 
-const INITIAL_DATA = {
+const INITIAL_FILTERS = {
   name: "",
   categories: "",
   rating: "",
@@ -23,9 +20,10 @@ export default function SearchPage({ isFavorite, toggleFavorite }) {
   const [searchQuery, setSearchQuery] = useState("");
 
   const [showFilters, setShowFilters] = useState(false);
-  const [filteredResults, setFilteredResults] = useState([]);
 
-  const [searchFormData, setSearchFormData] = useState(INITIAL_DATA);
+  const [filters, setFilters] = useState(INITIAL_FILTERS);
+
+  const [filteredGameList, setFilteredGameList] = useState([]);
 
   function fuzzySearch(query, threshold, keys) {
     const fuseOptions = {
@@ -45,10 +43,74 @@ export default function SearchPage({ isFavorite, toggleFavorite }) {
     }
   }
 
+  function filterGames(games) {
+    const filteredResults = [...games];
+
+    if (filters.name !== "") {
+      filteredResults = fuzzySearch(filters.name, 0.6, ["name"]);
+    }
+
+    if (filters.categories !== "") {
+      filteredResults = fuzzySearch(filters.categories, 0.1, ["categories"]);
+    }
+
+    if (filters.rating !== "") {
+      if (+filters.rating >= 0 && +filters.rating <= 10) {
+        filteredResults = filteredResults.filter(
+          (game) => +game.rating >= +filters.rating
+        );
+      } else {
+        alert("Rating must be between 0 and 10. Decimals are allowed.");
+      }
+    }
+
+    if (filters.minAge !== "") {
+      if (filters.minAge >= 1 && filters.minAge <= 99) {
+        filteredResults = filteredResults.filter(
+          (game) => +game.minAge >= +filters.minAge
+        );
+      } else {
+        alert("Age must be between 1 and 99.");
+      }
+    }
+
+    if (filters.players !== "") {
+      if (filters.players >= 1) {
+        filteredResults = filteredResults.filter(
+          (game) =>
+            +game.minPlayers <= +filters.players &&
+            +game.maxPlayers >= +filters.players
+        );
+      } else {
+        alert("Player count must be at least 1.");
+      }
+    }
+
+    if (filters.playtime !== "") {
+      if (filters.playtime >= 1) {
+        filteredResults = filteredResults.filter(
+          (game) =>
+            +game.minPlaytime <= +filters.playtime &&
+            +game.maxPlaytime >= +filters.playtime
+        );
+      } else {
+        alert("Playtime must be at least 1.");
+      }
+    }
+
+    if (filters.yearpublished !== "") {
+      filteredResults = filteredResults.filter(
+        (game) => +game.yearpublished === +filters.yearpublished
+      );
+    }
+
+    return filteredResults;
+  }
+
   function handleSubmit(event) {
     event.preventDefault();
 
-    const allInputsEmpty = Object.values(formData).every(
+    const allInputsEmpty = Object.values(filters).every(
       (value) => value === ""
     );
 
@@ -57,80 +119,16 @@ export default function SearchPage({ isFavorite, toggleFavorite }) {
       return;
     }
 
-    let updatedResults = [...data];
+    setFilteredGameList(filterGames(data));
 
-    if (formData.name !== "") {
-      updatedResults = fuzzySearch(formData.name, 0, ["name"]);
-    }
-
-    if (formData.categories !== "") {
-      updatedResults = fuzzySearch(formData.categories, 0.1, ["categories"]);
-    }
-
-    if (formData.rating !== "") {
-      if (+formData.rating >= 0 && +formData.rating <= 10) {
-        updatedResults = updatedResults.filter(
-          (game) => +game.rating >= +formData.rating
-        );
-      } else {
-        alert("Rating must be between 0 and 10. Decimals are allowed.");
-        return;
-      }
-    }
-
-    if (formData.minAge !== "") {
-      if (formData.minAge >= 1 && formData.minAge <= 99) {
-        updatedResults = updatedResults.filter(
-          (game) => +game.minAge >= +formData.minAge
-        );
-      } else {
-        alert("Age must be between 1 and 99.");
-        return;
-      }
-    }
-
-    if (formData.players !== "") {
-      if (formData.players >= 1) {
-        updatedResults = updatedResults.filter(
-          (game) =>
-            +game.minPlayers <= +formData.players &&
-            +game.maxPlayers >= +formData.players
-        );
-      } else {
-        alert("Player count must be at least 1.");
-        return;
-      }
-    }
-
-    if (formData.playtime !== "") {
-      if (formData.playtime >= 1) {
-        updatedResults = updatedResults.filter(
-          (game) =>
-            +game.minPlaytime <= +formData.playtime &&
-            +game.maxPlaytime >= +formData.playtime
-        );
-      } else {
-        alert("Playtime must be at least 1.");
-        return;
-      }
-    }
-
-    if (formData.yearpublished !== "") {
-      updatedResults = updatedResults.filter(
-        (game) => +game.yearpublished === +formData.yearpublished
-      );
-    }
-
-    if (updatedResults.length > 0) {
-      setFilteredResults(updatedResults);
-    } else {
+    if (filteredGameList.length === 0) {
       alert("No results");
     }
   }
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-    setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
+    setFilters((prevfilters) => ({ ...prevfilters, [name]: value }));
   };
 
   return (
@@ -150,7 +148,6 @@ export default function SearchPage({ isFavorite, toggleFavorite }) {
             onClick={() => {
               setSearchQuery("");
               setShowFilters(true);
-              setFilteredResults([]);
             }}
           >
             Advanced Search
@@ -163,8 +160,8 @@ export default function SearchPage({ isFavorite, toggleFavorite }) {
           <StyledForm onSubmit={handleSubmit}>
             <CloseButton
               onClick={() => {
-                setFilteredResults([]);
                 setShowFilters(false);
+
               }}
             />
             <h2>Advanced Search</h2>
@@ -243,8 +240,8 @@ export default function SearchPage({ isFavorite, toggleFavorite }) {
         toggleFavorite={toggleFavorite}
         data={
           showFilters
-            ? filteredResults
-            : fuzzySearch(searchQuery, 0.5, ["name"])
+            ? filteredGameList
+            : fuzzySearch(searchQuery, 0.6, ["name"])
         }
       />
     </>
