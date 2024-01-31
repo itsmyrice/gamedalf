@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import GameCard from "./GameCard";
+import { useSession } from "next-auth/react";
 
 export default function VerticalGameList({
   isFavorite,
@@ -7,18 +8,33 @@ export default function VerticalGameList({
   data,
   showModal,
 }) {
+  const session = useSession();
+
   return (
     <ListGames>
-      {data.map((game) => (
-        <SingleListItem key={game._id}>
-          <GameCard
-            toggleFavorite={toggleFavorite}
-            isFavorite={isFavorite}
-            game={game}
-            showModal={showModal}
-          />
-        </SingleListItem>
-      ))}
+      {session.status !== "authenticated"
+        ? data
+            .filter(({ userCreated }) => !userCreated)
+            .map((game) => (
+              <SingleListItem key={game._id}>
+                <GameCard
+                  toggleFavorite={toggleFavorite}
+                  isFavorite={isFavorite}
+                  game={game}
+                  showModal={showModal}
+                />
+              </SingleListItem>
+            ))
+        : data.map((game) => (
+            <SingleListItem key={game._id}>
+              <GameCard
+                toggleFavorite={toggleFavorite}
+                isFavorite={isFavorite}
+                game={game}
+                showModal={showModal}
+              />
+            </SingleListItem>
+          ))}
     </ListGames>
   );
 }

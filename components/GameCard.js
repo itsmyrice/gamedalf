@@ -21,12 +21,17 @@ export default function GameCard({
       </StyledImageWrapper>
       <StyledLink href={`/games/${game._id}`} aria-label="More details">
         <StyledTitle>{game.name}</StyledTitle>
-        <StyledRankTitle>{game.rating}</StyledRankTitle>
+        {!game.userCreated && (
+          <StyledRankTitle>{game.rating.slice(0, 3)}</StyledRankTitle>
+        )}
         <StyledYearDisplay>{game.yearpublished}</StyledYearDisplay>
       </StyledLink>
       {game.userCreated && (
         <>
-          <EditButton showModal={showModal} onClick={() => showModal.toggle('edit',game)}/>
+          <EditButton
+            showModal={showModal}
+            onClick={() => showModal.toggle("edit", game)}
+          />
           <DeleteButton id={game._id} />
         </>
       )}
