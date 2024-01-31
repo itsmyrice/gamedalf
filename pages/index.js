@@ -24,8 +24,6 @@ export default function HomePage({ isFavorite, toggleFavorite, showModal }) {
 
   return (
     <>
-
-      <Login />
       <StyledLink href={"/aboutus"}>About us</StyledLink>
       {data && (
         <>
