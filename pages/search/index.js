@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import VerticalGameList from "@/components/VerticalGameList";
 import Fuse from "fuse.js";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import useSWR from "swr";
 import { FaTimes } from "react-icons/fa";
 
@@ -23,7 +23,7 @@ export default function SearchPage({ isFavorite, toggleFavorite }) {
 
   const [filters, setFilters] = useState(INITIAL_FILTERS);
 
-  const filteredGameList = filterGames(data);   
+  const [filteredGameList, setFilteredGamesList] = useState([]);
 
   function fuzzySearch(data, query, threshold, keys) {
     const fuseOptions = {
@@ -92,6 +92,8 @@ export default function SearchPage({ isFavorite, toggleFavorite }) {
   function handleSubmit(event) {
     event.preventDefault();
 
+    setFilteredGamesList([]);
+
     const allInputsEmpty = Object.values(filters).every(
       (value) => value === ""
     );
@@ -101,8 +103,11 @@ export default function SearchPage({ isFavorite, toggleFavorite }) {
       return;
     }
 
-    if (filteredGameList.length === 0) {
-      alert("No results");
+    const results = filterGames(data);
+    if (results.length === 0) {
+      alert("No results found!");
+    } else {
+      setFilteredGamesList(results);
     }
   }
 
@@ -127,7 +132,7 @@ export default function SearchPage({ isFavorite, toggleFavorite }) {
             type="button"
             onClick={() => {
               setSearchQuery("");
-
+              setFilteredGamesList([]);
               setShowFilters(true);
             }}
           >
@@ -142,6 +147,7 @@ export default function SearchPage({ isFavorite, toggleFavorite }) {
             <CloseButton
               onClick={() => {
                 setShowFilters(false);
+                setFilteredGamesList([]);
                 setFilters(INITIAL_FILTERS);
               }}
             />
@@ -210,7 +216,6 @@ export default function SearchPage({ isFavorite, toggleFavorite }) {
               onChange={handleInputChange}
               placeholder="yyyy"
             />
-
             <StyledButton type="submit">Submit</StyledButton>
           </StyledForm>
         </>
