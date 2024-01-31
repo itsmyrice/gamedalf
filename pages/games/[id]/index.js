@@ -48,7 +48,7 @@ export default function DetailsPage({ isFavorite, toggleFavorite }) {
         </thead>
         <tbody>
           <tr>
-            <StyledTd>{game.minAge}</StyledTd>
+            <StyledTd>{game.minAge}+</StyledTd>
             <StyledTd>{game.minPlayers}</StyledTd>
             <StyledTd2>{game.maxPlayers}</StyledTd2>
           </tr>
@@ -89,16 +89,15 @@ const StyledSection = styled.section`
 
 const FavouriteButtonWrapper = styled.div`
   position: relative;
-  left: 42%;
-  padding: 0.3rem 0;
+  left: 38%;
+  bottom: 2.3rem;
 `;
 
 const StyledImageDisplay = styled.img`
-  margin: 1rem 0;
   border: 1px inherit black;
-  padding: 0.7rem;
-  width: 90%;
-  height: 70%;
+  margin-bottom: 1rem;
+  width: 85%;
+  height: 60%;
 `;
 
 const StyledLink = styled(Link)`
