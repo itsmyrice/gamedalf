@@ -23,6 +23,8 @@ export default function SearchPage({ isFavorite, toggleFavorite }) {
 
   const [filters, setFilters] = useState(INITIAL_FILTERS);
 
+  const filteredGameList = filterGames(data);   
+
   function fuzzySearch(data, query, threshold, keys) {
     const fuseOptions = {
       threshold: threshold,
@@ -125,7 +127,7 @@ export default function SearchPage({ isFavorite, toggleFavorite }) {
             type="button"
             onClick={() => {
               setSearchQuery("");
-              
+
               setShowFilters(true);
             }}
           >
