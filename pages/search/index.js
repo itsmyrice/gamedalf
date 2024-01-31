@@ -23,9 +23,7 @@ export default function SearchPage({ isFavorite, toggleFavorite }) {
 
   const [filters, setFilters] = useState(INITIAL_FILTERS);
 
-  const [filteredGameList, setFilteredGameList] = useState([]);
-
-  function fuzzySearch(query, threshold, keys) {
+  function fuzzySearch(data, query, threshold, keys) {
     const fuseOptions = {
       threshold: threshold,
       keys: keys,
@@ -43,68 +41,50 @@ export default function SearchPage({ isFavorite, toggleFavorite }) {
     }
   }
 
-  function filterGames(games) {
-     let filteredResults = [...games];
+  function filterGames(data) {
+    const filteredResultsName = filters.name
+      ? fuzzySearch(data, filters.name, 0.6, ["name"])
+      : data;
 
-    if (filters.name !== "") {
-      filteredResults = fuzzySearch(filters.name, 0.6, ["name"]);
-    }
+    const filteredResultsCategory = filters.categories
+      ? fuzzySearch(filteredResultsName, filters.categories, 0.1, [
+          "categories",
+        ])
+      : filteredResultsName;
 
-    if (filters.categories !== "") {
-      filteredResults = fuzzySearch(filters.categories, 0.1, ["categories"]);
-    }
-
-    if (filters.rating !== "") {
-      if (+filters.rating >= 0 && +filters.rating <= 10) {
-        filteredResults = filteredResults.filter(
+    const filteredResultsRating = filters.rating
+      ? filteredResultsCategory.filter(
           (game) => +game.rating >= +filters.rating
-        );
-      } else {
-        alert("Rating must be between 0 and 10. Decimals are allowed.");
-      }
-    }
+        )
+      : filteredResultsCategory;
 
-    if (filters.minAge !== "") {
-      if (filters.minAge >= 1 && filters.minAge <= 99) {
-        filteredResults = filteredResults.filter(
-          (game) => +game.minAge >= +filters.minAge
-        );
-      } else {
-        alert("Age must be between 1 and 99.");
-      }
-    }
+    const filteredResultsMinAge = filters.minAge
+      ? filteredResultsRating.filter((game) => +game.minAge >= +filters.minAge)
+      : filteredResultsRating;
 
-    if (filters.players !== "") {
-      if (filters.players >= 1) {
-        filteredResults = filteredResults.filter(
+    const filteredResultsPlayers = filters.players
+      ? filteredResultsMinAge.filter(
           (game) =>
             +game.minPlayers <= +filters.players &&
             +game.maxPlayers >= +filters.players
-        );
-      } else {
-        alert("Player count must be at least 1.");
-      }
-    }
+        )
+      : filteredResultsMinAge;
 
-    if (filters.playtime !== "") {
-      if (filters.playtime >= 1) {
-        filteredResults = filteredResults.filter(
+    const filteredResultsPlaytime = filters.playtime
+      ? filteredResultsPlayers.filter(
           (game) =>
             +game.minPlaytime <= +filters.playtime &&
             +game.maxPlaytime >= +filters.playtime
-        );
-      } else {
-        alert("Playtime must be at least 1.");
-      }
-    }
+        )
+      : filteredResultsPlayers;
 
-    if (filters.yearpublished !== "") {
-      filteredResults = filteredResults.filter(
-        (game) => +game.yearpublished === +filters.yearpublished
-      );
-    }
+    const filteredResultsYear = filters.yearpublished
+      ? filteredResultsPlaytime.filter(
+          (game) => +game.yearpublished === +filters.yearpublished
+        )
+      : filteredResultsPlaytime;
 
-    return filteredResults;
+    return filteredResultsYear;
   }
 
   function handleSubmit(event) {
@@ -118,8 +98,6 @@ export default function SearchPage({ isFavorite, toggleFavorite }) {
       alert("Please fill at least one field");
       return;
     }
-
-    setFilteredGameList(filterGames(data));
 
     if (filteredGameList.length === 0) {
       alert("No results");
@@ -147,6 +125,7 @@ export default function SearchPage({ isFavorite, toggleFavorite }) {
             type="button"
             onClick={() => {
               setSearchQuery("");
+              
               setShowFilters(true);
             }}
           >
@@ -161,7 +140,7 @@ export default function SearchPage({ isFavorite, toggleFavorite }) {
             <CloseButton
               onClick={() => {
                 setShowFilters(false);
-
+                setFilters(INITIAL_FILTERS);
               }}
             />
             <h2>Advanced Search</h2>
@@ -241,7 +220,7 @@ export default function SearchPage({ isFavorite, toggleFavorite }) {
         data={
           showFilters
             ? filteredGameList
-            : fuzzySearch(searchQuery, 0.6, ["name"])
+            : fuzzySearch(data, searchQuery, 0.8, ["name"])
         }
       />
     </>
