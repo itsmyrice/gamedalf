@@ -8,33 +8,19 @@ export default function VerticalGameList({
   data,
   showModal,
 }) {
-  const session = useSession();
 
   return (
     <ListGames>
-      {session.status !== "authenticated"
-        ? data
-            .filter(({ userCreated }) => !userCreated)
-            .map((game) => (
-              <SingleListItem key={game._id}>
-                <GameCard
-                  toggleFavorite={toggleFavorite}
-                  isFavorite={isFavorite}
-                  game={game}
-                  showModal={showModal}
-                />
-              </SingleListItem>
-            ))
-        : data.map((game) => (
-            <SingleListItem key={game._id}>
-              <GameCard
-                toggleFavorite={toggleFavorite}
-                isFavorite={isFavorite}
-                game={game}
-                showModal={showModal}
-              />
-            </SingleListItem>
-          ))}
+      {data.map((game) => (
+        <SingleListItem key={game._id}>
+          <GameCard
+            toggleFavorite={toggleFavorite}
+            isFavorite={isFavorite}
+            game={game}
+            showModal={showModal}
+          />
+        </SingleListItem>
+      ))}
     </ListGames>
   );
 }

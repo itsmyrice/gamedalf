@@ -46,7 +46,7 @@ export default function DetailsPage({ isFavorite, toggleFavorite }) {
         </thead>
         <tbody>
           <tr>
-            <StyledTd>{game.rating.slice(0, 3)}</StyledTd>
+            {!game.userCreated ? <StyledTd>{game.rating.slice(0, 3)}</StyledTd> : <StyledTd> No ratings</StyledTd>}
             <StyledTd>{game.minAge}+</StyledTd>
           </tr>
         </tbody>
@@ -76,7 +76,7 @@ export default function DetailsPage({ isFavorite, toggleFavorite }) {
         </tbody>
       </StyledTable>
       <StyledContents>Categories</StyledContents>
-      <StyledPTexts>{`${game.categories.slice(0, 7)}`}</StyledPTexts>
+      <StyledPTexts>{game.categories.slice(0, 7)}</StyledPTexts>
       <StyledContents>Description</StyledContents>
       <StyledPTexts>{game.description}</StyledPTexts>
       {game.userCreated ? <p>{game.userCreated}</p> : ""}

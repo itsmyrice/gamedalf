@@ -11,11 +11,7 @@ export default function ProfilePage({ toggleFavorite, isFavorite, showModal }) {
 
   const session = useSession();
 
-  const userCreatedGame = gameData
-    ? gameData.filter(({ userCreated }) => userCreated)
-    : [];
-
-  if (session.status !== "authenticated") {
+  if (session.status === "unauthenticated") {
     return (
       <StyledSection>
         <h2>Please sign in to see your profile.</h2>
@@ -24,8 +20,15 @@ export default function ProfilePage({ toggleFavorite, isFavorite, showModal }) {
     );
   }
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading || session.status === "loading") return <div>Loading...</div>;
   if (error) return <div>Failed to load games</div>;
+
+  const userCreatedGame =
+    session.status === "authenticated" && gameData
+      ? gameData.filter(
+          ({ user }) => user && user.email === session.data.user.email
+        )
+      : [];
 
   return (
     <StyledSection>
@@ -66,7 +69,6 @@ const StyledSection = styled.div`
   padding-top: 2rem;
   color: #111111;
   height: 100vh;
-  
 `;
 
 const StyledDivBigText = styled.div`
