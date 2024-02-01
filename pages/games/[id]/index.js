@@ -3,6 +3,7 @@ import useSWR from "swr";
 import styled from "styled-components";
 import FavouriteButton from "@/components/FavouriteButton";
 import Link from "next/link";
+import { IoIosArrowRoundBack } from "react-icons/io";
 
 export default function DetailsPage({ isFavorite, toggleFavorite }) {
   const router = useRouter();
@@ -18,9 +19,11 @@ export default function DetailsPage({ isFavorite, toggleFavorite }) {
   if (isLoading || error) return <small>loading...</small>;
 
   const checkIsFavorite = isFavorite(game._id);
-
   return (
     <StyledSection>
+      <StyledLink href={"/"}>
+        <IoIosArrowRoundBack />
+      </StyledLink>
       <FavouriteButtonWrapper>
         <FavouriteButton
           toggleFavorite={() => toggleFavorite(game._id)}
@@ -33,11 +36,50 @@ export default function DetailsPage({ isFavorite, toggleFavorite }) {
         width={400}
         height={210}
       ></StyledImageDisplay>
-      <StyledLink href="/">⬅️ Back</StyledLink>
-      <StyledDiv>
-        <StyledYearDisplay>{game.yearpublished}</StyledYearDisplay>
-        <StyledDesciption>{game.description}</StyledDesciption>
-      </StyledDiv>
+      <h1>{game.name}</h1>
+      <StyledTable>
+        <thead>
+          <tr>
+            <StyledTh>Rating</StyledTh>
+            <StyledTh>Age</StyledTh>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <StyledTd>{game.rating.slice(0, 3)}</StyledTd>
+            <StyledTd>{game.minAge}+</StyledTd>
+          </tr>
+        </tbody>
+        <thead>
+          <tr>
+            <StyledTh>Year Released</StyledTh>
+            <StyledTh>Playing Time</StyledTh>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <StyledTd>{game.yearpublished}</StyledTd>
+            <StyledTd>{game.playtime}</StyledTd>
+          </tr>
+        </tbody>
+        <thead>
+          <tr>           
+            <StyledTh>Min. Players</StyledTh>
+            <StyledTh>Max. Players</StyledTh>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>           
+            <StyledTd>{game.minPlayers}</StyledTd>
+            <StyledTd>{game.maxPlayers}</StyledTd>
+          </tr>
+        </tbody>
+      </StyledTable>
+      <StyledContents>Categories</StyledContents>
+      <StyledPTexts>{`${game.categories.slice(0, 7)}`}</StyledPTexts>
+      <StyledContents>Description</StyledContents>
+      <StyledPTexts>{game.description}</StyledPTexts>
+      {game.userCreated ? <p>{game.userCreated}</p> : ""}
     </StyledSection>
   );
 }
@@ -46,53 +88,61 @@ const StyledSection = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #e6e6fa;
-`;
-
-const StyledImageDisplay = styled.img`
-  margin: 2rem 0;
-  border: 1px inherit black;
-  box-shadow: 2px 3px 5px #ccccff;
-  background-color: #ccccff;
-  border-radius: 1rem;
-  padding: 0.7rem;
-  width: 50%;
-  height: 50%;
-`;
-
-const StyledLink = styled(Link)`
-  text-decoration: none;
-  color: #111111;
-  margin-right: 8rem;
-  word-spacing: 5px;
-  cursor: pointer;
-  &:hover {
-    border-bottom: 1px ridge #ff8200;
-  }
-`;
-
-const StyledDiv = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 1rem;
-`;
-
-const StyledYearDisplay = styled.p`
-  color: #ff8200;
-  font-weight: bold;
-`;
-
-const StyledDesciption = styled.p`
-  color: #111111;
-  border-top: 1px inset black;
-  border-bottom: 1px inset black;
-  padding: 1rem 40px 1rem 1rem;
-  text-align: center;
+  background-color: #f5f5f7;
+  margin-bottom: 5rem;
 `;
 
 const FavouriteButtonWrapper = styled.div`
   position: relative;
-  left: 120px;
-  margin: 10px;
+  left: 38%;
+  bottom: 2.3rem;
+`;
+
+const StyledImageDisplay = styled.img`
+  border: 1px inherit black;
+  margin-bottom: 1rem;
+  width: 85%;
+  height: 60%;
+`;
+
+const StyledLink = styled(Link)`
+  color: #111111;
+  font-size: 2rem;
+  position: relative;
+  margin: 0.5rem 0;
+  right: 45%;
+  &:hover {
+    color: #ff8200;
+    border-left: 1px solid #111111;
+  }
+`;
+
+const StyledTable = styled.table`
+  border-collapse: collapse;
+  text-align: center;
+  display: inline;
+  justify-content: space-between;
+  margin-top: 2rem;
+  font-size: 0.9rem;
+`;
+
+const StyledTh = styled.th`
+  padding: 0.5rem 5rem;
+`;
+
+const StyledTd = styled.td`
+  color: #ff8200;
+`;
+
+const StyledContents = styled.h2`
+  font-size: 1.1rem;
+  margin: 1rem 0;
+`;
+
+const StyledPTexts = styled.p`
+  border-top: 1px inset #d8d2d2;
+  margin: 0 1rem;
+  padding: 1rem 0;
+  font-size: 0.8rem;
+  text-align: center;
 `;
