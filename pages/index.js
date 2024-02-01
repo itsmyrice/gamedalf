@@ -9,9 +9,6 @@ import { useSession } from "next-auth/react";
 export default function HomePage({ isFavorite, toggleFavorite, showModal }) {
   const { data, error, isLoading } = useSWR("/api/games");
 
-  const session = useSession();
-  const isLoggedIn = session.status === "authenticated";
-
   if (error)
     return (
       <small>
@@ -25,6 +22,7 @@ export default function HomePage({ isFavorite, toggleFavorite, showModal }) {
   return (
     <>
       <StyledLink href={"/aboutus"}>About us</StyledLink>
+      <Login />
       {data && (
         <>
           <HorizontalGameList
