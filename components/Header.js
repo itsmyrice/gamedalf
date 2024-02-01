@@ -1,22 +1,17 @@
 import styled from "styled-components";
 import { LuLogIn } from "react-icons/lu";
-
 export default function Header() {
   return (
     <StyledHeader>
-      <StyledWrapper>
-        <StyledTitle>
-          Game<StyledSpan>dalf</StyledSpan>
-        </StyledTitle>
-        <LuLogIn />
-      </StyledWrapper>
+      <StyledTitle>
+        Game<StyledSpan>dalf</StyledSpan>
+      </StyledTitle>
     </StyledHeader>
   );
 }
 const StyledTitle = styled.h1`
   color: #111111;
-  display: flex;
-  font-size: 20px;
+  font-size: 30px;
   text-shadow: 0px 1px 2px #b56917;
   background-color: transparent;
 `;
@@ -29,12 +24,14 @@ const StyledWrapper = styled.div`
   width: 95%;
   margin: auto;
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: center;
 `;
 const StyledHeader = styled.header`
-  background-color: #f5f5f7;
+  background: transaprent;
   width: 100%;
-  padding: 10px 0;
+  padding: 20px 0;
   z-index: 10000000;
+  position: fixed;
+  top: 0;
 `;

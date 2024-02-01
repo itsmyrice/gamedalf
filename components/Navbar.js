@@ -46,13 +46,13 @@ const RollingDices = styled(GiRollingDices)`
   font-size: 100px;
   height: 80px;
   width: 80px;
-  background-color: #4231cc;
+  background: linear-gradient(to right, #4231cc, #32bea6);
   border-radius: 100px;
   padding: 10px;
   position: absolute;
   top: 0;
   transform: translateY(-50%);
-  border: 2px solid white;
+  border-top: 2px solid white;
 `;
 const ListItems = styled.ul`
   display: flex;
@@ -65,20 +65,21 @@ const Items = styled.li`
   flex-direction: column;
   align-items: center;
   width: 50px;
+  gap: 10px;
 `;
 const StyledSpan = styled.span`
   font-size: 12px;
-  margin-top: 10px;
   color: black;
 `;
 
 const Nav = styled.nav`
-  background-color: white;
+  background: radial-gradient(circle, #f5f7fa 0%, #c3cfe2 100%);
   width: 100%;
-  padding: 20px;
+  padding: 10px;
   position: fixed;
   z-index: 10;
   bottom: 0;
   left: 0;
   z-index: 10;
+  border-top: 1px solid white;
 `;

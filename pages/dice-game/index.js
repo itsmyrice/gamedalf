@@ -3,6 +3,8 @@ import GameCard from "@/components/GameCard";
 import { useState } from "react";
 import useSWR from "swr";
 import { SCENARIOS } from "@/utils/scenarios";
+import { GiRollingDices } from "react-icons/gi";
+import { VscDebugRestart } from "react-icons/vsc";
 
 export default function DiceGamePage({
   isFavorite,
@@ -65,54 +67,134 @@ export default function DiceGamePage({
   }
 
   function restartGame() {
-    setCurrentStory(null);
-    setSuggestedGame(null);
+    rollDice();
   }
 
   return (
-    <DiceGameContainer>
-      <IntroText>{intro}</IntroText>
-
-      {currentStory ? (
+    <DiceGameSection>
+      {!d20 && <IntroText>{intro}</IntroText>}{" "}
+      {currentStory && (
         <StoryContainer>
-          <p>You rolled: {currentStory.d20}</p>
-          <p>{currentStory.outcomeTitle}</p>
-          <p>{currentStory.outcomeText}</p>
+          <StyledRolledSection>
+            <StyledResultDiv>
+              <StyledRoller>
+                <GiRollingDices />
+                {currentStory.d20}
+              </StyledRoller>
+              <StyledOutcomeTitle>
+                {currentStory.outcomeTitle}
+              </StyledOutcomeTitle>
+            </StyledResultDiv>
+            <StyledRollButton onClick={restartGame}>
+              Roll <VscDebugRestart />
+            </StyledRollButton>
+          </StyledRolledSection>
+          {suggestedGame && (
+            <>
+              <GameCard
+                game={suggestedGame}
+                isFavorite={isFavorite}
+                toggleFavorite={() => toggleFavorite(suggestedGame._id)}
+              />
+            </>
+          )}
+          <StyledOutcomeText>{currentStory.outcomeText}</StyledOutcomeText>
         </StoryContainer>
-      ) : (
-        <button onClick={rollDice}>Roll Dice?</button>
       )}
-
-      {suggestedGame && (
-        <>
-          <GameCard
-            game={suggestedGame}
-            isFavorite={isFavorite}
-            toggleFavorite={() => toggleFavorite(suggestedGame._id)}
-          />
-          <button onClick={restartGame}>Restart</button>
-        </>
+      {!d20 && (
+        <StyledRollDiceButton onClick={rollDice}>
+          Roll Dice
+          <GiRollingDices style={{ fontSize: "30px" }} />
+        </StyledRollDiceButton>
       )}
-    </DiceGameContainer>
+    </DiceGameSection>
   );
 }
-
-const DiceGameContainer = styled.div`
-  padding: 1rem 0 6rem 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  row-gap: 20px;
-  color: #ddd;
+const DiceGameSection = styled.section`
+  background: linear-gradient(to bottom right, #4231cc, #32bea6);
+  height: 100%;
+  min-height: 100vh;
+  padding: 100px 5%;
 `;
 
 const IntroText = styled.p`
-  font-weight: bold;
+  color: #3a3a3a;
+  text-align: center;
+  font-size: 16px;
+  line-height: 1.5;
+  margin: auto;
+  padding: 20px;
+  background: #fafafa;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  border-radius: 20px;
 `;
 
 const StoryContainer = styled.div`
-  text-align: center;
   display: flex;
   flex-direction: column;
-  row-gap: 20px;
+  gap: 10px;
+`;
+
+const StyledRolledSection = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 40px;
+  align-items: center;
+  color: white;
+`;
+
+const StyledResultDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+const StyledRoller = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 40px;
+`;
+const StyledOutcomeTitle = styled.p`
+  font-size: 20px;
+  font-weight: 400;
+`;
+
+const StyledRollButton = styled.button`
+  display: flex;
+  border-radius: 100px;
+  border: 1px solid white;
+  padding: 20px;
+  align-items: center;
+  gap: 4px;
+  font-size: 20px;
+  color: black;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+`;
+
+const StyledOutcomeText = styled.p`
+  font-size: 16px;
+  color: black;
+  line-height: 1.5;
+  letter-spacing: 1.5px;
+  background: #fafafa;
+  padding: 20px;
+  border-radius: 20px;
+`;
+
+const StyledRollDiceButton = styled.button`
+  display: flex;
+  border-radius: 20px;
+  border: none;
+  margin: auto;
+  padding: 10px 20px;
+  align-items: center;
+  gap: 4px;
+  margin-top: 50%;
+  font-size: 20px;
+  background: linear-gradient(to right, #4231cc, #32bea6);
+  color: white;
+  background: rgba(0, 0, 0, 0.7);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
 `;

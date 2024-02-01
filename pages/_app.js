@@ -69,7 +69,5 @@ export default function App({ Component, pageProps }) {
 }
 
 const ContentWrapper = styled.section`
-  max-width: 95%;
-  margin: auto;
-  padding: 20px 0px 100px 0px;
+  max-width: 100%;
 `;

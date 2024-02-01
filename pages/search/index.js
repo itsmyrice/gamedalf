@@ -20,7 +20,7 @@ export default function SearchPage({ isFavorite, toggleFavorite }) {
       <Input
         type="text"
         id="text"
-        placeholder="Insert name"
+        placeholder="Type name"
         value={searchInput}
         onChange={(event) => setSearchInput(event.target.value)}
       />
@@ -34,15 +34,14 @@ export default function SearchPage({ isFavorite, toggleFavorite }) {
 }
 
 const Input = styled.input`
-  height: 4rem;
-  margin-top: 2rem;
-  margin-left: 20%;
-  width: 60%;
-  font-size: 20px;
-  border-radius: 1.5rem;
-  padding: 0.5rem 1.5rem;
-  outline: none;
-  border: none;
-  box-shadow: 3px 3px 5px grey;
+  border: 1px solid white;
+  border-radius: 20px;
+  padding: 10px;
+  width: 80%;
+  display: flex;
+  margin: auto;
+  &::placeholder {
+    color: black;
+    font-size: 12px;
+  }
 `;
-

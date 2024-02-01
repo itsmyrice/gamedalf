@@ -1,5 +1,6 @@
 import useSWR from "swr";
 import HorizontalGameList from "@/components/HorizontalGameList";
+import { styled } from "styled-components";
 
 export default function HomePage({ isFavorite, toggleFavorite }) {
   const { data, error, isLoading } = useSWR("/api/games");
@@ -15,7 +16,7 @@ export default function HomePage({ isFavorite, toggleFavorite }) {
   if (!data || isLoading) return <small>loading...</small>;
 
   return (
-    <>
+    <StyledWrapper>
       {data && (
         <>
           <HorizontalGameList
@@ -39,8 +40,29 @@ export default function HomePage({ isFavorite, toggleFavorite }) {
             categorieId={2}
             listLength={5}
           />
+          <HorizontalGameList
+            toggleFavorite={toggleFavorite}
+            isFavorite={isFavorite}
+            data={data.slice(76, 100)}
+            categorieId={2}
+            listLength={5}
+          />
+          <HorizontalGameList
+            toggleFavorite={toggleFavorite}
+            isFavorite={isFavorite}
+            data={data.slice(101, 125)}
+            categorieId={2}
+            listLength={5}
+          />
         </>
       )}
-    </>
+    </StyledWrapper>
   );
 }
+
+const StyledWrapper = styled.section`
+  margin: 100px 0 200px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+`;

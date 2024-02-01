@@ -9,7 +9,7 @@ export default createGlobalStyle`
     margin: 0;
   }
   body {
-    background-color: #F5F5F7;
+    background: radial-gradient(circle, #f5f7fa 0%, #c3cfe2 100%);
     margin: 0;
     font-family: system-ui;
   }

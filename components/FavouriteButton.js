@@ -11,12 +11,13 @@ export default function FavouriteButton({ isFavorite, toggleFavorite }) {
 
 const StyledButton = styled.button`
   border: none;
-  background-color: white;
-  padding: 15px;
+  background: #fafafa;
+  padding: 10px;
   border-radius: 15px;
   position: absolute;
   right: 3%;
   top: 3%;
+  display: flex;
 
   svg {
     cursor: pointer;

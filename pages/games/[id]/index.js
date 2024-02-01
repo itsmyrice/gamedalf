@@ -35,8 +35,8 @@ export default function DetailsPage({ isFavorite, toggleFavorite }) {
       <StyledImageDisplay
         src={game.image}
         alt={game.name}
-        width={400}
-        height={210}
+        width={200}
+        height={200}
       ></StyledImageDisplay>
       <StyledDiv>
         <StyledYearDisplay>{game.yearpublished}</StyledYearDisplay>
@@ -47,11 +47,9 @@ export default function DetailsPage({ isFavorite, toggleFavorite }) {
 }
 
 const StyledSection = styled.section`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  padding: 100px 0;
-  position: relative;
+  height: 100%;
+  min-height: 100vh;
+  padding: 100px 5% 200px 5%;
 `;
 
 const StyledImageDisplay = styled.img`
@@ -76,7 +74,6 @@ const StyledDiv = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 1rem;
 `;
 
 const StyledYearDisplay = styled.p`
@@ -85,7 +82,8 @@ const StyledYearDisplay = styled.p`
 `;
 
 const StyledDesciption = styled.p`
-  color: white;
+  color: black;
+  font-size: 16px;
 `;
 
 const FavouriteButtonWrapper = styled.div``;

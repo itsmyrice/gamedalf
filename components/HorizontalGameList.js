@@ -23,7 +23,7 @@ export default function HorizontalGameList({
 
   return (
     <GamesContainer>
-      <Title>{data[0].categories[categorieId]}</Title>
+      <Title> {data[0].categories[categorieId]}</Title>
       <Swiper
         style={{ "--swiper-navigation-size": "30px" }}
         spaceBetween={15}
@@ -64,37 +64,28 @@ export default function HorizontalGameList({
 }
 
 const GamesContainer = styled.div`
-  color: #ffffff;
-  width: 100%;
-  box-sizing: border-box;
-  margin: 40px 0;
-`;
-
-const ShowMore = styled.button`
-  display: flex;
-  height: 100%;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid black;
-  background-color: black;
-  color: white;
-  font-size: 24px;
-  border-radius: 0.75rem;
-  cursor: pointer;
-  padding: 10px 20px;
-  transition: background-color 0.3s, box-shadow 0.3s;
-  svg {
-    margin-right: 10px;
-  }
-  &:hover {
-    background-color: #333;
-    box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1),
-      0 8px 10px -6px rgb(0 0 0 / 0.1);
-  }
+  width: 95%;
+  margin: auto;
 `;
 
 const Title = styled.h2`
-  font-size: 20px;
+  font-size: 30px;
   margin-bottom: 10px;
-  color: gray;
+  font-weight: 600;
+  color: black;
+  display: inline-block;
+  padding: 10px;
+`;
+const ShowMore = styled.button`
+  display: flex;
+  height: 210px;
+  width: 335px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid white;
+  background: radial-gradient(circle, #f5f7fa 0%, #c3cfe2 100%);
+  color: black;
+  font-size: 30px;
+  border-radius: 20px;
+  cursor: pointer;
 `;
