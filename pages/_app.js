@@ -5,6 +5,10 @@ import Navbar from "@/components/Navbar";
 import Header from "@/components/Header";
 import { useState } from "react";
 import FormModal from "@/components/FormModal";
+import { Space_Grotesk } from "@next/font/google";
+const spaceGrotesk = Space_Grotesk({
+  subsets: ["latin"],
+});
 export default function App({ Component, pageProps }) {
   const [localGameData, setLocalGameData] = useState([]);
   const [modal, setModal] = useState({
@@ -100,7 +104,7 @@ export default function App({ Component, pageProps }) {
         }}
       >
         <Header />
-        <ContentWrapper>
+        <ContentWrapper className={spaceGrotesk.className}>
           <Component
             isFavorite={checkIsFavorite}
             toggleFavorite={toggleFavorite}
@@ -120,7 +124,5 @@ export default function App({ Component, pageProps }) {
 }
 
 const ContentWrapper = styled.section`
-  max-width: 80ch;
-  margin-inline: auto;
-  padding-inline: 1rem;
+  max-width: 100%;
 `;

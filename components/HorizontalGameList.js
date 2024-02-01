@@ -24,11 +24,11 @@ export default function HorizontalGameList({
 
   return (
     <GamesContainer>
-      <Title>{data[0].categories[categorieId]}</Title>
+      <Title> {data[0].categories[categorieId]}</Title>
       <Swiper
-        spaceBetween={20}
-        slidesPerView={1.5}
-        navigation
+        style={{ "--swiper-navigation-size": "30px" }}
+        spaceBetween={15}
+        slidesPerView={1.1}
         modules={[Navigation]}
         breakpoints={{
           640: {
@@ -53,7 +53,7 @@ export default function HorizontalGameList({
           </SwiperSlide>
         ))}
         {visibleCount < data.length && (
-          <SwiperSlide>
+          <SwiperSlide style={{ height: "100%" }}>
             <ShowMore onClick={handleSeeMore}>
               <GoPlus />
               See More
@@ -66,38 +66,28 @@ export default function HorizontalGameList({
 }
 
 const GamesContainer = styled.div`
-  color: #ffffff;
+  width: 95%;
   margin: auto;
-  padding: 40px 20px;
-  width: 100%;
-  box-sizing: border-box;
-`;
-
-const ShowMore = styled.button`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid black;
-  background-color: black;
-  color: white;
-  font-size: 24px;
-  border-radius: 0.75rem;
-  cursor: pointer;
-  padding: 10px 20px;
-  transition: background-color 0.3s, box-shadow 0.3s;
-  svg {
-    margin-right: 10px;
-  }
-  &:hover {
-    background-color: #333;
-    box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1),
-      0 8px 10px -6px rgb(0 0 0 / 0.1);
-  }
 `;
 
 const Title = styled.h2`
-  font-size: 40px;
-  margin-bottom: 40px;
-  border-bottom: 2px solid #fff;
+  font-size: 30px;
+  margin-bottom: 10px;
+  font-weight: 600;
+  color: black;
   display: inline-block;
+  padding: 10px;
+`;
+const ShowMore = styled.button`
+  display: flex;
+  height: 210px;
+  width: 335px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid white;
+  background: radial-gradient(circle, #f5f7fa 0%, #c3cfe2 100%);
+  color: black;
+  font-size: 30px;
+  border-radius: 20px;
+  cursor: pointer;
 `;
