@@ -22,7 +22,7 @@ export default function GameCard({
       <StyledLink href={`/games/${game._id}`} aria-label="More details">
         <StyledTitle>{game.name}</StyledTitle>
         {!game.userCreated && (
-          <StyledRankTitle>{game.rating.slice(0, 3)}</StyledRankTitle>
+        <StyledRankTitle>{game.rating.slice(0, 3)}</StyledRankTitle>
         )}
         <StyledYearDisplay>{game.yearpublished}</StyledYearDisplay>
       </StyledLink>
