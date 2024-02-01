@@ -28,7 +28,7 @@ export default function App({ Component, pageProps }) {
       });
       return;
     }
-  
+
     if (action === "create") {
       setModal({
         isVisible: true,
@@ -38,7 +38,7 @@ export default function App({ Component, pageProps }) {
       });
       return;
     }
-  
+
     if (action === "submit") {
       setModal({
         isVisible: true,
@@ -48,7 +48,7 @@ export default function App({ Component, pageProps }) {
       });
       return;
     }
-  
+
     if (action === "close") {
       setModal({
         isVisible: false,
@@ -59,7 +59,6 @@ export default function App({ Component, pageProps }) {
       return;
     }
   }
-  
 
   function checkIsFavorite(id) {
     const foundGame = localGameData.find((item) => item.id === id);

@@ -134,6 +134,7 @@ const StyledContents = styled.h2`
 const StyledDesciption = styled.p`
   color: black;
   font-size: 16px;
+  `
 const StyledPTexts = styled.p`
   border-top: 1px inset #d8d2d2;
   margin: 0 1rem;

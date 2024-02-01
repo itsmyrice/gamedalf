@@ -22,9 +22,11 @@ export default function GameCard({
           toggleFavorite={() => toggleFavorite(game._id)}
         />
         <StyledWrapperShorts>
-          <StyledRankTitle>
-            <FaRegStar /> {game.rating}
-          </StyledRankTitle>
+          {!game.userCreated && (
+            <StyledRankTitle>
+              <FaRegStar /> {game.rating.slice(0, 3)}
+            </StyledRankTitle>
+          )}
           <StyledYear>
             <FaRegCalendarAlt />
             {game.yearpublished}
@@ -45,15 +47,13 @@ export default function GameCard({
             right: "10px",
           }}
         />
-        <StyledTitle>{game.name}</StyledTitle>
-        {!game.userCreated && (
-        <StyledRankTitle>{game.rating.slice(0, 3)}</StyledRankTitle>
-        )}
-        <StyledYearDisplay>{game.yearpublished}</StyledYearDisplay>
       </StyledLink>
       {game.userCreated && (
         <>
-          <EditButton showModal={showModal} onClick={() => showModal.toggle('edit',game)}/>
+          <EditButton
+            showModal={showModal}
+            onClick={() => showModal.toggle("edit", game)}
+          />
           <DeleteButton id={game._id} />
         </>
       )}

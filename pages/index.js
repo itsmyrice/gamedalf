@@ -42,6 +42,7 @@ export default function HomePage({ isFavorite, toggleFavorite, showModal }) {
             data={data.slice(51, 75)}
             categorieId={2}
             listLength={5}
+            showModal={showModal}
           />
           <HorizontalGameList
             toggleFavorite={toggleFavorite}
@@ -49,6 +50,7 @@ export default function HomePage({ isFavorite, toggleFavorite, showModal }) {
             data={data.slice(76, 100)}
             categorieId={2}
             listLength={5}
+            showModal={showModal}
           />
           <HorizontalGameList
             toggleFavorite={toggleFavorite}
@@ -56,6 +58,7 @@ export default function HomePage({ isFavorite, toggleFavorite, showModal }) {
             data={data.slice(101, 125)}
             categorieId={2}
             listLength={5}
+            showModal={showModal}
           />
           <HorizontalGameList
             toggleFavorite={toggleFavorite}
@@ -63,6 +66,7 @@ export default function HomePage({ isFavorite, toggleFavorite, showModal }) {
             data={data.slice(76, 100)}
             categorieId={2}
             listLength={5}
+            showModal={showModal}
           />
           <HorizontalGameList
             toggleFavorite={toggleFavorite}
@@ -70,6 +74,7 @@ export default function HomePage({ isFavorite, toggleFavorite, showModal }) {
             data={data.slice(101, 125)}
             categorieId={2}
             listLength={5}
+            showModal={showModal}
           />
         </>
       )}

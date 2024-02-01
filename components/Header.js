@@ -1,36 +1,17 @@
 import styled from "styled-components";
-import { LuLogIn } from "react-icons/lu";
+import Image from "next/image";
+
 export default function Header() {
   return (
     <StyledHeader>
-      <StyledTitle>
-        Game<StyledSpan>dalf</StyledSpan>
-      </StyledTitle>
+      <Image src={"/images/Logo.svg"} width={100} height={100} alt="Logo" />
     </StyledHeader>
   );
 }
-const StyledTitle = styled.h1`
-  color: #111111;
-  font-size: 30px;
-  text-shadow: 0px 1px 2px #b56917;
-  background-color: transparent;
-`;
 
-const StyledSpan = styled.span`
-  color: #ff8200;
-  text-shadow: 0px 1px 2px #414a4c;
-`;
-const StyledWrapper = styled.div`
-  width: 95%;
-  margin: auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
 const StyledHeader = styled.header`
-  background: transaprent;
+  background: radial-gradient(circle, #f5f7fa 0%, #c3cfe2 100%);
   width: 100%;
-  padding: 20px 0;
   z-index: 10000000;
   position: fixed;
   top: 0;
