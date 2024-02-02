@@ -44,23 +44,17 @@ export default function GameCard({
       <StyledLink href={`/games/${game._id}`} aria-label="More details">
         <StyledContentWrapper>
           <StyledTitle>{game.name}</StyledTitle>
-          <StyledDesc>{`${game.description.slice(0, 50)}...`}</StyledDesc>
+          <StyledDesc>
+            {`${game.description.slice(0, 50)}...`}
+            <MdArrowOutward
+              style={{
+                fontSize: "30px",
+                color: "black",
+              }}
+            />
+          </StyledDesc>
         </StyledContentWrapper>
-        <MdArrowOutward
-          style={{
-            fontSize: "30px",
-            color: "black",
-            position: "absolute",
-            bottom: "10px",
-            right: "10px",
-          }}
-        />
       </StyledLink>
-
-      <StyledTitle>{game.name}</StyledTitle>
-      {!game.userCreated && (
-        <StyledRankTitle>{game.rating.slice(0, 3)}</StyledRankTitle>
-      )}
       {createdByCurrentUser && game.userCreated && (
         <ActionButtons>
           <EditButton
@@ -126,7 +120,6 @@ const StyledLink = styled(Link)`
   display: flex;
   background: #fafafa;
   border-radius: 0px 0px 20px 20px;
-  position: relative;
 `;
 
 const StyledContentWrapper = styled.div`
@@ -156,6 +149,10 @@ const StyledDesc = styled.p`
   font-size: 14px;
   font-weight: 300;
   width: 90%;
+  display: flex;
+  gap: 10px;
+  padding: 10px 0;
+  justify-content: space-between;
   margin: auto;
 `;
 

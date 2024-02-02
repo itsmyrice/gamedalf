@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Image from "next/image";
-
+import Login from "./Login";
 export default function Header() {
   return (
     <StyledHeader>
@@ -10,6 +10,7 @@ export default function Header() {
         height={100}
         alt="Logo"
       />
+      <Login />
     </StyledHeader>
   );
 }
@@ -22,10 +23,11 @@ const StyledHeader = styled.header`
   position: fixed;
   top: 0;
   display: flex;
-  padding: 10px 0;
+  padding: 10px 5%;
+  justify-content: space-between;
+  align-items: center;
 `;
 
 const StyleImage = styled(Image)`
   height: 50px;
-  width: 100%;
 `;

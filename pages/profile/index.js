@@ -4,7 +4,6 @@ import useSWR from "swr";
 import VerticalGameList from "@/components/VerticalGameList";
 import { IoCreateOutline } from "react-icons/io5";
 import { StyledSection } from "../../styles";
-import { AiOutlineUser } from "react-icons/ai";
 import { useSession } from "next-auth/react";
 import Login from "@/components/Login";
 import Image from "next/image";
@@ -16,10 +15,10 @@ export default function ProfilePage({ toggleFavorite, isFavorite, showModal }) {
 
   if (session.status === "unauthenticated") {
     return (
-      <StyledSection>
-        <h2>Please sign in to see your profile.</h2>
+      <LoginDiv>
+        <StyledSignInText>Please sign in to see your profile.</StyledSignInText>
         <Login />
-      </StyledSection>
+      </LoginDiv>
     );
   }
 
@@ -35,18 +34,20 @@ export default function ProfilePage({ toggleFavorite, isFavorite, showModal }) {
 
   return (
     <StyledSection>
-      <StyledTitle>
-        <AiOutlineUser />
-        Profile
-      </StyledTitle>
-      <StyledButton onClick={() => showModal.toggle("create")}>
-        <IoCreateOutline />
-        Create
-      </StyledButton>
-        <Image src={session.data.user.image} alt="" width={100} height={100} />
-        <h3>{session.data.user.name}</h3>
-        <Login />
+      <StyledWrapper>
+        <StyledImage
+          src={session.data.user.image}
+          alt=""
+          width={100}
+          height={100}
+        />
+        <StyledName>{session.data.user.name}</StyledName>
+      </StyledWrapper>
       <StyledUserCreatedGameList>
+        <StyledButton onClick={() => showModal.toggle("create")}>
+          <IoCreateOutline />
+          Create
+        </StyledButton>
         {userCreatedGame.length > 0 ? (
           <VerticalGameList
             data={userCreatedGame}
@@ -55,24 +56,44 @@ export default function ProfilePage({ toggleFavorite, isFavorite, showModal }) {
             showModal={showModal}
           />
         ) : (
-          <StyledText>
-            <MdOutlineFolderOff /> No games yet.
-          </StyledText>
+          <>
+            <StyledText>
+              <MdOutlineFolderOff /> No games yet.
+            </StyledText>
+          </>
         )}
       </StyledUserCreatedGameList>
     </StyledSection>
   );
 }
 
-const StyledTitle = styled.h2`
+const LoginDiv = styled.div`
   display: flex;
   flex-direction: column;
-  row-gap: 2rem;
-  padding-top: 2rem;
-  color: #111111;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
   height: 100vh;
 `;
+const StyledWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 40px;
+`;
 
+const StyledName = styled.p`
+  font-size: 20px;
+  font-weight: 300;
+`;
+
+const StyledImage = styled(Image)`
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+`;
 const StyledUserCreatedGameList = styled.div`
   display: flex;
   flex-direction: column;
@@ -98,7 +119,12 @@ const StyledButton = styled.button`
   border: 1px solid white;
   background: radial-gradient(circle, #f5f7fa 0%, #c3cfe2 100%);
   color: black;
-  font-size: 30px;
+  font-size: 20px;
   border-radius: 20px;
   cursor: pointer;
+`;
+
+const StyledSignInText = styled.p`
+  font-size: 20px;
+  text-align: center;
 `;

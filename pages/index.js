@@ -1,7 +1,6 @@
 import useSWR from "swr";
 import HorizontalGameList from "@/components/HorizontalGameList";
 import { styled } from "styled-components";
-import Login from "components/Login.js";
 import Footer from "@/components/Footer";
 
 export default function HomePage({ isFavorite, toggleFavorite, showModal }) {
@@ -19,8 +18,6 @@ export default function HomePage({ isFavorite, toggleFavorite, showModal }) {
 
   return (
     <StyledWrapper>
-      <Login />
-
       {data && (
         <>
           <HorizontalGameList
@@ -87,7 +84,7 @@ export default function HomePage({ isFavorite, toggleFavorite, showModal }) {
 }
 
 const StyledWrapper = styled.section`
-  margin: 100px 0 200px 0;
+  margin: 100px 0 100px 0;
   display: flex;
   flex-direction: column;
   gap: 50px;

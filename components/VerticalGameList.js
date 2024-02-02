@@ -8,27 +8,25 @@ export default function VerticalGameList({
   data,
   showModal,
 }) {
-
   return (
     <ListGames>
       {data.map((game) => (
-        <SingleListItem key={game._id}>
+        <li key={game._id}>
           <GameCard
             toggleFavorite={toggleFavorite}
             isFavorite={isFavorite}
             game={game}
             showModal={showModal}
           />
-        </SingleListItem>
+        </li>
       ))}
     </ListGames>
   );
 }
 const ListGames = styled.ul`
   list-style: none;
-  position: relative;
   display: flex;
   flex-direction: column;
   gap: 20px;
+  width: 100%;
 `;
-const SingleListItem = styled.li``;

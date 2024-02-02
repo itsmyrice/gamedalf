@@ -87,7 +87,6 @@ export default function DetailsPage({ isFavorite, toggleFavorite }) {
       <StyledButton onClick={() => router.back()}>
         <IoIosArrowRoundBack />
       </StyledButton>
-      <h1>{game.name}</h1>
       {game.userCreated ? <p>{game.userCreated}</p> : ""}
     </StyledSection>
   );
@@ -161,7 +160,7 @@ const StyledWrapperAdditional = styled.div`
   flex-direction: column;
   border-radius: 20px;
   margin-top: 20px;
-  background: #21272a;
+  background: #e5e6e1;
 `;
 const StyledCategory = styled.div`
   border-radius: 0 0 20px 20px;
@@ -175,8 +174,8 @@ const StyledSubtitleCategory = styled.p`
   color: black;
 `;
 const StyledTextCategories = styled.p`
-  font-size: 18px;
-  word-spacing: 5px;
+  font-size: 16px;
+  word-spacing: 2px;
   color: #3c4649;
   word-wrap: break-word;
   color: black;
@@ -189,15 +188,15 @@ const StyledSubtitleDesc = styled.p`
   font-size: 30px;
   font-weight: 400;
   margin-bottom: 20px;
-  color: white;
+  color: black;
 `;
 
 const StyledTextDesc = styled.p`
   font-size: 18px;
-  word-spacing: 5px;
+  word-spacing: 3px;
   color: #3c4649;
   word-wrap: break-word;
-  color: white;
+  color: black;
 `;
 
 const StyledStats = styled.p`

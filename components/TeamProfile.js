@@ -109,9 +109,8 @@ export default function TeamProfile({
             ))}
           </StyledUl>
         </StyledProfileContent>
+        <p>{bio}</p>
       </StyledDiv>
-
-      <p>{bio}</p>
     </StyledCard>
   );
 }

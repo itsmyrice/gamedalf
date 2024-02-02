@@ -25,7 +25,7 @@ export default function AboutUsPage() {
         'It's here not only on the dawn of the 5th day, it's here whenever,
         wherever you need it.'
       </p>
-      <h3>Team</h3>
+      <h3>Lets us introduce ourselves.</h3>
       {profiles.map((profile) => (
         <TeamProfile key={profile.name} {...profile} />
       ))}
