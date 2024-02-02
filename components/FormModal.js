@@ -6,19 +6,13 @@ import { useEffect } from "react";
 import { useSession } from "next-auth/react";
 
 export default function FormModal({ showModal }) {
-  const session = useSession();
-
   async function handleCreate(formData) {
     const url = "/api/games";
-
-    const isLoggedIn = session.status === "authenticated";
-    const user = session.data.user;
-    const userCreatedGame = { ...formData, user };
 
     const response = await fetch(url, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(isLoggedIn ? userCreatedGame : formData),
+      body: JSON.stringify(formData),
     });
 
     if (response.ok) {

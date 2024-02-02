@@ -7,7 +7,7 @@ export default async function handler(request, response) {
   await dbConnect();
 
   const session = await getServerSession(request, response, authOptions);
-  
+
   if (request.method === "GET") {
     const games = await Game.find();
     return response.status(200).json(games);
@@ -20,7 +20,13 @@ export default async function handler(request, response) {
 
   if (request.method === "POST") {
     try {
-      await Game.create(request.body);
+      const user = session.user;
+      const formData = request.body;
+      const newGame = {
+        ...formData,
+        user,
+      };
+      await Game.create(newGame);
       response.status(201).json({ status: "game created" });
     } catch (error) {
       response.status(400).json({ error: error.message });

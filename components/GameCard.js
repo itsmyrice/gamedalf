@@ -13,7 +13,7 @@ export default function GameCard({
 }) {
   const session = useSession();
 
-  const isLoggedIn =
+  const createdByCurrentUser =
     session.status === "authenticated" && game.user
       ? game.user.email === session.data.user.email
       : false;
@@ -34,7 +34,7 @@ export default function GameCard({
         )}
         <StyledYearDisplay>{game.yearpublished}</StyledYearDisplay>
       </StyledLink>
-      {isLoggedIn && game.userCreated && (
+      {createdByCurrentUser && game.userCreated && (
         <>
           <EditButton
             showModal={showModal}
