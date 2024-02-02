@@ -18,17 +18,19 @@ export const authOptions = {
           async authorize() {
             return {
               id: 1,
-              name: "New Fishes",
-              email: "new@fishes.com",
+              name: "Gamedalf Acolyte",
+              email: "acolyte@gamedalf.com",
               image:
-                "https://avatars.githubusercontent.com/u/41701911?s=200&v=4",
+                "https://images.unsplash.com/photo-1646009760881-fc1173d9d17a?q=80&w=3270&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
             };
           },
         })
       : GithubProvider({
           clientId: process.env.GITHUB_CLIENT_ID,
           clientSecret: process.env.GITHUB_CLIENT_SECRET,
-          redirectUri: process.env.NEXTAUTH_REDIRECT_URI || "http://localhost:3000/api/auth/callback/github",
+          redirectUri:
+            process.env.NEXTAUTH_REDIRECT_URI ||
+            "http://localhost:3000/api/auth/callback/github",
         }),
   ],
   secret: process.env.NEXTAUTH_SECRET,
