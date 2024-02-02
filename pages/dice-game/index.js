@@ -92,6 +92,8 @@ export default function DiceGamePage({
           </StyledRolledSection>
           {suggestedGame && (
             <>
+              <StyledOutcomeText>{currentStory.outcomeText}</StyledOutcomeText>
+
               <GameCard
                 game={suggestedGame}
                 isFavorite={isFavorite}
@@ -99,7 +101,6 @@ export default function DiceGamePage({
               />
             </>
           )}
-          <StyledOutcomeText>{currentStory.outcomeText}</StyledOutcomeText>
         </StoryContainer>
       )}
       {!d20 && (
@@ -115,7 +116,7 @@ const DiceGameSection = styled.section`
   background: linear-gradient(to bottom right, #4231cc, #32bea6);
   height: 100%;
   min-height: 100vh;
-  padding: 100px 5%;
+  padding: 100px 5% 200px 5%;
 `;
 
 const IntroText = styled.p`
@@ -148,12 +149,14 @@ const StyledResultDiv = styled.div`
   display: flex;
   flex-direction: column;
 `;
+
 const StyledRoller = styled.div`
   display: flex;
   align-items: center;
   gap: 10px;
   font-size: 40px;
 `;
+
 const StyledOutcomeTitle = styled.p`
   font-size: 20px;
   font-weight: 400;
@@ -175,7 +178,6 @@ const StyledOutcomeText = styled.p`
   font-size: 16px;
   color: black;
   line-height: 1.5;
-  letter-spacing: 1.5px;
   background: #fafafa;
   padding: 20px;
   border-radius: 20px;

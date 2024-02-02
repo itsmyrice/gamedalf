@@ -3,7 +3,7 @@ import styled from "styled-components";
 import useSWR from "swr";
 import { CiFolderOff } from "react-icons/ci";
 import { FaRegBookmark } from "react-icons/fa";
-
+import { StyledSection } from "../../styles";
 export default function FavoritesPage({
   isFavorite,
   toggleFavorite,
@@ -24,7 +24,7 @@ export default function FavoritesPage({
   );
 
   return (
-    <>
+    <StyledSection>
       <StyledTitle>
         <FaRegBookmark />
         My Favorites
@@ -42,22 +42,22 @@ export default function FavoritesPage({
           showModal={showModal}
         />
       )}
-    </>
+    </StyledSection>
   );
 }
 
 const StyledTitle = styled.h2`
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 4px;
   font-weight: 400;
-  margin: 20px 0;
+  margin-bottom: 40px;
 `;
 
 const StyledText = styled.p`
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 10px;
+  gap: 4px;
   margin: auto;
 `;

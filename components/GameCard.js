@@ -49,13 +49,13 @@ export default function GameCard({
         />
       </StyledLink>
       {game.userCreated && (
-        <>
+        <ActionButtons>
           <EditButton
             showModal={showModal}
             onClick={() => showModal.toggle("edit", game)}
           />
           <DeleteButton id={game._id} />
-        </>
+        </ActionButtons>
       )}
     </StyledCard>
   );
@@ -63,6 +63,7 @@ export default function GameCard({
 
 const StyledCard = styled.div`
   border-radius: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 `;
 
 const StyledImageDiv = styled.div`
@@ -112,6 +113,7 @@ const StyledLink = styled(Link)`
   display: flex;
   background: #fafafa;
   border-radius: 0px 0px 20px 20px;
+  position: relative;
 `;
 
 const StyledContentWrapper = styled.div`
@@ -142,4 +144,10 @@ const StyledDesc = styled.p`
   font-weight: 300;
   width: 90%;
   margin: auto;
+`;
+
+const ActionButtons = styled.div`
+  display: flex;
+  gap: 10px;
+  padding: 20px 10px;
 `;

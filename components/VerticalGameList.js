@@ -23,11 +23,10 @@ export default function VerticalGameList({
   );
 }
 const ListGames = styled.ul`
-  margin-top: 40px;
   list-style: none;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 `;
-const SingleListItem = styled.li`
-  border-radius: 1px solid black;
-  margin-bottom: 20px;
-`;
+const SingleListItem = styled.li``;
