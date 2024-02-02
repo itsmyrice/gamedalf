@@ -15,6 +15,7 @@ const gameSchema = new Schema({
   minAge: { type: String, required: true },
   categories: { type: Array, required: true },
   userCreated: { type: Boolean, required: true },
+  user: { type: Object },
 });
 const Game = mongoose.models.Game || mongoose.model("Game", gameSchema);
 export default Game;

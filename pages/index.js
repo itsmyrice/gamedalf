@@ -1,5 +1,8 @@
 import useSWR from "swr";
 import HorizontalGameList from "@/components/HorizontalGameList";
+import styled from "styled-components";
+import Login from "components/Login.js";
+import { useSession } from "next-auth/react";
 import Footer from "@/components/Footer";
 
 export default function HomePage({ isFavorite, toggleFavorite, showModal }) {
@@ -16,7 +19,9 @@ export default function HomePage({ isFavorite, toggleFavorite, showModal }) {
   if (!data || isLoading) return <small>loading...</small>;
 
   return (
-    <>   
+    <>
+      <Login />
+
       {data && (
         <>
           <HorizontalGameList

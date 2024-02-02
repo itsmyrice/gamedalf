@@ -3,6 +3,7 @@ import Link from "next/link";
 import FavouriteButton from "./FavouriteButton";
 import DeleteButton from "./DeleteButton";
 import EditButton from "./EditButton";
+import { useSession } from "next-auth/react";
 
 export default function GameCard({
   game,
@@ -10,6 +11,13 @@ export default function GameCard({
   toggleFavorite,
   showModal,
 }) {
+  const session = useSession();
+
+  const createdByCurrentUser =
+    session.status === "authenticated" && game.user
+      ? game.user.email === session.data.user.email
+      : false;
+
   return (
     <StyledCard>
       <StyledImageWrapper>
@@ -22,13 +30,16 @@ export default function GameCard({
       <StyledLink href={`/games/${game._id}`} aria-label="More details">
         <StyledTitle>{game.name}</StyledTitle>
         {!game.userCreated && (
-        <StyledRankTitle>{game.rating.slice(0, 3)}</StyledRankTitle>
+          <StyledRankTitle>{game.rating.slice(0, 3)}</StyledRankTitle>
         )}
         <StyledYearDisplay>{game.yearpublished}</StyledYearDisplay>
       </StyledLink>
-      {game.userCreated && (
+      {createdByCurrentUser && game.userCreated && (
         <>
-          <EditButton showModal={showModal} onClick={() => showModal.toggle('edit',game)}/>
+          <EditButton
+            showModal={showModal}
+            onClick={() => showModal.toggle("edit", game)}
+          />
           <DeleteButton id={game._id} />
         </>
       )}
