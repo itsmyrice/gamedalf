@@ -6,6 +6,7 @@ import EditButton from "./EditButton";
 import { MdArrowOutward } from "react-icons/md";
 import { FaRegStar, FaRegCalendarAlt } from "react-icons/fa";
 import Image from "next/image";
+import { useSession } from "next-auth/react";
 
 export default function GameCard({
   game,
@@ -13,6 +14,13 @@ export default function GameCard({
   toggleFavorite,
   showModal,
 }) {
+  const session = useSession();
+
+  const createdByCurrentUser =
+    session.status === "authenticated" && game.user
+      ? game.user.email === session.data.user.email
+      : false;
+
   return (
     <StyledCard>
       <StyledImageDiv>
@@ -48,7 +56,12 @@ export default function GameCard({
           }}
         />
       </StyledLink>
-      {game.userCreated && (
+
+      <StyledTitle>{game.name}</StyledTitle>
+      {!game.userCreated && (
+        <StyledRankTitle>{game.rating.slice(0, 3)}</StyledRankTitle>
+      )}
+      {createdByCurrentUser && game.userCreated && (
         <ActionButtons>
           <EditButton
             showModal={showModal}

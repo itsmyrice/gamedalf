@@ -5,16 +5,33 @@ import VerticalGameList from "@/components/VerticalGameList";
 import { IoCreateOutline } from "react-icons/io5";
 import { StyledSection } from "../../styles";
 import { AiOutlineUser } from "react-icons/ai";
+import { useSession } from "next-auth/react";
+import Login from "@/components/Login";
+import Image from "next/image";
 
 export default function ProfilePage({ toggleFavorite, isFavorite, showModal }) {
   const { data: gameData, isLoading, error } = useSWR("/api/games");
 
-  const userCreatedGame = gameData
-    ? gameData.filter(({ userCreated }) => userCreated)
-    : [];
+  const session = useSession();
 
-  if (isLoading) return <div>Loading...</div>;
+  if (session.status === "unauthenticated") {
+    return (
+      <StyledSection>
+        <h2>Please sign in to see your profile.</h2>
+        <Login />
+      </StyledSection>
+    );
+  }
+
+  if (isLoading || session.status === "loading") return <div>Loading...</div>;
   if (error) return <div>Failed to load games</div>;
+
+  const userCreatedGame =
+    session.status === "authenticated" && gameData
+      ? gameData.filter(
+          ({ user }) => user && user.email === session.data.user.email
+        )
+      : [];
 
   return (
     <StyledSection>
@@ -26,6 +43,9 @@ export default function ProfilePage({ toggleFavorite, isFavorite, showModal }) {
         <IoCreateOutline />
         Create
       </StyledButton>
+        <Image src={session.data.user.image} alt="" width={100} height={100} />
+        <h3>{session.data.user.name}</h3>
+        <Login />
       <StyledUserCreatedGameList>
         {userCreatedGame.length > 0 ? (
           <VerticalGameList
@@ -46,6 +66,16 @@ export default function ProfilePage({ toggleFavorite, isFavorite, showModal }) {
 
 const StyledTitle = styled.h2`
   display: flex;
+  flex-direction: column;
+  row-gap: 2rem;
+  padding-top: 2rem;
+  color: #111111;
+  height: 100vh;
+`;
+
+const StyledUserCreatedGameList = styled.div`
+  display: flex;
+  flex-direction: column;
   align-items: center;
   gap: 4px;
   font-weight: 400;
@@ -58,8 +88,6 @@ const StyledText = styled.p`
   gap: 4px;
   margin: auto;
 `;
-
-const StyledUserCreatedGameList = styled.div``;
 
 const StyledButton = styled.button`
   display: flex;

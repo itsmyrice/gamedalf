@@ -3,6 +3,7 @@ import Form from "@/components/Form";
 import SendingConfirmation from "@/components/SendingConfirmation";
 import { mutate } from "swr";
 import { useEffect } from "react";
+import { useSession } from "next-auth/react";
 
 export default function FormModal({ showModal }) {
   async function handleCreate(formData) {

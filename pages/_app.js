@@ -6,9 +6,12 @@ import Header from "@/components/Header";
 import { useState } from "react";
 import FormModal from "@/components/FormModal";
 import { Space_Grotesk } from "@next/font/google";
+import { SessionProvider } from "next-auth/react";
+
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
 });
+
 export default function App({ Component, pageProps }) {
   const [localGameData, setLocalGameData] = useState([]);
   const [modal, setModal] = useState({
@@ -95,29 +98,33 @@ export default function App({ Component, pageProps }) {
 
   return (
     <>
-      <GlobalStyle />
-      <SWRConfig
-        value={{
-          fetcher: (resource, init) =>
-            fetch(resource, init).then((response) => response.json()),
-        }}
-      >
-        <Header />
-        <ContentWrapper className={spaceGrotesk.className}>
-          <Component
-            isFavorite={checkIsFavorite}
-            toggleFavorite={toggleFavorite}
-            localGameData={localGameData}
-            showModal={{ toggle: toggleShowModal, modal: modal }}
-            {...pageProps}
-          />
+      <SessionProvider session={pageProps.session}>
+        <GlobalStyle />
+        <SWRConfig
+          value={{
+            fetcher: (resource, init) =>
+              fetch(resource, init).then((response) => response.json()),
+          }}
+        >
+          <Header />
+          <ContentWrapper>
+            <Component
+              isFavorite={checkIsFavorite}
+              toggleFavorite={toggleFavorite}
+              localGameData={localGameData}
+              showModal={{ toggle: toggleShowModal, modal: modal }}
+              {...pageProps}
+            />
 
-          {modal.isVisible && (
-            <FormModal showModal={{ toggle: toggleShowModal, modal: modal }} />
-          )}
-        </ContentWrapper>
-        <Navbar />
-      </SWRConfig>
+            {modal.isVisible && (
+              <FormModal
+                showModal={{ toggle: toggleShowModal, modal: modal }}
+              />
+            )}
+          </ContentWrapper>
+          <Navbar />
+        </SWRConfig>
+      </SessionProvider>
     </>
   );
 }

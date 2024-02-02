@@ -7,6 +7,7 @@ import { FaArrowLeft } from "react-icons/fa6";
 import { FaRegStar, FaRegCalendarAlt } from "react-icons/fa";
 import { IoTimeOutline } from "react-icons/io5";
 import { GiTabletopPlayers } from "react-icons/gi";
+import { IoIosArrowRoundBack } from "react-icons/io";
 
 import Image from "next/image";
 export default function DetailsPage({ isFavorite, toggleFavorite }) {
@@ -83,6 +84,11 @@ export default function DetailsPage({ isFavorite, toggleFavorite }) {
           {game.userCreated ? <p>{game.userCreated}</p> : ""}
         </NestedWrapper>
       </StyledWrapperBackground>
+      <StyledButton onClick={() => router.back()}>
+        <IoIosArrowRoundBack />
+      </StyledButton>
+      <h1>{game.name}</h1>
+      {game.userCreated ? <p>{game.userCreated}</p> : ""}
     </StyledSection>
   );
 }
@@ -198,4 +204,18 @@ const StyledStats = styled.p`
   display: flex;
   gap: 10px;
   align-items: center;
+`;
+
+const StyledButton = styled.button`
+  background: transparent;
+  border: none;
+  color: #111111;
+  font-size: 2rem;
+  position: relative;
+  margin: 0.5rem 0;
+  right: 45%;
+  &:hover {
+    color: #ff8200;
+    border-left: 1px solid #111111;
+  }
 `;

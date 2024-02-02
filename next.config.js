@@ -6,7 +6,12 @@ const nextConfig = {
   reactStrictMode: true,
 
   images: {
-    domains: ["cf.geekdo-images.com", "images.unsplash.com"],
+
+    domains: [
+      "cf.geekdo-images.com",
+      "avatars.githubusercontent.com",
+      "images.unsplash.com",
+    ],
   },
 
   webpack(config) {

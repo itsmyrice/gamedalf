@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import GameCard from "./GameCard";
+import { useSession } from "next-auth/react";
 
 export default function VerticalGameList({
   isFavorite,
@@ -7,6 +8,7 @@ export default function VerticalGameList({
   data,
   showModal,
 }) {
+
   return (
     <ListGames>
       {data.map((game) => (
