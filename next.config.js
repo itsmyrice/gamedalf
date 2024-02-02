@@ -6,6 +6,7 @@ const nextConfig = {
   reactStrictMode: true,
 
   images: {
+
     domains: [
       "cf.geekdo-images.com",
       "avatars.githubusercontent.com",

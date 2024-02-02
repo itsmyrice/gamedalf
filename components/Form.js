@@ -15,11 +15,7 @@ const INITIAL_DATA = {
   userCreated: true,
 };
 
-export default function Form({
-  showModal,
-  onSubmit,
-  initialFormData,
-}) {
+export default function Form({ showModal, onSubmit, initialFormData }) {
   const [validationError, setValidationError] = useState("");
 
   const [formData, setFormData] = useState(initialFormData || INITIAL_DATA);
@@ -197,12 +193,6 @@ const SubmitButton = styled.button`
   text-align: center;
   margin-top: 20px;
   align-self: center;
-  transition: 0.3s ease-in-out;
-  &:hover {
-    background-color: transparent;
-    color: #0011ff;
-    transition: 0.3s ease-in-out;
-  }
 `;
 
 const CloseButton = styled(FaTimes)`

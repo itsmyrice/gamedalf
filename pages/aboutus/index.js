@@ -4,14 +4,16 @@ import { profiles } from "@/components/TeamProfile";
 import { techStacks } from "@/components/TechStack";
 import Link from "next/link";
 import styled from "styled-components";
-import { IoIosArrowRoundBack } from "react-icons/io";
 import { BiGame } from "react-icons/bi";
+import { StyledSection } from "../../styles";
+import { FaArrowLeft } from "react-icons/fa6";
 
 export default function AboutUsPage() {
   return (
-    <StyledPageWrapper>
-      <StyledLink href={"/"}>
-        <IoIosArrowRoundBack />
+    <StyledSection>
+      <StyledLink href="/">
+        <FaArrowLeft style={{ marginRight: "4px" }} />
+        Back
       </StyledLink>
       <StyledGreetings>
         <h2>
@@ -23,25 +25,33 @@ export default function AboutUsPage() {
         'It's here not only on the dawn of the 5th day, it's here whenever,
         wherever you need it.'
       </p>
-      <h3>Lets us introduce ourselves.</h3>
-      {profiles.map((profile) => (       
-          <TeamProfile key={profile.name} {...profile} />
+      <h3>Team</h3>
+      {profiles.map((profile) => (
+        <TeamProfile key={profile.name} {...profile} />
       ))}
 
       <h3>Let us introduce our app.</h3>
       <StyledAppContent>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Impedit
-          distinctio ea voluptatibus perferendis cumque alias dolorem laboriosam
-          quod veniam. Adipisci accusantium nulla optio fugiat fuga at velit
-          saepe non corrupti?
-        </p>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Impedit
-          distinctio ea voluptatibus perferendis cumque alias dolorem laboriosam
-          quod veniam. Adipisci accusantium nulla optio fugiat fuga at velit
-          saepe non corrupti?
-        </p>
+        Gamedalf is an app tailored to be your companion in the vast world of
+        board games. It doesn’t matter if you are a collector of board games or
+        just looking for something to play with your friends, Gamedalf is there
+        for you. You can choose your game from professionally curated
+        recommendations or can search for one.
+        <br />
+        <br />
+        Don’t feel like sifting through hundreds of games? Just click the dice
+        icon and you can start playing immediately. The game is designed to
+        introduce the core mechanics of board games like role playing and chance
+        based outcomes.
+        <br />
+        <br />
+        Are you a game creator? Just log in and add your games to the database
+        to share them with the world. You can edit and delete them whenever you
+        want. Don’t worry even if you’re not logged in you can still bookmark
+        the games you like.
+        <br />
+        <br />
+        We’re looking forward to hear your adventures!
       </StyledAppContent>
       <h3>Tech Stack</h3>
       <StyledTechWrapper>
@@ -49,27 +59,9 @@ export default function AboutUsPage() {
           <TechStack key={tech.name} {...tech} />
         ))}
       </StyledTechWrapper>
-    </StyledPageWrapper>
+    </StyledSection>
   );
 }
-
-const StyledPageWrapper = styled.section`
-  padding-bottom: 7rem;
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-  row-gap: 1rem;
-`;
-
-const StyledLink = styled(Link)`
-  color: #111111;
-  font-size: 1.8rem;
-  display: flex;
-  &:hover {
-    color: #ff8200;
-    border-left: 1px solid #111111;
-  }
-`;
 
 const StyledGreetings = styled.div`
   display: flex;
@@ -94,4 +86,13 @@ const StyledTechWrapper = styled.div`
   justify-content: space-evenly;
   width: 100%;
   height: 100%;
+`;
+
+const StyledLink = styled(Link)`
+  color: black;
+  border: 1px solid black;
+  border-radius: 20px;
+  padding: 6px 20px;
+  cursor: pointer;
+  color: black;
 `;

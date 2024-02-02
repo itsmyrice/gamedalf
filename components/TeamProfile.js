@@ -4,22 +4,32 @@ import { CgWebsite } from "react-icons/cg";
 import { CiLinkedin } from "react-icons/ci";
 import { TiSocialFacebook } from "react-icons/ti";
 import { IoLogoInstagram } from "react-icons/io5";
+import { TfiWorld } from "react-icons/tfi";
+
 import styled from "styled-components";
 
 export const profiles = [
   {
     name: "Oguz Kabasakal",
-    position: "Web Developer | Audio Engineer | Composer",
-    bio: " I am Oguz from Darmstadt, studying to become a Web Developer at Neue Fische and working on my Master's Degree on Expanded Media at Hochschule Darmstadt.",
+    position: "Web Developer | Audio Engineer",
+    bio: " Developing by day, slaying demons by night.",
     imageUrl: "/images/oguz.jpg",
     socialNetworks: [
       {
-        icon: <CgWebsite />,
+        icon: <TfiWorld />,
         link: "https://www.oguzkabasakal.com/",
       },
       {
         icon: <FaGithub />,
         link: "https://github.com/kabaskill",
+      },
+      {
+        icon: <CiLinkedin />,
+        link: "https://www.linkedin.com/in/oguzkabasakal/",
+      },
+      {
+        icon: <IoLogoInstagram />,
+        link: "https://www.instagram.com/mr.kabaskill/",
       },
     ],
   },
@@ -30,7 +40,7 @@ export const profiles = [
     imageUrl: "/images/pirate.jpg",
     socialNetworks: [
       {
-        icon: <CgWebsite />,
+        icon: <TfiWorld />,
         link: "https://www.kenjeres.com/",
       },
       {
@@ -41,12 +51,16 @@ export const profiles = [
         icon: <CiLinkedin />,
         link: "https://www.linkedin.com/in/kristiankenjeres/",
       },
+      {
+        icon: <IoLogoInstagram />,
+        link: "https://www.instagram.com/kristiankenjeres/",
+      },
     ],
   },
   {
     name: "Glory Ann Conwi",
     position: "Web Developer | Sales Assistant",
-    bio: "I am Glory Ann Conwi from Hamburg, Germany. Currently, I am learning to become a Web Developer.",
+    bio: "Game don't make you violent, lag does",
     imageUrl: "/images/glory.jpg",
     socialNetworks: [
       {
@@ -54,8 +68,8 @@ export const profiles = [
         link: "https://github.com/itsmyrice",
       },
       {
-        icon: <TiSocialFacebook />,
-        link: "https://www.facebook.com/gloryconwi/",
+        icon: <CiLinkedin />,
+        link: "https://www.linkedin.com/in/glory-ann-conwi-04409129a/",
       },
       {
         icon: <IoLogoInstagram />,
@@ -81,37 +95,56 @@ export default function TeamProfile({
   imageUrl,
 }) {
   return (
-    <StyledProfileWrapper>
-      <Image src={imageUrl} width={130} height={150} alt={name} />
-      <StyledProfileContent>
-        <h4>{name}</h4>
-        <p>{position}</p>
-        <StyledUl>
-          {socialNetworks.map((social) => (
-            <li key={social.link}>
-              <SocialNetwork {...social} />
-            </li>
-          ))}
-        </StyledUl>
-      </StyledProfileContent>
+    <StyledCard>
+      <StyledDiv>
+        <StyledImage src={imageUrl} width={130} height={150} alt={name} />
+        <StyledName>{name}</StyledName>
+        <StyledPosition>{position}</StyledPosition>
+        <StyledProfileContent>
+          <StyledUl>
+            {socialNetworks.map((social) => (
+              <li key={social.link}>
+                <SocialNetwork {...social} />
+              </li>
+            ))}
+          </StyledUl>
+        </StyledProfileContent>
+      </StyledDiv>
+
       <p>{bio}</p>
-    </StyledProfileWrapper>
+    </StyledCard>
   );
 }
 
-const StyledProfileWrapper = styled.article`
-  border: 1px ridge #111111;
-  box-shadow: 3px 1px 5px #111111;
-  background-color: #e5e4e2;
-  padding: 1rem;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-evenly;
-  row-gap: 0.5rem;
-  column-gap: 1rem;
-  align-items: center;
-  margin: 0.5rem;
+const StyledCard = styled.div`
+  background: radial-gradient(circle, #f5f7fa 0%, #c3cfe2 100%);
+  border: 1px solid white;
+  margin-bottom: 20px;
+  border-radius: 20px;
+  padding: 20px 10px;
 `;
+const StyledName = styled.p`
+  font-size: 24px;
+  font-weight: 500;
+`;
+const StyledPosition = styled.p`
+  font-size: 16px;
+  font-weight: 300;
+`;
+const StyledDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+`;
+const StyledImage = styled(Image)`
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+`;
+
 const StyledProfileContent = styled.div`
   display: flex;
   flex-direction: column;

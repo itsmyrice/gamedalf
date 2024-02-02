@@ -4,6 +4,8 @@ import Fuse from "fuse.js";
 import { useState, useEffect } from "react";
 import useSWR from "swr";
 import { FaTimes } from "react-icons/fa";
+import { StyledSection } from "../../styles";
+import { HiOutlineAdjustmentsHorizontal } from "react-icons/hi2";
 
 const INITIAL_FILTERS = {
   name: "",
@@ -117,9 +119,9 @@ export default function SearchPage({ isFavorite, toggleFavorite }) {
   };
 
   return (
-    <>
+    <StyledSection>
       {!showFilters && (
-        <>
+        <StyledDiv>
           <SearchInput
             type="text"
             id="text"
@@ -128,17 +130,23 @@ export default function SearchPage({ isFavorite, toggleFavorite }) {
             onChange={(event) => setSearchQuery(event.target.value)}
           />
 
-          <StyledButton
+          <HiOutlineAdjustmentsHorizontal
+            style={{
+              height: "100%",
+              width: "40px",
+              color: "black",
+              background: "white",
+              borderRadius: "20px",
+              padding: "6px",
+            }}
             type="button"
             onClick={() => {
               setSearchQuery("");
               setFilteredGamesList([]);
               setShowFilters(true);
             }}
-          >
-            Advanced Search
-          </StyledButton>
-        </>
+          ></HiOutlineAdjustmentsHorizontal>
+        </StyledDiv>
       )}
 
       {showFilters && (
@@ -227,10 +235,10 @@ export default function SearchPage({ isFavorite, toggleFavorite }) {
         data={
           showFilters
             ? filteredGameList
-            : fuzzySearch(data, searchQuery, 0.8, ["name"])
+            : fuzzySearch(data, searchQuery, 0.4, ["name"])
         }
       />
-    </>
+    </StyledSection>
   );
 }
 
@@ -243,16 +251,19 @@ const StyledForm = styled.form`
   margin-block: 1rem;
 `;
 
+const StyledDiv = styled.div`
+  display: flex;
+  align-items: stretch;
+  gap: 10px;
+  margin-bottom: 40px;
+`;
+
 const SearchInput = styled.input`
-  height: 3rem;
-  margin-top: 1rem;
-  font-size: 1rem;
-  border-radius: 1rem;
-  padding: 0.5rem 1.5rem;
-  outline: none;
   border: none;
-  box-shadow: 3px 3px 5px grey;
+  padding: 10px 20px;
   width: 100%;
+  border-radius: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 `;
 
 const FormInput = styled.input`
