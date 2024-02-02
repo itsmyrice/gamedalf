@@ -11,7 +11,7 @@ export const authOptions = {
             username: {
               label: "Username",
               type: "text",
-              placeholder: "newfishes",
+              placeholder: "gamedalf acolyte",
             },
             password: { label: "Password", type: "password" },
           },
