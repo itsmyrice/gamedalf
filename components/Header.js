@@ -5,7 +5,7 @@ export default function Header() {
   return (
     <StyledHeader>
       <StyleImage
-        src={"/images/Logo.svg"}
+        src={"./images/Logo.svg"}
         width={100}
         height={100}
         alt="Logo"
