@@ -84,7 +84,7 @@ export default function HomePage({ isFavorite, toggleFavorite, showModal }) {
 }
 
 const StyledWrapper = styled.section`
-  margin: 100px 0 100px 0;
+  margin: 100px 0 200px 0;
   display: flex;
   flex-direction: column;
   gap: 50px;

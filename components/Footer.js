@@ -6,7 +6,6 @@ export default function Footer() {
     <StyledFooterWrapper>
       <StyledLink href={"/aboutus"}>About Us</StyledLink>
       <StyledLink href={"/terms-of-use"}>Terms of Use</StyledLink>
-      <p>&copy; 2024 GameDalf</p>
     </StyledFooterWrapper>
   );
 }
@@ -15,7 +14,21 @@ const StyledFooterWrapper = styled.footer`
   width: 100%;
   margin: auto;
   background: transparent;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
 `;
+
 const StyledLink = styled(Link)`
-  color: white;
+  color: black;
+  text-decoration: none;
+  position: relative;
+
+  &:first-child::after {
+    content: "•";
+    position: absolute;
+    right: -10px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
 `;
