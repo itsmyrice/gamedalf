@@ -3,7 +3,6 @@ import useSWR from "swr";
 import styled from "styled-components";
 import FavouriteButton from "@/components/FavouriteButton";
 import Link from "next/link";
-import { FaArrowLeft } from "react-icons/fa6";
 import { FaRegStar, FaRegCalendarAlt } from "react-icons/fa";
 import { IoTimeOutline } from "react-icons/io5";
 import { GiTabletopPlayers } from "react-icons/gi";
@@ -75,7 +74,7 @@ export default function DetailsPage({ isFavorite, toggleFavorite }) {
             </StyledCategory>
             <StyledDescription>
               <StyledSubtitleDesc>Description</StyledSubtitleDesc>
-              <StyledTextDesc>{game.description}</StyledTextDesc>
+              <StyledTextDescription>{game.description}</StyledTextDescription>
             </StyledDescription>
           </StyledWrapperAdditional>
           {game.userCreated ? <p>{game.userCreated}</p> : ""}
@@ -97,18 +96,6 @@ const StyledSection = styled.section`
   gap: 20px;
 `;
 
-const StyledLinkButton = styled(Link)`
-  border: 1px solid white;
-  border-radius: 20px;
-  padding: 6px 20px;
-  cursor: pointer;
-  color: black;
-  display: flex;
-  background: radial-gradient(circle, #f5f7fa 0%, #c3cfe2 100%);
-  gap: 4px;
-  align-items: center;
-`;
-
 const StyledWrapperBackground = styled.div`
   background: white;
   border-radius: 20px;
@@ -122,7 +109,7 @@ const NestedWrapper = styled.div`
 `;
 
 const StyledTitle = styled.h1`
-  font-size: 20px;
+  font-size: 30px;
   font-weight: 400;
   background: white;
   border-radius: 40px;
@@ -171,7 +158,7 @@ const StyledCategory = styled.div`
   background: white;
 `;
 const StyledSubtitleCategory = styled.p`
-  font-size: 30px;
+  font-size: 25px;
   font-weight: 400;
   margin-bottom: 20px;
   color: black;
@@ -188,14 +175,14 @@ const StyledDescription = styled.div`
   padding: 20px;
 `;
 const StyledSubtitleDesc = styled.p`
-  font-size: 30px;
+  font-size: 25px;
   font-weight: 400;
   margin-bottom: 20px;
   color: black;
 `;
 
-const StyledTextDesc = styled.p`
-  font-size: 18px;
+const StyledTextDescription = styled.p`
+  font-size: 16px;
   word-spacing: 3px;
   color: #3c4649;
   word-wrap: break-word;
