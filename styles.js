@@ -19,7 +19,7 @@ export default createGlobalStyle`
   body {
     background: radial-gradient(circle, #f5f7fa 0%, #c3cfe2 100%);
     margin: 0;
-    font-family: system-ui;
+    font-family: 'Space Grotesk', sans-serif;
     overflow-y: auto;
   }
   a {
