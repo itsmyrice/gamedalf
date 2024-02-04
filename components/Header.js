@@ -1,15 +1,11 @@
 import styled from "styled-components";
 import Image from "next/image";
 import Login from "./Login";
+import logo from "../public/images/logo.png";
 export default function Header() {
   return (
     <StyledHeader>
-      <StyleImage
-        src={"./images/Logo.svg"}
-        width={100}
-        height={100}
-        alt="Logo"
-      />
+      <StyleImage src={logo} width={100} height={100} alt="Logo" />
       <Login />
     </StyledHeader>
   );

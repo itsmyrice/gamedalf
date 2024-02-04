@@ -9,8 +9,6 @@ import { IoTimeOutline } from "react-icons/io5";
 import { GiTabletopPlayers } from "react-icons/gi";
 import { IoIosArrowRoundBack } from "react-icons/io";
 import { FaBirthdayCake } from "react-icons/fa";
-
-import age from "../../../public/images/age.png";
 import BackButton from "@/components/BackButton";
 import Image from "next/image";
 export default function DetailsPage({ isFavorite, toggleFavorite }) {
