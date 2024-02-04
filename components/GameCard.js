@@ -24,7 +24,12 @@ export default function GameCard({
   return (
     <StyledCard>
       <StyledImageDiv>
-        <StyledImage src={game.image} width={100} height={200}></StyledImage>
+        <StyledImage
+          src={game.image}
+          width={500}
+          height={500}
+          alt={game.name}
+        ></StyledImage>
         <FavouriteButton
           isFavorite={isFavorite(game._id)}
           toggleFavorite={() => toggleFavorite(game._id)}
@@ -137,10 +142,6 @@ const StyledTitle = styled.h2`
   text-overflow: ellipsis;
   max-width: 100%;
   margin-bottom: 10px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: 100%;
 `;
 
 const StyledDesc = styled.p`
@@ -154,6 +155,10 @@ const StyledDesc = styled.p`
   padding: 10px 0;
   justify-content: space-between;
   margin: auto;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
 `;
 
 const ActionButtons = styled.div`

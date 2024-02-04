@@ -8,7 +8,10 @@ import { FaRegStar, FaRegCalendarAlt } from "react-icons/fa";
 import { IoTimeOutline } from "react-icons/io5";
 import { GiTabletopPlayers } from "react-icons/gi";
 import { IoIosArrowRoundBack } from "react-icons/io";
+import { FaBirthdayCake } from "react-icons/fa";
 
+import age from "../../../public/images/age.png";
+import BackButton from "@/components/BackButton";
 import Image from "next/image";
 export default function DetailsPage({ isFavorite, toggleFavorite }) {
   const router = useRouter();
@@ -26,10 +29,8 @@ export default function DetailsPage({ isFavorite, toggleFavorite }) {
   const checkIsFavorite = isFavorite(game._id);
   return (
     <StyledSection>
-      <StyledLinkButton href="/">
-        <FaArrowLeft />
-        Back
-      </StyledLinkButton>
+      <BackButton />
+
       <StyledWrapperBackground>
         <NestedWrapper>
           <StyledTitle>{game.name}</StyledTitle>
@@ -37,8 +38,8 @@ export default function DetailsPage({ isFavorite, toggleFavorite }) {
             <StyledImage
               src={game.image}
               alt={game.name}
-              width={200}
-              height={200}
+              width={500}
+              height={500}
             />
             <FavouriteButton
               toggleFavorite={() => toggleFavorite(game._id)}
@@ -47,10 +48,10 @@ export default function DetailsPage({ isFavorite, toggleFavorite }) {
             <StyledInfoWrapper>
               <StyledStats>
                 <FaRegStar />
-                {game.rating.slice(0, 3)}
+                {!game.userCreated ? game.rating.slice(0, 3) : "No ratings"}
               </StyledStats>
               <StyledStats>
-                Age
+                <FaBirthdayCake />
                 {game.minAge} +
               </StyledStats>
               <StyledStats>
@@ -63,9 +64,7 @@ export default function DetailsPage({ isFavorite, toggleFavorite }) {
               </StyledStats>
               <StyledStats>
                 <GiTabletopPlayers />
-                <p>
-                  {game.minPlayers} - {game.maxPlayers}
-                </p>
+                {game.minPlayers} - {game.maxPlayers}
               </StyledStats>
             </StyledInfoWrapper>
           </StyledWrapperIntro>
@@ -115,6 +114,7 @@ const StyledLinkButton = styled(Link)`
 const StyledWrapperBackground = styled.div`
   background: white;
   border-radius: 20px;
+  width: 100%;
 `;
 
 const NestedWrapper = styled.div`
@@ -128,7 +128,12 @@ const StyledTitle = styled.h1`
   font-weight: 400;
   background: white;
   border-radius: 40px;
-  margin: 20px 0;
+  padding: 20px 0;
+  margin: auto;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
 `;
 
 const StyledWrapperIntro = styled.div`
@@ -213,8 +218,4 @@ const StyledButton = styled.button`
   position: relative;
   margin: 0.5rem 0;
   right: 45%;
-  &:hover {
-    color: #ff8200;
-    border-left: 1px solid #111111;
-  }
 `;

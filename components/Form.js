@@ -32,6 +32,10 @@ export default function Form({ showModal, onSubmit, initialFormData }) {
       setValidationError("Only images from unsplash.com are allowed");
       return;
     }
+    if (formData.name.length > 50) {
+      setValidationError("Name must be only 1 character long");
+      return;
+    }
 
     showModal.toggle("submit");
 
