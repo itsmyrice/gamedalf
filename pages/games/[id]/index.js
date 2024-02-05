@@ -115,7 +115,7 @@ const StyledAvatar = styled(Image)`
 `;
 
 const StyledSection = styled.section`
-  padding: 100px 0 40px;
+  padding: 100px 0 50px 0;
   display: flex;
   flex-direction: column;
   align-items: start;
@@ -138,7 +138,6 @@ const StyledTitle = styled.h1`
   font-size: 30px;
   font-weight: 400;
   background: white;
-  border-radius: 40px;
   padding-bottom: 20px;
   margin: auto;
   white-space: nowrap;
@@ -179,11 +178,10 @@ const StyledWrapperAdditional = styled.div`
 const StyledCategory = styled.div`
   border-radius: 0 0 20px 20px;
   padding: 20px;
-
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 `;
 const StyledSubtitleCategory = styled.p`
-  font-size: 25px;
+  font-size: 26px;
   font-weight: 400;
   margin-bottom: 20px;
   color: black;
@@ -203,7 +201,7 @@ const StyledDescription = styled.div`
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 `;
 const StyledSubtitleDesc = styled.p`
-  font-size: 25px;
+  font-size: 26px;
   font-weight: 400;
   margin-bottom: 20px;
   color: black;
@@ -211,7 +209,7 @@ const StyledSubtitleDesc = styled.p`
 
 const StyledTextDescription = styled.p`
   font-size: 16px;
-  word-spacing: 3px;
+  word-spacing: 4px;
   word-wrap: break-word;
   color: black;
 `;
