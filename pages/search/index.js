@@ -17,7 +17,7 @@ const INITIAL_FILTERS = {
   playtime: "",
 };
 
-export default function SearchPage({ isFavorite, toggleFavorite }) {
+export default function SearchPage({ isFavorite, toggleFavorite, showModal }) {
   const { data } = useSWR("./api/games");
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -214,6 +214,7 @@ export default function SearchPage({ isFavorite, toggleFavorite }) {
       <VerticalGameList
         isFavorite={isFavorite}
         toggleFavorite={toggleFavorite}
+        showModal={showModal}
         data={
           showFilters
             ? filteredGameList
