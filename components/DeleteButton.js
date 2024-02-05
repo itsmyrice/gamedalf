@@ -1,10 +1,7 @@
 import useSWR from "swr";
-import { useRouter } from "next/router";
 import styled from "styled-components";
 export default function DeleteButton({ id }) {
-  const router = useRouter();
-
-  const { data, mutate } = useSWR();
+  const { mutate } = useSWR();
 
   async function handleDelete(id) {
     if (window.confirm("Are you sure you want to delete this game?")) {
@@ -18,7 +15,6 @@ export default function DeleteButton({ id }) {
         await response.json();
         mutate();
         window.alert("Your game is successfully deleted.");
-        router.push("/profile");
       }
       if (!response.ok) {
         response.status(404).json({ status: "Could not be deleted." });
