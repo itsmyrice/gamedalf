@@ -41,8 +41,28 @@ export default createGlobalStyle`
   --loader-h: calc(3 * var(--square-h) + 2 * var(--square-margin));
   --delay-enter: 0.3s;
   --top-enter: -10px;
+  --title-font-size: 26px;
+  --subtitle-font-size: 20px;
+  --text-font-size: 16px;
+  --background: radial-gradient(circle, #f5f7fa 0%, #c3cfe2 100%);
 }
-
+h2 {
+  font-size: var(--title-font-size);
+  font-weight: 400;
+  color: black;
+}
+h3 {
+  font-size: var(--subtitle-font-size);
+  font-weight: 300;
+  color: black;
+}
+p {
+  font-size: var(--text-font-size);
+  word-spacing: 2px;
+}
+button {
+  background: var(--background);
+}
 @keyframes enter {
   0% {
     opacity: 0;

@@ -84,14 +84,12 @@ export default function DetailsPage({ isFavorite, toggleFavorite }) {
           </StyledWrapperIntro>
           <StyledWrapperAdditional>
             <StyledCategory>
-              <StyledSubtitleCategory>Categories</StyledSubtitleCategory>
-              <StyledTextCategories>
-                {game.categories.slice(0, 5).join(", ")}
-              </StyledTextCategories>
+              <h2>Categories</h2>
+              <p>{game.categories.slice(0, 5).join(", ")}</p>
             </StyledCategory>
             <StyledDescription>
-              <StyledSubtitleDesc>Description</StyledSubtitleDesc>
-              <StyledTextDescription>{game.description}</StyledTextDescription>
+              <h2>Description</h2>
+              <p>{game.description}</p>
             </StyledDescription>
           </StyledWrapperAdditional>
         </NestedWrapper>
@@ -134,10 +132,7 @@ const NestedWrapper = styled.div`
   flex-direction: column;
 `;
 
-const StyledTitle = styled.h1`
-  font-size: 30px;
-  font-weight: 400;
-  background: white;
+const StyledTitle = styled.h2`
   padding-bottom: 20px;
   margin: auto;
   white-space: nowrap;
@@ -178,40 +173,20 @@ const StyledWrapperAdditional = styled.div`
 const StyledCategory = styled.div`
   border-radius: 0 0 20px 20px;
   padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 `;
-const StyledSubtitleCategory = styled.p`
-  font-size: 26px;
-  font-weight: 400;
-  margin-bottom: 20px;
-  color: black;
-`;
-const StyledTextCategories = styled.p`
-  font-size: 16px;
-  word-spacing: 2px;
-  color: #3c4649;
-  word-wrap: break-word;
-  color: black;
-`;
+
 const StyledDescription = styled.div`
   border-radius: 20px 20px 20px 20px;
   padding: 20px;
-
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
   background: #aa770440;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-`;
-const StyledSubtitleDesc = styled.p`
-  font-size: 26px;
-  font-weight: 400;
-  margin-bottom: 20px;
-  color: black;
-`;
-
-const StyledTextDescription = styled.p`
-  font-size: 16px;
-  word-spacing: 4px;
-  word-wrap: break-word;
-  color: black;
 `;
 
 const StyledStats = styled.p`

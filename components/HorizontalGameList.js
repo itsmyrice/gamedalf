@@ -24,7 +24,7 @@ export default function HorizontalGameList({
 
   return (
     <GamesContainer>
-      <Title>{categorieId}</Title>
+      <h2>{categorieId}</h2>
       <Swiper
         style={{ "--swiper-navigation-size": "30px" }}
         spaceBetween={15}
