@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import VerticalGameList from "@/components/VerticalGameList";
-import Fuse from "fuse.js";
-import { useState, useEffect } from "react";
+import { fuzzySearch } from "@/utils/fuzzySearch";
+import { useState } from "react";
 import useSWR from "swr";
 import { FaTimes } from "react-icons/fa";
 import { StyledSection } from "../../styles";
@@ -26,24 +26,6 @@ export default function SearchPage({ isFavorite, toggleFavorite }) {
   const [filters, setFilters] = useState(INITIAL_FILTERS);
 
   const [filteredGameList, setFilteredGamesList] = useState([]);
-
-  function fuzzySearch(data, query, threshold, keys) {
-    const fuseOptions = {
-      threshold: threshold,
-      keys: keys,
-    };
-
-    const fuse = new Fuse(data, fuseOptions);
-
-    if (query.length > 0) {
-      const fuzzy = fuse.search(query);
-      const fuzzyResults = fuzzy.map((object) => object.item);
-
-      return fuzzyResults;
-    } else {
-      return [];
-    }
-  }
 
   function filterGames(data) {
     const filteredResultsName = filters.name

@@ -1,11 +1,11 @@
 import styled from "styled-components";
 import Image from "next/image";
 import Login from "./Login";
-import logo from "../public/images/logo.png";
+
 export default function Header() {
   return (
     <StyledHeader>
-      <StyleImage src={logo} width={120} height={100} alt="Logo" />
+      <StyleImage src="/images/logo.svg" width={120} height={80} alt="Logo" />
       <Login />
     </StyledHeader>
   );
@@ -19,11 +19,13 @@ const StyledHeader = styled.header`
   position: fixed;
   top: 0;
   display: flex;
-  padding: 10px 5%;
+  padding: 0px 5%;
   justify-content: space-between;
   align-items: center;
 `;
 
 const StyleImage = styled(Image)`
-  height: 50px;
+  height: 70px;
+  width: 120px;
+  
 `;

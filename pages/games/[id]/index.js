@@ -2,7 +2,6 @@ import { useRouter } from "next/router";
 import useSWR from "swr";
 import styled from "styled-components";
 import FavouriteButton from "@/components/FavouriteButton";
-import Link from "next/link";
 import { FaRegStar, FaRegCalendarAlt } from "react-icons/fa";
 import { IoTimeOutline } from "react-icons/io5";
 import { GiTabletopPlayers } from "react-icons/gi";
