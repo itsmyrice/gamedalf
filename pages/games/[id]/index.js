@@ -9,9 +9,12 @@ import { IoIosArrowRoundBack } from "react-icons/io";
 import { FaBirthdayCake } from "react-icons/fa";
 import BackButton from "@/components/BackButton";
 import Image from "next/image";
+import { useSession } from "next-auth/react";
 export default function DetailsPage({ isFavorite, toggleFavorite }) {
   const router = useRouter();
   const { id } = router.query;
+
+  const session = useSession();
 
   const {
     data: game,
@@ -62,6 +65,21 @@ export default function DetailsPage({ isFavorite, toggleFavorite }) {
                 <GiTabletopPlayers />
                 {game.minPlayers} - {game.maxPlayers}
               </StyledStats>
+              <StyledStats>
+                {game.userCreated ? (
+                  <>
+                    <StyledAvatar
+                      src={game.user.image}
+                      alt=""
+                      width={50}
+                      height={50}
+                    />
+                    Created by<HiglightSpan>{game.user.name}</HiglightSpan>
+                  </>
+                ) : (
+                  ""
+                )}
+              </StyledStats>
             </StyledInfoWrapper>
           </StyledWrapperIntro>
           <StyledWrapperAdditional>
@@ -76,19 +94,28 @@ export default function DetailsPage({ isFavorite, toggleFavorite }) {
               <StyledTextDescription>{game.description}</StyledTextDescription>
             </StyledDescription>
           </StyledWrapperAdditional>
-          {game.userCreated ? <p>{game.userCreated}</p> : ""}
         </NestedWrapper>
       </StyledWrapperBackground>
       <StyledButton onClick={() => router.back()}>
         <IoIosArrowRoundBack />
       </StyledButton>
-      {game.userCreated ? <p>{game.userCreated}</p> : ""}
     </StyledSection>
   );
 }
 
+const HiglightSpan = styled.span`
+  text-decoration: underline;
+  color: #707070;
+`;
+const StyledAvatar = styled(Image)`
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  object-fit: cover;
+`;
+
 const StyledSection = styled.section`
-  padding: 100px 0;
+  padding: 100px 0 40px;
   display: flex;
   flex-direction: column;
   align-items: start;
@@ -112,7 +139,7 @@ const StyledTitle = styled.h1`
   font-weight: 400;
   background: white;
   border-radius: 40px;
-  padding: 20px 0;
+  padding-bottom: 20px;
   margin: auto;
   white-space: nowrap;
   overflow: hidden;
@@ -138,9 +165,8 @@ const StyledInfoWrapper = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 20px;
-  border-radius: 0 0 20px 20px;
   color: black;
-  padding: 20px;
+  padding: 20px 5%;
 `;
 
 const StyledWrapperAdditional = styled.div`
@@ -148,13 +174,13 @@ const StyledWrapperAdditional = styled.div`
   display: flex;
   flex-direction: column;
   border-radius: 20px;
-  margin-top: 20px;
-  background: #e5e6e1;
+  gap: 20px;
 `;
 const StyledCategory = styled.div`
   border-radius: 0 0 20px 20px;
   padding: 20px;
-  background: white;
+
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 `;
 const StyledSubtitleCategory = styled.p`
   font-size: 25px;
@@ -170,8 +196,11 @@ const StyledTextCategories = styled.p`
   color: black;
 `;
 const StyledDescription = styled.div`
-  border-radius: 20px;
+  border-radius: 20px 20px 20px 20px;
   padding: 20px;
+
+  background: #aa770440;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 `;
 const StyledSubtitleDesc = styled.p`
   font-size: 25px;
@@ -183,7 +212,6 @@ const StyledSubtitleDesc = styled.p`
 const StyledTextDescription = styled.p`
   font-size: 16px;
   word-spacing: 3px;
-  color: #3c4649;
   word-wrap: break-word;
   color: black;
 `;
@@ -192,6 +220,7 @@ const StyledStats = styled.p`
   display: flex;
   gap: 10px;
   align-items: center;
+  flex-wrap: wrap;
 `;
 
 const StyledButton = styled.button`

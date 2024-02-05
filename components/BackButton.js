@@ -14,6 +14,7 @@ const StyledBackButton = styled.button`
   border: 1px solid white;
   border-radius: 20px;
   padding: 6px 20px;
+  margin-left: 5%;
   cursor: pointer;
   color: black;
   display: flex;

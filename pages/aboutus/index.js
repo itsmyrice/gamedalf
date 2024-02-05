@@ -99,7 +99,7 @@ const StyledLinks = styled(Link)`
 const StyledSection = styled.section`
   height: 100%;
   min-height: 100vh;
-  padding: 100px 5% 200px 5%;
+  padding: 100px 5% 150px 5%;
   display: flex;
   flex-direction: column;
   align-items: start;
@@ -135,15 +135,6 @@ const StyledDes = styled.div`
   background: white;
   border-radius: 20px;
   padding: 20px;
-`;
-
-const StyledLink = styled(Link)`
-  color: black;
-  border: 1px solid black;
-  border-radius: 20px;
-  padding: 6px 20px;
-  cursor: pointer;
-  color: black;
 `;
 
 const StyledSpan = styled.span`

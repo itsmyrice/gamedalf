@@ -22,13 +22,22 @@ export default function HomePage({ isFavorite, toggleFavorite, showModal }) {
   const warfareGames = fuzzySearch(data, "warfare", 0.3, ["categories"]);
   const chessGames = fuzzySearch(data, "chess", 0.3, ["categories"]);
   const userCreatedGames = data.filter((game) => game.userCreated);
-  const topRated = data.filter((game) => game.rating > 7.5)
-  console.log("🚀  topRated:", topRated);
+  const topRatedGames = data
+    .toSorted((gameA, gameB) => gameB.rating - gameA.rating)
+    .slice(0, 10);
 
   return (
     <StyledWrapper>
       {data && (
         <>
+          <HorizontalGameList
+            toggleFavorite={toggleFavorite}
+            isFavorite={isFavorite}
+            data={topRatedGames}
+            categorieId="Top 10 Games"
+            listLength={5}
+            showModal={showModal}
+          />
           <HorizontalGameList
             toggleFavorite={toggleFavorite}
             isFavorite={isFavorite}
@@ -77,7 +86,7 @@ export default function HomePage({ isFavorite, toggleFavorite, showModal }) {
 }
 
 const StyledWrapper = styled.section`
-  margin: 100px 0 200px 0;
+  margin: 100px 0 150px 0;
   display: flex;
   flex-direction: column;
   gap: 50px;
