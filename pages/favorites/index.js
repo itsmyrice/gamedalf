@@ -2,7 +2,8 @@ import VerticalGameList from "@/components/VerticalGameList";
 import styled from "styled-components";
 import useSWR from "swr";
 import { CiFolderOff } from "react-icons/ci";
-
+import { FaRegBookmark } from "react-icons/fa";
+import { StyledSection } from "../../styles";
 export default function FavoritesPage({
   isFavorite,
   toggleFavorite,
@@ -23,8 +24,11 @@ export default function FavoritesPage({
   );
 
   return (
-    <>
-      <StyledTitle>My Favorites</StyledTitle>
+    <StyledSection>
+      <StyledTitle>
+        <FaRegBookmark />
+        My Favorites
+      </StyledTitle>
       {favoriteGamesData.length === 0 ? (
         <StyledText>
           <CiFolderOff />
@@ -38,15 +42,22 @@ export default function FavoritesPage({
           showModal={showModal}
         />
       )}
-    </>
+    </StyledSection>
   );
 }
 
 const StyledTitle = styled.h2`
-  margin: 2rem 0;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-weight: 400;
+  margin-bottom: 40px;
 `;
 
 const StyledText = styled.p`
   display: flex;
   justify-content: center;
+  align-items: center;
+  gap: 4px;
+  margin: auto;
 `;

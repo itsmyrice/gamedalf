@@ -1,38 +1,34 @@
-import Link from "next/link"
+import Link from "next/link";
 import styled from "styled-components";
 
 export default function Footer() {
-    return (
-        <StyledFooterWrapper>
-            <nav>
-                <StyledUlItems>
-                    <li><StyledLink href={"/aboutus"}>About Us</StyledLink></li>
-                    <li><StyledLink href={"/terms-of-use"}>Terms of Use</StyledLink></li>
-                    <li>&copy; 2024 GameDalf</li>
-                </StyledUlItems>              
-            </nav>
-        </StyledFooterWrapper>
-    )
+  return (
+    <StyledFooterWrapper>
+      <StyledLink href={"/aboutus"}>About Us</StyledLink>
+      <StyledLink href={"/terms-of-use"}>Terms of Use</StyledLink>
+    </StyledFooterWrapper>
+  );
 }
 
 const StyledFooterWrapper = styled.footer`
-width: 95%;
-margin-bottom: 5rem;
-font-size: 0.7rem;
-color: white;
+  width: 100%;
+  margin: auto;
+  background: transparent;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
 `;
 
-const StyledUlItems = styled.ul`
-list-style: none;
-display: flex;
-flex-direction: column;
-row-gap: 0.3rem;
-
-`;
 const StyledLink = styled(Link)`
-color: white;
-&:hover {
-    cursor: pointer;
-    color: #111111;
-}
+  color: black;
+  text-decoration: none;
+  position: relative;
+
+  &:first-child::after {
+    content: "•";
+    position: absolute;
+    right: -10px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
 `;

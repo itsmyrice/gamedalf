@@ -5,8 +5,12 @@ import Navbar from "@/components/Navbar";
 import Header from "@/components/Header";
 import { useState } from "react";
 import FormModal from "@/components/FormModal";
+import { Space_Grotesk } from "@next/font/google";
 import { SessionProvider } from "next-auth/react";
 
+const spaceGrotesk = Space_Grotesk({
+  subsets: ["latin"],
+});
 
 export default function App({ Component, pageProps }) {
   const [localGameData, setLocalGameData] = useState([]);
@@ -126,7 +130,5 @@ export default function App({ Component, pageProps }) {
 }
 
 const ContentWrapper = styled.section`
-  max-width: 80ch;
-  margin-inline: auto;
-  padding-inline: 1rem;
+  max-width: 100%;
 `;

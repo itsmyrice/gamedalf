@@ -1,7 +1,20 @@
+import styled from "styled-components";
 export default function EditButton({ onClick }) {
   return (
-    <button type="button" onClick={onClick}>
+    <StyledButton type="button" onClick={onClick}>
       Edit
-    </button>
+    </StyledButton>
   );
 }
+
+const StyledButton = styled.button`
+  display: flex;
+  border-radius: 20px;
+  border: none;
+  padding: 8px 20px;
+  align-items: center;
+  gap: 4px;
+  font-size: 16px;
+  color: white;
+  background: #1a1a1a;
+`;

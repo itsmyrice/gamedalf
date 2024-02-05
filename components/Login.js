@@ -1,37 +1,35 @@
 import { useSession, signIn, signOut } from "next-auth/react";
 import styled from "styled-components";
+import { MdOutlineLogin } from "react-icons/md";
+import { MdLogout } from "react-icons/md";
 
 export default function Login() {
   const session = useSession();
   if (session.status === "authenticated") {
     return (
-      <>
-        <StyledButton onClick={() => signOut()}>Sign out</StyledButton>
-      </>
+      <StyledButton onClick={() => signOut()}>
+        <MdLogout />
+        Sign Out
+      </StyledButton>
     );
   }
   return (
     <>
-      <StyledButton onClick={() => signIn()}>Sign in</StyledButton>
+      <StyledButton onClick={() => signIn()}>
+        <MdOutlineLogin />
+        Sign In
+      </StyledButton>
     </>
   );
 }
 
 const StyledButton = styled.button`
-  border: 1px solid #0011ff;
-  background-color: #0011ff;
-  color: white;
-  padding: 10px 40px;
-  border-radius: 40px;
-  cursor: pointer;
-  display: inline-block;
-  text-align: center;
-  margin-top: 20px;
-  align-self: center;
-  transition: 0.3s ease-in-out;
-  &:hover {
-    background-color: transparent;
-    color: #0011ff;
-    transition: 0.3s ease-in-out;
-  }
+  background: transparent;
+  border: none;
+  background: white;
+  border-radius: 20px;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
 `;

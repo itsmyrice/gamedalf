@@ -1,8 +1,6 @@
 import useSWR from "swr";
 import HorizontalGameList from "@/components/HorizontalGameList";
-import styled from "styled-components";
-import Login from "components/Login.js";
-import { useSession } from "next-auth/react";
+import { styled } from "styled-components";
 import Footer from "@/components/Footer";
 
 export default function HomePage({ isFavorite, toggleFavorite, showModal }) {
@@ -19,9 +17,7 @@ export default function HomePage({ isFavorite, toggleFavorite, showModal }) {
   if (!data || isLoading) return <small>loading...</small>;
 
   return (
-    <>
-      <Login />
-
+    <StyledWrapper>
       {data && (
         <>
           <HorizontalGameList
@@ -48,9 +44,48 @@ export default function HomePage({ isFavorite, toggleFavorite, showModal }) {
             listLength={5}
             showModal={showModal}
           />
+          <HorizontalGameList
+            toggleFavorite={toggleFavorite}
+            isFavorite={isFavorite}
+            data={data.slice(76, 100)}
+            categorieId={2}
+            listLength={5}
+            showModal={showModal}
+          />
+          <HorizontalGameList
+            toggleFavorite={toggleFavorite}
+            isFavorite={isFavorite}
+            data={data.slice(101, 125)}
+            categorieId={2}
+            listLength={5}
+            showModal={showModal}
+          />
+          <HorizontalGameList
+            toggleFavorite={toggleFavorite}
+            isFavorite={isFavorite}
+            data={data.slice(76, 100)}
+            categorieId={2}
+            listLength={5}
+            showModal={showModal}
+          />
+          <HorizontalGameList
+            toggleFavorite={toggleFavorite}
+            isFavorite={isFavorite}
+            data={data.slice(101, 125)}
+            categorieId={2}
+            listLength={5}
+            showModal={showModal}
+          />
         </>
       )}
       <Footer />
-    </>
+    </StyledWrapper>
   );
 }
+
+const StyledWrapper = styled.section`
+  margin: 100px 0 200px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+`;

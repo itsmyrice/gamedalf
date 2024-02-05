@@ -1,25 +1,27 @@
 import styled from "styled-components";
-import { FaRegHeart } from "react-icons/fa";
-import { FaHeart } from "react-icons/fa";
+import { FaRegBookmark, FaBookmark } from "react-icons/fa";
 
 export default function FavouriteButton({ isFavorite, toggleFavorite }) {
   return (
     <StyledButton onClick={toggleFavorite}>
-      {isFavorite ? <FaHeart /> : <FaRegHeart />}
+      {isFavorite ? <FaBookmark /> : <FaRegBookmark />}
     </StyledButton>
   );
 }
 
 const StyledButton = styled.button`
   border: none;
-  background-color: transparent;
+  background: #fafafa;
+  padding: 10px;
+  border-radius: 15px;
   position: absolute;
-  right: 5%;
-  top: 5%;
+  right: 3%;
+  top: 3%;
+  display: flex;
 
   svg {
     cursor: pointer;
-    font-size: 2rem;
+    font-size: 20px;
     color: #e27704;
   }
 `;

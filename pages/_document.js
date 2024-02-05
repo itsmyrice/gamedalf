@@ -25,7 +25,14 @@ export default class MyDocument extends Document {
   render() {
     return (
       <Html lang="en">
-        <Head />
+        <title>Gamedalf</title>
+        <Head>
+          <meta
+            name="description"
+            content="Elevate your board gaming experience with Gamedalf! Whether you’re a collector or casual player, choose from curated recommendations or click the dice icon for instant fun. Game creators can log in to add, edit, or delete games, while everyone can easily bookmark favorites. Share your gaming adventures with us!"
+          />
+          <link rel="shortcut icon" href="./images/favicon.ico" />
+        </Head>
         <body>
           <Main />
           <NextScript />

@@ -1,23 +1,29 @@
-import styled from "styled-components"
-
+import styled from "styled-components";
+import Image from "next/image";
+import Login from "./Login";
+import logo from "../public/images/logo.png";
 export default function Header() {
-    return  (
-    <StyledTitle>
-    Game<StyledSpan>dalf</StyledSpan>
-      </StyledTitle>
-    )
+  return (
+    <StyledHeader>
+      <StyleImage src={logo} width={120} height={100} alt="Logo" />
+      <Login />
+    </StyledHeader>
+  );
 }
-const StyledTitle = styled.h1`
-  color: #111111;
+
+const StyledHeader = styled.header`
+  background: radial-gradient(circle, #f5f7fa 0%, #c3cfe2 100%);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  z-index: 100;
+  position: fixed;
+  top: 0;
   display: flex;
-  justify-content: center;
-  padding: 0.5rem;
-  text-shadow: 0px 1px 2px #b56917;
-  background-color: white;
-  margin-bottom: 1rem;
+  padding: 10px 5%;
+  justify-content: space-between;
+  align-items: center;
 `;
 
-const StyledSpan = styled.span`
-  color: #ff8200;
-  text-shadow: 0px 1px 2px #414a4c;
+const StyleImage = styled(Image)`
+  height: 50px;
 `;
