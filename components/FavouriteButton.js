@@ -18,6 +18,7 @@ const StyledButton = styled.button`
   right: 3%;
   top: 3%;
   display: flex;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
 
   svg {
     cursor: pointer;

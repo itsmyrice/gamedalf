@@ -24,7 +24,7 @@ export default function HorizontalGameList({
 
   return (
     <GamesContainer>
-      <Title> {data[0].categories[categorieId]}</Title>
+      <Title>{categorieId}</Title>
       <Swiper
         style={{ "--swiper-navigation-size": "30px" }}
         spaceBetween={15}
@@ -73,7 +73,7 @@ const GamesContainer = styled.div`
 const Title = styled.h2`
   font-size: 30px;
   margin-bottom: 0px;
-  font-weight: 600;
+  font-weight: 500;
   color: black;
   display: inline-block;
 `;
