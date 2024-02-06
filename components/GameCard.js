@@ -133,10 +133,7 @@ const StyledContentWrapper = styled.div`
   padding: 5% 0;
 `;
 
-const StyledTitle = styled.h2`
-  color: black;
-  font-size: 20px;
-  font-weight: 400;
+const StyledTitle = styled.h3`
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;

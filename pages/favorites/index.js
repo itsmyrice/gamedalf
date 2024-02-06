@@ -50,7 +50,6 @@ const StyledTitle = styled.h2`
   display: flex;
   align-items: center;
   gap: 4px;
-  font-weight: 400;
   margin-bottom: 40px;
 `;
 
