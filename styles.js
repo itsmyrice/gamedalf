@@ -44,7 +44,6 @@ export default createGlobalStyle`
   --title-font-size: 26px;
   --subtitle-font-size: 20px;
   --text-font-size: 16px;
-  --background: radial-gradient(circle, #f5f7fa 0%, #c3cfe2 100%);
 }
 h2 {
   font-size: var(--title-font-size);
@@ -60,9 +59,7 @@ p {
   font-size: var(--text-font-size);
   word-spacing: 2px;
 }
-button {
-  background: var(--background);
-}
+
 @keyframes enter {
   0% {
     opacity: 0;
