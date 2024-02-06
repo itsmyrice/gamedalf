@@ -5,6 +5,7 @@ import { AiOutlineUser } from "react-icons/ai";
 import { GiRollingDices } from "react-icons/gi";
 import styled from "styled-components";
 import { FaRegBookmark } from "react-icons/fa";
+import { MdOutlineHome } from "react-icons/md";
 
 export default function Navbar() {
   const router = useRouter();
@@ -16,7 +17,7 @@ export default function Navbar() {
       <StyledUl>
         <Link href="/" passHref>
           <StyledLi active={isActive("/")}>
-            <IoMdHome style={{ color: "black", fontSize: "24px" }} />
+            <MdOutlineHome style={{ color: "black", fontSize: "24px" }} />
             <StyledSpan>Home</StyledSpan>
           </StyledLi>
         </Link>
